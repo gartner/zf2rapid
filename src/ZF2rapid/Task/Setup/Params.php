@@ -35,7 +35,7 @@ class Params extends AbstractTask
 
             if ($this->params->projectModuleDir) {
                 $this->params->moduleDir = $this->params->projectModuleDir
-                    . DIRECTORY_SEPARATOR . $this->params->paramModule;
+                    . $this->params->paramModule;
 
                 // define constant temporarily
                 if (!defined($this->params->moduleRootConstant)) {
@@ -212,7 +212,8 @@ class Params extends AbstractTask
             }
 
             if ($this->route->getMatchedParam('baseHydrator')) {
-                $this->params->paramBaseHydrator = $this->route->getMatchedParam(
+                $this->params->paramBaseHydrator
+                    = $this->route->getMatchedParam(
                     'baseHydrator'
                 );
             }

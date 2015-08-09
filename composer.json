@@ -16,6 +16,9 @@
     "zendframework/zend-version": "2.*",
     "zendframework/zend-view": "2.*"
   },
+  "require-dev": {
+    "phpunit/phpunit": "~4.7"
+  },
   "autoload": {
     "psr-4": {
       "ZF2rapid\\": "src/ZF2rapid"

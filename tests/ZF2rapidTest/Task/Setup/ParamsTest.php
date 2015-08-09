@@ -8,6 +8,7 @@
  */
 namespace ZF2rapidTest\Task\Setup;
 
+use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use Zend\Stdlib\Parameters;
 use ZF\Console\Route;
@@ -22,7 +23,7 @@ use ZF2rapid\Task\Setup\Params;
 class ParamsTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Route
+     * @var Route|PHPUnit_Framework_MockObject_MockObject
      */
     private $route;
 
@@ -42,12 +43,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->route      = $this->getMockBuilder('ZF\Console\Route')
+        $this->route = $this->getMockBuilder('ZF\Console\Route')
             ->setConstructorArgs(array('test', 'test'))
             ->getMock();
-        $this->console    = $this->getMockBuilder(
+
+        $this->console = $this->getMockBuilder(
             'ZF2rapid\Console\ConsoleInterface'
         )->getMock();
+
         $this->parameters = new Parameters();
     }
 
@@ -103,7 +106,8 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->assertTrue(defined('TEST_MODULE_MODULE_ROOT'));
         $this->assertEquals(
-            '/path/to/module/dir/testModule', TEST_MODULE_MODULE_ROOT
+            '/path/to/module/dir/testModule',
+            constant('TEST_MODULE_MODULE_ROOT')
         );
 
         $this->assertEquals(
@@ -206,6 +210,363 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Test,Index', $this->parameters->paramControllerList
         );
+    }
+
+    /**
+     *  Test action param
+     */
+    public function testActionParam()
+    {
+        $paramValueMap = array(
+            array('action', null, 'create')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'create', $this->parameters->paramAction
+        );
+    }
+
+    /**
+     *  Test controllerPlugin param
+     */
+    public function testControllerPluginParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceControllerPlugin' => 'Application\\Controller\\Plugin'
+            )
+        );
+
+        $paramValueMap = array(
+            array('controllerPlugin', null, 'PluginName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'PluginName', $this->parameters->paramControllerPlugin
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Application/Controller/Plugin',
+            $this->parameters->controllerPluginDir
+        );
+    }
+
+    /**
+     *  Test viewHelper param
+     */
+    public function testViewHelperParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceViewHelper' => 'View\\Helper'
+            )
+        );
+
+        $paramValueMap = array(
+            array('viewHelper', null, 'HelperName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'HelperName', $this->parameters->paramViewHelper
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/View/Helper',
+            $this->parameters->viewHelperDir
+        );
+    }
+
+    /**
+     *  Test filter param
+     */
+    public function testFilterParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceFilter' => 'Model\\Filter'
+            )
+        );
+
+        $paramValueMap = array(
+            array('filter', null, 'FilterName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'FilterName', $this->parameters->paramFilter
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Model/Filter',
+            $this->parameters->filterDir
+        );
+    }
+
+    /**
+     *  Test validator param
+     */
+    public function testValidatorParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceValidator' => 'Model\\Validator'
+            )
+        );
+
+        $paramValueMap = array(
+            array('validator', null, 'ValidatorName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'ValidatorName', $this->parameters->paramValidator
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Model/Validator',
+            $this->parameters->validatorDir
+        );
+    }
+
+    /**
+     *  Test inputFilter param
+     */
+    public function testInputFilterParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceInputFilter' => 'Model\\InputFilter'
+            )
+        );
+
+        $paramValueMap = array(
+            array('inputFilter', null, 'InputFilterName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'InputFilterName', $this->parameters->paramInputFilter
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Model/InputFilter',
+            $this->parameters->inputFilterDir
+        );
+    }
+
+    /**
+     *  Test form param
+     */
+    public function testFormParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceForm' => 'Application\\Form'
+            )
+        );
+
+        $paramValueMap = array(
+            array('form', null, 'FormName')
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'FormName', $this->parameters->paramForm
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Application/Form',
+            $this->parameters->formDir
+        );
+    }
+
+    /**
+     *  Test hydrator param
+     */
+    public function testHydratorParam()
+    {
+        $this->parameters->set(
+            'moduleSrcDir', '/path/to/module/dir/testModule/src'
+        );
+        $this->parameters->set(
+            'config',
+            array(
+                'namespaceHydrator' => 'Model\\Hydrator'
+            )
+        );
+
+        $paramValueMap = array(
+            array('hydrator', null, 'HydratorName'),
+            array('baseHydrator', null, 'BaseHydrator'),
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertEquals(
+            'HydratorName', $this->parameters->paramHydrator
+        );
+
+        $this->assertEquals(
+            'BaseHydrator', $this->parameters->paramBaseHydrator
+        );
+
+        $this->assertEquals(
+            '/path/to/module/dir/testModule/src/Model/Hydrator',
+            $this->parameters->hydratorDir
+        );
+    }
+
+    /**
+     *  Test factory param
+     */
+    public function testFactoryParam()
+    {
+        $paramValueMap = array(
+            array('factory', null, true)
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertTrue($this->parameters->paramFactory);
+    }
+
+    /**
+     *  Test strict param
+     */
+    public function testStrictParam()
+    {
+        $paramValueMap = array(
+            array('strict', null, true)
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertTrue($this->parameters->paramStrict);
+    }
+
+    /**
+     *  Test removeFactory param
+     */
+    public function testRemoveFactoryParam()
+    {
+        $paramValueMap = array(
+            array('removeFactory', null, true)
+        );
+
+        $this->route->method('getMatchedParam')->will(
+            $this->returnValueMap($paramValueMap)
+        );
+
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertTrue($this->parameters->paramRemoveFactory);
     }
 
 }

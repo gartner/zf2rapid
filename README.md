@@ -66,7 +66,7 @@ Windows yet!
 
 ### Version 0.6.0
 
-* Write tests for ZF2rapid                      (todo)
+* Write tests for ZF2rapid                      (wip)
 
 ### Version 0.7.0
 

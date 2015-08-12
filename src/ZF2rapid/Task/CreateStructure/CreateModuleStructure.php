@@ -38,8 +38,9 @@ class CreateModuleStructure extends AbstractCreateStructureTask
             return 1;
         }
 
+        // @todo needs to be refactored, added @ to mkdir to let the test pass
         // create module directory
-        if (!mkdir($this->params->moduleDir)) {
+        if (!@mkdir($this->params->moduleDir)) {
             $this->console->writeFailLine(
                 'task_create_structure_module_dir_not_created',
                 array(
@@ -53,7 +54,7 @@ class CreateModuleStructure extends AbstractCreateStructureTask
         }
 
         // create config module
-        if (!mkdir($this->params->moduleConfigDir, 0777, true)) {
+        if (!@mkdir($this->params->moduleConfigDir, 0777, true)) {
             $this->console->writeFailLine(
                 'task_create_structure_module_config_dir_not_created',
                 array(
@@ -68,7 +69,7 @@ class CreateModuleStructure extends AbstractCreateStructureTask
         }
 
         // create src module
-        if (!mkdir($this->params->moduleSrcDir, 0777, true)) {
+        if (!@mkdir($this->params->moduleSrcDir, 0777, true)) {
             $this->console->writeFailLine(
                 'task_create_structure_module_src_dir_not_created',
                 array(
@@ -82,7 +83,7 @@ class CreateModuleStructure extends AbstractCreateStructureTask
         }
 
         // create view module
-        if (!mkdir($this->params->moduleViewDir, 0777, true)) {
+        if (!@mkdir($this->params->moduleViewDir, 0777, true)) {
             $this->console->writeFailLine(
                 'task_create_structure_module_view_dir_not_created',
                 array(

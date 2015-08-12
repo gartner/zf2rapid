@@ -49,12 +49,20 @@ class ConfigFile extends AbstractTask
      */
     public function processCommandTask()
     {
+        // check if file is writable
+        if (!isset($this->params->projectPath)) {
+            $this->console->writeFailLine(
+                'task_setup_config_file_no_project_path'
+            );
+
+            return 1;
+        }
+
         // set config file name
         $configFile = $this->params->projectPath . '/' . self::CONFIG_FILE_NAME;
 
         // check config file existence
         if (file_exists(($configFile))) {
-
             // load config from file
             $this->params->config = json_decode(
                 file_get_contents($configFile), true

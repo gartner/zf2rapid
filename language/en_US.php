@@ -605,6 +605,7 @@ return array(
 
     'task_remove_config_module_config_file_not_exists'         => 'The module config file %1$s does not exist.',
 
+    'task_setup_config_file_no_project_path'                   => 'The ZF2rapid project path is not set.',
     'task_setup_config_file_not_writable'                      => 'The ZF2rapid configuration file is not writable.',
 
     'task_tool_configuration_change_missing_config_key'        => 'It is not possible to change a configuration option without specifying the configuration key.',

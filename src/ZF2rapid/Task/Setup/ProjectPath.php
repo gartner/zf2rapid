@@ -28,13 +28,11 @@ class ProjectPath extends AbstractTask
         if ($this->route->getMatchedParam('path')) {
             $projectPath = realpath($this->route->getMatchedParam('path'));
 
-            if ($projectPath) {
-                $this->params->projectPath = $projectPath;
-            } else {
-                $this->params->projectPath = $this->route->getMatchedParam(
-                    'path'
-                );
+            if (!$projectPath) {
+                $projectPath = $this->route->getMatchedParam('path');
             }
+
+            $this->params->projectPath = $projectPath;
 
             $this->params->applicationRootConstant = 'APPLICATION_ROOT';
 

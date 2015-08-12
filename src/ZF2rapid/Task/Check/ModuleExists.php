@@ -26,9 +26,7 @@ class ModuleExists extends AbstractTask
     public function processCommandTask()
     {
         // output message
-        $this->console->writeTaskLine(
-            'Checking module...'
-        );
+        $this->console->writeTaskLine('task_check_checking_module');
 
         // check for module directory
         if (!is_dir($this->params->moduleDir)) {

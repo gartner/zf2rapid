@@ -35,6 +35,7 @@ class Params extends AbstractTask
 
             if ($this->params->projectModuleDir) {
                 $this->params->moduleDir = $this->params->projectModuleDir
+                    . DIRECTORY_SEPARATOR
                     . $this->params->paramModule;
 
                 // define constant temporarily

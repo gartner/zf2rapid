@@ -459,6 +459,8 @@ return array(
     'task_check_project_path_mandatory'                        => 'You must specify a path to create a new ZF2 project.',
     'task_check_project_path_not_exists'                       => 'There is no ZF2 project within %1$s.',
     'task_check_module_not_exists'                             => 'The module %1$s does not exist in %2$s.',
+    'task_check_checking_file'                                 => 'Checking %1$s file...',
+    'task_check_checking_module'                               => 'Checking module...',
 
     'task_create_structure_directory_not_created'              => '%1$s directory %2$s could not be created.',
     'task_create_structure_directory_was_created'              => '%1$s directory %2$s was created.',

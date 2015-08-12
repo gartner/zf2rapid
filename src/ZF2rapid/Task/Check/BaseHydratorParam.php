@@ -39,9 +39,12 @@ class BaseHydratorParam extends AbstractTask
      */
     protected function checkBaseHydrator($baseHydrator = 'ClassMethods')
     {
-        if (in_array($baseHydrator,
-            array('ArraySerializable', 'ClassMethods', 'ObjectProperty',
-                'Reflection')
+        if (in_array(
+            $baseHydrator,
+            array(
+                'ArraySerializable', 'ClassMethods', 'ObjectProperty',
+                'Reflection'
+            )
         )) {
             return true;
         }

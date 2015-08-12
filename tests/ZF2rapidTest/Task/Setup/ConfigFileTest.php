@@ -28,7 +28,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
     private $route;
 
     /**
-     * @var ConsoleInterface
+     * @var ConsoleInterface|PHPUnit_Framework_MockObject_MockObject
      */
     private $console;
 

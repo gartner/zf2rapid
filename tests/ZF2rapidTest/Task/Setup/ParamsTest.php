@@ -28,7 +28,7 @@ class ParamsTest extends PHPUnit_Framework_TestCase
     private $route;
 
     /**
-     * @var ConsoleInterface
+     * @var ConsoleInterface|PHPUnit_Framework_MockObject_MockObject
      */
     private $console;
 
@@ -81,7 +81,7 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testModuleParam()
     {
-        $this->parameters->set('projectModuleDir', '/path/to/module/dir/');
+        $this->parameters->set('projectModuleDir', '/path/to/module/dir');
 
         $paramValueMap = array(
             array('module', null, 'testModule')

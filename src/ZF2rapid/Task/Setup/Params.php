@@ -220,10 +220,10 @@ class Params extends AbstractTask
             }
         }
 
-        if ($this->route->getMatchedParam('factory')) {
-            $this->params->paramFactory = $this->route->getMatchedParam(
-                'factory'
-            );
+        $this->params->paramFactory = true;
+
+        if ($this->route->getMatchedParam('no-factory')) {
+            $this->params->paramFactory = false;
         }
 
         if ($this->route->getMatchedParam('strict')) {

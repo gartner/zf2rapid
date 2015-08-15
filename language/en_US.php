@@ -33,7 +33,7 @@ return array(
     'route_create_controller_option_module'                    => 'The name of the module to create the controller in; mandatory',
     'route_create_controller_option_controller'                => 'The name of the controller to create; mandatory',
     'route_create_controller_option_path'                      => 'The directory of the ZF2 project to create a new controller in; defaults to current working directory',
-    'route_create_controller_option_factory'                   => 'Whether or not to create a factory for the new controller (disabled by default)',
+    'route_create_controller_option_factory'                   => 'Prevent the creation of a factory for the new controller',
 
     'route_create_controller_factory_description'              => 'Create a factory for an existing controller for module within the specified path',
     'route_create_controller_factory_short_description'        => 'Create factory for controller',
@@ -46,7 +46,7 @@ return array(
     'route_create_controller_plugin_option_module'             => 'The name of the module to create the controller plugin in; mandatory',
     'route_create_controller_plugin_option_plugin'             => 'The name of the controller plugin to create; mandatory',
     'route_create_controller_plugin_option_path'               => 'The directory of the ZF2 project to create a new controller plugin in; defaults to current working directory',
-    'route_create_controller_plugin_option_factory'            => 'Whether or not to create a factory for the new controller plugin (disabled by default)',
+    'route_create_controller_plugin_option_factory'            => 'Prevent the creation of a factory for the new controller plugin',
 
     'route_create_controller_plugin_factory_description'       => 'Create a factory for an existing controller plugin for module within the specified path',
     'route_create_controller_plugin_factory_short_description' => 'Create factory for controller plugin',
@@ -59,7 +59,7 @@ return array(
     'route_create_filter_option_module'                        => 'The name of the module to create the filter in; mandatory',
     'route_create_filter_option_filter'                        => 'The name of the filter to create; mandatory',
     'route_create_filter_option_path'                          => 'The directory of the ZF2 project to create a new filter in; defaults to current working directory',
-    'route_create_filter_option_factory'                       => 'Whether or not to create a factory for the new filter (disabled by default)',
+    'route_create_filter_option_factory'                       => 'Prevent the creation of a factory for the new filter',
 
     'route_create_filter_factory_description'                  => 'Create a factory for an existing filter for module within the specified path',
     'route_create_filter_factory_short_description'            => 'Create factory for filter',
@@ -72,7 +72,7 @@ return array(
     'route_create_form_option_module'                          => 'The name of the module to create the form in; mandatory',
     'route_create_form_option_form'                            => 'The name of the form to create; mandatory',
     'route_create_form_option_path'                            => 'The directory of the ZF2 project to create a new form in; defaults to current working directory',
-    'route_create_form_option_factory'                         => 'Whether or not to create a factory for the new form (disabled by default)',
+    'route_create_form_option_factory'                         => 'Prevent the creation of a factory for the new form',
 
     'route_create_form_factory_description'                    => 'Create a factory for an existing form for module within the specified path',
     'route_create_form_factory_short_description'              => 'Create factory for form',
@@ -86,7 +86,7 @@ return array(
     'route_create_hydrator_option_hydrator'                    => 'The name of the hydrator to create; mandatory',
     'route_create_hydrator_option_path'                        => 'The directory of the ZF2 project to create a new hydrator in; defaults to current working directory',
     'route_create_hydrator_option_base_hydrator'               => 'Name of Base Hydrator to extend; defaults to ClassMethods hydrator',
-    'route_create_hydrator_option_factory'                     => 'Whether or not to create a factory for the new hydrator (disabled by default)',
+    'route_create_hydrator_option_factory'                     => 'Prevent the creation of a factory for the new hydrator',
 
     'route_create_hydrator_factory_description'                => 'Create a factory for an existing hydrator for module within the specified path',
     'route_create_hydrator_factory_short_description'          => 'Create factory for hydrator',
@@ -99,7 +99,7 @@ return array(
     'route_create_input_filter_option_module'                  => 'The name of the module to create the input filter in; mandatory',
     'route_create_input_filter_option_input_filter'            => 'The name of the input filter to create; mandatory',
     'route_create_input_filter_option_path'                    => 'The directory of the ZF2 project to create a new input filter in; defaults to current working directory',
-    'route_create_input_filter_option_factory'                 => 'Whether or not to create a factory for the new input filter (disabled by default)',
+    'route_create_input_filter_option_factory'                 => 'Prevent the creation of a factory for the new input filter (disabled by default)',
 
     'route_create_input_filter_factory_description'            => 'Create a factory for an existing input filter for module within the specified path',
     'route_create_input_filter_factory_short_description'      => 'Create factory for input filter',
@@ -127,7 +127,7 @@ return array(
     'route_create_validator_option_module'                     => 'The name of the module to create the validator in; mandatory',
     'route_create_validator_option_validator'                  => 'The name of the validator to create; mandatory',
     'route_create_validator_option_path'                       => 'The directory of the ZF2 project to create a new validator in; defaults to current working directory',
-    'route_create_validator_option_factory'                    => 'Whether or not to create a factory for the new validator (disabled by default)',
+    'route_create_validator_option_factory'                    => 'Prevent the creation of a factory for the new validator',
 
     'route_create_validator_factory_description'               => 'Create a factory for an existing validator for module within the specified path',
     'route_create_validator_factory_short_description'         => 'Create factory for validator',
@@ -140,7 +140,7 @@ return array(
     'route_create_view_helper_option_module'                   => 'The name of the module to create the view helper in; mandatory',
     'route_create_view_helper_option_view_helper'              => 'The name of the view helper to create; mandatory',
     'route_create_view_helper_option_path'                     => 'The directory of the ZF2 project to create a new view helper in; defaults to current working directory',
-    'route_create_view_helper_option_factory'                  => 'Whether or not to create a factory for the new view helper (disabled by default)',
+    'route_create_view_helper_option_factory'                  => 'Prevent the creation of a factory for the new view helper',
 
     'route_create_view_helper_factory_description'             => 'Create a factory for an existing view helper for module within the specified path',
     'route_create_view_helper_factory_short_description'       => 'Create factory for view helper',

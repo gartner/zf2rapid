@@ -17,7 +17,7 @@ Show installed modules, controllers and actions:
 Create a new module, a new controller with a factory and some new actions
 
     $ zf2rapid create-module Shop
-    $ zf2rapid create-controller Shop Basket -f
+    $ zf2rapid create-controller Shop Basket
     $ zf2rapid create-action Shop basket show
     $ zf2rapid create-action Shop basket send
     $ zf2rapid create-action Shop basket cancel
@@ -30,11 +30,11 @@ Show installed modules, controllers and actions again:
 
 Create a new view helper with a factory:
 
-    $ zf2rapid create-view-helper Shop Basket -f
+    $ zf2rapid create-view-helper Shop Basket
 
-Create routing for new module
+Create strict routing for new module
 
-    $ zf2rapid create-routing Shop -s
+    $ zf2rapid create-routing Shop --strict
 
 Generate the class map and the template map for the new module:
 

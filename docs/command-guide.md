@@ -107,10 +107,10 @@ modules from.
 
 When creating a new controller you need to specify the `<module>` and the 
 `<controller>`. Optionally, you can specify the `<path>` of the Zend Framework 
-2 project to create the new controller in. Optionally, you can create a factory
-for the new controller.
+2 project to create the new controller in. Optionally, you can disable the 
+creation of a factory for the new controller.
 
-    $ zf2rapid create-controller <module> <controller> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-controller <module> <controller> [<path>] [--no-factory]
 
 You can create a factory for an existing controller by specifying the `<module>` 
 and the `<controller>`. Optionally, you can specify the `<path>` of the Zend 
@@ -166,7 +166,7 @@ the `<path>` of the Zend Framework 2 project to create the module routing in.
 In the strict mode the routing only allows existing controllers and actions for 
 the routing (disabled by default). 
  
-    $ zf2rapid create-routing <module> [<path>] [--strict|-s]:strict
+    $ zf2rapid create-routing <module> [<path>] [--strict]
 
 ## Maps
 
@@ -187,9 +187,9 @@ template map in.
 When creating a new controller plugin you need to specify the `<module>` and the 
 `<controllerPlugin>`. Optionally, you can specify the `<path>` of the Zend 
 Framework 2 project to create the new controller plugin in. Optionally, you can 
-create a factory for the new controller plugin.
+disable the creation of a factory for the new controller plugin.
 
-    $ zf2rapid create-controller-plugin <module> <controllerPlugin> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-controller-plugin <module> <controllerPlugin> [<path>] [--no-factory]
 
 You can create a factory for an existing controller plugin by specifying 
 the `<module>` and the `<controllerPlugin>`. Optionally, you can specify the 
@@ -223,9 +223,9 @@ modules to show the controller plugins for.
 When creating a new view helper you need to specify the `<module>` and the 
 `<viewHelper>`. Optionally, you can specify the `<path>` of the Zend 
 Framework 2 project to create the new view helper in. Optionally, you can 
-create a factory for the new view helper.
+disable the creation of a factory for the new view helper.
 
-    $ zf2rapid create-view-helper <module> <viewHelper> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-view-helper <module> <viewHelper> [<path>] [--no-factory]
 
 You can create a factory for an existing view helper by specifying 
 the `<module>` and the `<viewHelper>`. Optionally, you can specify the 
@@ -258,10 +258,10 @@ modules to show the view helpers for.
 
 When creating a new filter you need to specify the `<module>` and the 
 `<filter>`. Optionally, you can specify the `<path>` of the Zend 
-Framework 2 project to create the new filter in. Optionally, you can 
-create a factory for the new filter.
+Framework 2 project to create the new filter in. Optionally, you can disable the 
+creation of a factory for the new filter.
 
-    $ zf2rapid create-filter <module> <filter> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-filter <module> <filter> [<path>] [--no-factory]
 
 You can create a factory for an existing filter by specifying 
 the `<module>` and the `<filter>`. Optionally, you can specify the 
@@ -294,10 +294,10 @@ modules to show the filters for.
 
 When creating a new validator you need to specify the `<module>` and the 
 `<validator>`. Optionally, you can specify the `<path>` of the Zend 
-Framework 2 project to create the new validator in. Optionally, you can 
-create a factory for the new validator.
+Framework 2 project to create the new validator in. Optionally, you can disable 
+the creation of a factory for the new validator.
 
-    $ zf2rapid create-validator <module> <validator> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-validator <module> <validator> [<path>] [--no-factory]
 
 You can create a factory for an existing validator by specifying 
 the `<module>` and the `<validator>`. Optionally, you can specify the 
@@ -331,9 +331,9 @@ modules to show the validators for.
 When creating a new input filter you need to specify the `<module>` and the 
 `<inputFilter>`. Optionally, you can specify the `<path>` of the Zend 
 Framework 2 project to create the new input filter in. Optionally, you can 
-create a factory for the new input filter.
+disable the creation of a factory for the new input filter.
 
-    $ zf2rapid create-input-filter <module> <inputFilter> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-input-filter <module> <inputFilter> [<path>] [--no-factory]
 
 You can create a factory for an existing input filter by specifying 
 the `<module>` and the `<inputFilter>`. Optionally, you can specify the 
@@ -366,10 +366,10 @@ modules to show the input filters for.
 
 When creating a new form you need to specify the `<module>` and the 
 `<form>`. Optionally, you can specify the `<path>` of the Zend 
-Framework 2 project to create the new form in. Optionally, you can 
-create a factory for the new form.
+Framework 2 project to create the new form in. Optionally, you can disable the 
+creation of a factory for the new form.
 
-    $ zf2rapid create-form <module> <form> [<path>] [--factory|-f]:factory
+    $ zf2rapid create-form <module> <form> [<path>] [--no-factory]
 
 You can create a factory for an existing form by specifying 
 the `<module>` and the `<form>`. Optionally, you can specify the 
@@ -404,9 +404,9 @@ When creating a new hydrator you need to specify the `<module>` and the
 `<hydrator>`. Optionally, you can specify the `<path>` of the Zend 
 Framework 2 project to create the new hydrator in. Optionally, you can specify a
 baseHydrator to extend which defaults to the ClassMethods hydrator. Optionally, 
-you can create a factory for the new hydrator.
+you can disable the creation of a factory for the new hydrator.
 
-    $ zf2rapid create-hydrator <module> <hydrator> [<path>] [--baseHydrator=] [--factory|-f]:factory
+    $ zf2rapid create-hydrator <module> <hydrator> [<path>] [--baseHydrator=] [--no-factory]
 
 You can create a factory for an existing hydrator by specifying 
 the `<module>` and the `<hydrator>`. Optionally, you can specify the 

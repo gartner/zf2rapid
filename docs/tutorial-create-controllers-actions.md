@@ -24,6 +24,7 @@ The following tasks are executed when creating a new controller:
  * Create controller directory
  * Create view directory for controller
  * Creating controller class
+ * Creating controller factory class
  * Creating controller configuration
  * Adding `index` action method for controller
  * Creating action view script
@@ -43,7 +44,8 @@ like this:
          |     +--- Application                         <---- new directory
          |        +--- Controller                       <---- new directory
          |           +--- BasketController.php          <---- new file
-         +--- view
+         |           +--- BasketControllerFactory.php   <---- new file
+             +--- view
          |  +--- shop
          |     +--- basket                              <---- new directory
          |        +--- index.phtml                      <---- new file
@@ -107,20 +109,7 @@ of current module, controller and action and can also be simply overwritten.
 <h4>Index Action</h4>
 ```
 
-## Create a factory for a controller
-
-If you want to create a factory for an existing controller you just need to 
-specify the name of module and controller and optionally the project path:
-
-    $ zf2rapid create-controller-factory Shop Basket
-
-The following tasks are executed when creating a new controller:
-
- * Check if module exists
- * Check if controller exists
- * Creating controller factory class
- * Updating controller configuration
-
+Additionally, a factory is created automatically for your new controller. 
 The factory `BasketControllerFactory` will be placed in the same path as the
 controller and is readily configured for your needs. You only need to get the 
 dependencies you want and pass them to your controller.
@@ -164,10 +153,25 @@ dependencies you want and pass them to your controller.
         }
     }
 
-If you want to create a factory together with the controller you can simply run 
+If you want to create a controller without creating a factory you can simply run 
 this command: 
 
-    $ zf2rapid create-controller Shop Basket -f
+    $ zf2rapid create-controller Shop Basket --no-factory
+
+## Create a factory for a controller
+
+If you have a controller without a factory you can create a factory for an 
+existing controller. You just need to specify the name of module and controller 
+and optionally the project path:
+
+    $ zf2rapid create-controller-factory Shop Basket
+
+The following tasks are executed when creating a new controller factory:
+
+ * Check if module exists
+ * Check if controller exists
+ * Creating controller factory class
+ * Updating controller configuration
 
 ## Deleting controllers and controller factories
 

@@ -23,6 +23,7 @@ The following tasks are executed when creating a new controller plugin:
  * Check if module exists
  * Create controller plugin directory
  * Creating controller plugin class
+ * Creating controller plugin factory
  * Updating controller plugin configuration
  
 ## Structure of new controller plugin
@@ -41,6 +42,7 @@ like this:
          |        +--- Controller
          |           +--- Plugin                        <---- new directory
          |           |    +--- CalcBasket.php           <---- new file
+         |           |    +--- CalcBasketFactory.php    <---- new file
          |           +--- BasketController.php
          |           +--- BasketControllerFactory.php
          +--- view
@@ -53,8 +55,8 @@ like this:
          +--- template_map.php
          
 The `/module/Shop/src/Shop/Application/Controller/Plugin/CalcBasket.php` file 
-contains the `CalcBasket` class with the `__invoke()` method which is called whenever 
-the controller plugin is called. This method can simply be filled 
+contains the `CalcBasket` class with the `__invoke()` method which is called 
+whenever the controller plugin is called. This method can simply be filled 
 with your controller plugin logic. 
 
     <?php
@@ -87,22 +89,8 @@ with your controller plugin logic.
             // add controller plugin code here
         }
     }
-
-## Create a factory for a controller plugin
-
-If you want to create a factory for an existing controller plugin you just need to 
-specify the name of module and controller plugin and optionally the project path:
-
-    $ zf2rapid create-controller-plugin-factory Shop CalcBasket
-
-The following tasks are executed when creating a new controller plugin:
-
- * Check if module exists
- * Check if controller plugin exists
- * Creating controller plugin factory class
- * Updating controller plugin configuration
-
-The factory `CalcBasketFactory` will be placed in the same path as the
+    
+The created factory `CalcBasketFactory` will be placed in the same path as the
 controller plugin and is readily configured for your needs. You only need to get the 
 dependencies you want and pass them to your controller plugin.
 
@@ -145,10 +133,24 @@ dependencies you want and pass them to your controller plugin.
         }
     }
 
-If you want to create a factory together with the controller plugin you can simply run 
-this command: 
+If you want to create a controller plugin without creating a factory you can 
+simply run this command: 
 
-    $ zf2rapid create-controller-plugin Shop CalcBasket -f
+    $ zf2rapid create-controller-plugin Shop CalcBasket -no-factory
+
+## Create a factory for a controller plugin
+
+If you want to create a factory for an existing controller plugin you just need to 
+specify the name of module and controller plugin and optionally the project path:
+
+    $ zf2rapid create-controller-plugin-factory Shop CalcBasket
+
+The following tasks are executed when creating a new controller plugin:
+
+ * Check if module exists
+ * Check if controller plugin exists
+ * Creating controller plugin factory class
+ * Updating controller plugin configuration
 
 ## Deleting controller plugins and controller plugin factories
 
@@ -208,6 +210,7 @@ The following tasks are executed when creating a new view helper:
  * Check if module exists
  * Create view helper directory
  * Creating view helper class
+ * Creating view helper factory class
  * Updating view helper configuration
  
 ## Structure of new view helper
@@ -231,6 +234,7 @@ like this:
          |        +--- View                             <---- new directory
          |           +--- Helper                        <---- new directory
          |           |    +--- ShowBasket.php           <---- new file
+         |           |    +--- ShowBasketFactory.php    <---- new file
          +--- view
          |  +--- shop
          |     +--- basket
@@ -279,20 +283,6 @@ with your view helper logic.
         }
     }
 
-## Create a factory for a view helper
-
-If you want to create a factory for an existing view helper you just need to 
-specify the name of module and view helper and optionally the project path:
-
-    $ zf2rapid create-view-helper-factory Shop ShowBasket
-
-The following tasks are executed when creating a new view helper:
-
- * Check if module exists
- * Check if view helper exists
- * Creating view helper factory class
- * Updating view helper configuration
-
 The factory `ShowBasketFactory` will be placed in the same path as the
 view helper and is readily configured for your needs. You only need to get the 
 dependencies you want and pass them to your view helper.
@@ -336,10 +326,25 @@ dependencies you want and pass them to your view helper.
         }
     }
 
-If you want to create a factory together with the view helper you can simply run 
-this command: 
+If you want to create a view helper without creating a factory you can simply 
+run this command: 
 
-    $ zf2rapid create-view-helper Shop ShowBasket -f
+    $ zf2rapid create-view-helper Shop ShowBasket --no-factory
+
+## Create a factory for a view helper
+
+If you want to create a factory for an existing view helper you just need to 
+specify the name of module and view helper and optionally the project path:
+
+    $ zf2rapid create-view-helper-factory Shop ShowBasket
+
+The following tasks are executed when creating a new view helper:
+
+ * Check if module exists
+ * Check if view helper exists
+ * Creating view helper factory class
+ * Updating view helper configuration
+
 
 ## Deleting view helpers and view helper factories
 

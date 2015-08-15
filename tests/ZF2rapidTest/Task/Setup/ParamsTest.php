@@ -507,18 +507,31 @@ class ParamsTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     *  Test factory param
+     *  Test no-factory param
      */
-    public function testFactoryParam()
+    public function testNoFactoryParamIsSet()
     {
         $paramValueMap = array(
-            array('factory', null, true)
+            array('no-factory', null, true)
         );
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
         );
 
+        $task = new Params();
+
+        $result = $task($this->route, $this->console, $this->parameters);
+
+        $this->assertEquals(0, $result);
+        $this->assertFalse($this->parameters->paramFactory);
+    }
+
+    /**
+     *  Test no-factory param
+     */
+    public function testNoFactoryParamNotSet()
+    {
         $task = new Params();
 
         $result = $task($this->route, $this->console, $this->parameters);

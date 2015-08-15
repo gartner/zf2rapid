@@ -40,8 +40,8 @@ return array(
             '<path>'       => 'route_create_action_option_path',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'     => new NormalizeParamFilter(),
@@ -52,18 +52,18 @@ return array(
     ),
     array(
         'name'                 => 'create-controller',
-        'route'                => 'create-controller <module> <controller> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-controller <module> <controller> [<path>] [--no-factory]',
         'description'          => 'route_create_controller_description',
         'short_description'    => 'route_create_controller_short_description',
         'options_descriptions' => array(
             '<module>'     => 'route_create_controller_option_module',
             '<controller>' => 'route_create_controller_option_controller',
             '<path>'       => 'route_create_controller_option_path',
-            '--factory|-f' => 'route_create_controller_option_factory',
+            '--no-factory' => 'route_create_controller_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'     => new NormalizeParamFilter(),
@@ -93,18 +93,18 @@ return array(
     ),
     array(
         'name'                 => 'create-controller-plugin',
-        'route'                => 'create-controller-plugin <module> <controllerPlugin> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-controller-plugin <module> <controllerPlugin> [<path>] [--no-factory]',
         'description'          => 'route_create_controller_plugin_description',
         'short_description'    => 'route_create_controller_plugin_short_description',
         'options_descriptions' => array(
             '<module>'           => 'route_create_controller_plugin_option_module',
             '<controllerPlugin>' => 'route_create_controller_plugin_option_plugin',
             '<path>'             => 'route_create_controller_plugin_option_path',
-            '--factory|-f'       => 'route_create_controller_plugin_option_factory',
+            '--no-factory'       => 'route_create_controller_plugin_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'           => new NormalizeParamFilter(),
@@ -134,18 +134,18 @@ return array(
     ),
     array(
         'name'                 => 'create-filter',
-        'route'                => 'create-filter <module> <filter> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-filter <module> <filter> [<path>] [--no-factory]',
         'description'          => 'route_create_filter_description',
         'short_description'    => 'route_create_filter_short_description',
         'options_descriptions' => array(
             '<module>'     => 'route_create_filter_option_module',
             '<filter>'     => 'route_create_filter_option_filter',
             '<path>'       => 'route_create_filter_option_path',
-            '--factory|-f' => 'route_create_filter_option_factory',
+            '--no-factory' => 'route_create_filter_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
@@ -175,18 +175,18 @@ return array(
     ),
     array(
         'name'                 => 'create-form',
-        'route'                => 'create-form <module> <form> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-form <module> <form> [<path>] [--no-factory]',
         'description'          => 'route_create_form_description',
         'short_description'    => 'route_create_form_short_description',
         'options_descriptions' => array(
             '<module>'     => 'route_create_form_option_module',
             '<form>'       => 'route_create_form_option_form',
             '<path>'       => 'route_create_form_option_path',
-            '--factory|-f' => 'route_create_form_option_factory',
+            '--no-factory' => 'route_create_form_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
@@ -216,7 +216,7 @@ return array(
     ),
     array(
         'name'                 => 'create-hydrator',
-        'route'                => 'create-hydrator <module> <hydrator> [<path>]  [--baseHydrator=] [--factory|-f]:factory',
+        'route'                => 'create-hydrator <module> <hydrator> [<path>]  [--baseHydrator=] [--no-factory]',
         'description'          => 'route_create_hydrator_description',
         'short_description'    => 'route_create_hydrator_short_description',
         'options_descriptions' => array(
@@ -224,7 +224,7 @@ return array(
             '<hydrator>'     => 'route_create_hydrator_option_hydrator',
             '<path>'         => 'route_create_hydrator_option_path',
             '--baseHydrator' => 'route_create_hydrator_option_base_hydrator',
-            '--factory|-f'   => 'route_create_hydrator_option_factory',
+            '--no-factory'   => 'route_create_hydrator_option_factory',
         ),
         'defaults'             => array(
             'path'         => '.',
@@ -260,18 +260,18 @@ return array(
     ),
     array(
         'name'                 => 'create-input-filter',
-        'route'                => 'create-input-filter <module> <inputFilter> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-input-filter <module> <inputFilter> [<path>] [--no-factory]',
         'description'          => 'route_create_input_filter_description',
         'short_description'    => 'route_create_input_filter_short_description',
         'options_descriptions' => array(
             '<module>'      => 'route_create_input_filter_option_module',
             '<inputFilter>' => 'route_create_input_filter_option_input_filter',
             '<path>'        => 'route_create_input_filter_option_path',
-            '--factory|-f'  => 'route_create_input_filter_option_factory',
+            '--no-factory'  => 'route_create_input_filter_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'      => new NormalizeParamFilter(),
@@ -331,13 +331,13 @@ return array(
     ),
     array(
         'name'                 => 'create-routing',
-        'route'                => 'create-routing <module> [<path>] [--strict|-s]:strict',
+        'route'                => 'create-routing <module> [<path>] [--strict]',
         'description'          => 'route_create_routing_description',
         'short_description'    => 'route_create_routing_short_description',
         'options_descriptions' => array(
             '<module>'    => 'route_create_routing_option_module',
             '<path>'      => 'route_create_routing_option_path',
-            '--strict|-s' => 'route_create_routing_option_strict',
+            '--strict' => 'route_create_routing_option_strict',
         ),
         'defaults'             => array(
             'path'   => '.',
@@ -350,18 +350,18 @@ return array(
     ),
     array(
         'name'                 => 'create-validator',
-        'route'                => 'create-validator <module> <validator> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-validator <module> <validator> [<path>] [--no-factory]',
         'description'          => 'route_create_validator_description',
         'short_description'    => 'route_create_validator_short_description',
         'options_descriptions' => array(
             '<module>'     => 'route_create_validator_option_module',
             '<validator>'  => 'route_create_validator_option_validator',
             '<path>'       => 'route_create_validator_option_path',
-            '--factory|-f' => 'route_create_validator_option_factory',
+            '--no-factory' => 'route_create_validator_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'    => new NormalizeParamFilter(),
@@ -391,18 +391,18 @@ return array(
     ),
     array(
         'name'                 => 'create-view-helper',
-        'route'                => 'create-view-helper <module> <viewHelper> [<path>] [--factory|-f]:factory',
+        'route'                => 'create-view-helper <module> <viewHelper> [<path>] [--no-factory]',
         'description'          => 'route_create_view_helper_description',
         'short_description'    => 'route_create_view_helper_short_description',
         'options_descriptions' => array(
             '<module>'     => 'route_create_view_helper_option_module',
             '<viewHelper>' => 'route_create_view_helper_option_view_helper',
             '<path>'       => 'route_create_view_helper_option_path',
-            '--factory|-f' => 'route_create_view_helper_option_factory',
+            '--no-factory' => 'route_create_view_helper_option_factory',
         ),
         'defaults'             => array(
-            'path'    => '.',
-            'factory' => false,
+            'path'       => '.',
+            'no-factory' => false,
         ),
         'filters'              => array(
             'module'     => new NormalizeParamFilter(),

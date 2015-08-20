@@ -44,13 +44,6 @@ class ProjectPath extends AbstractTask
                 );
             }
 
-            if ($projectPath) {
-                $this->params->projectModuleDir = $projectPath
-                    . DIRECTORY_SEPARATOR . 'module';
-
-                $this->params->projectConfigDir = $projectPath
-                    . DIRECTORY_SEPARATOR . 'config';
-            }
         }
 
         return 0;

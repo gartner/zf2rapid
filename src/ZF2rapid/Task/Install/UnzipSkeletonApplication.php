@@ -87,7 +87,24 @@ class UnzipSkeletonApplication extends AbstractTask
             // close archive
             $zipArchive->close();
 
-            // @todo delete tmp files here
+            // delete temporary files
+            $directoryIterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator(
+                    $this->params->tmpSkeleton, RecursiveDirectoryIterator::SKIP_DOTS
+                ),
+                RecursiveIteratorIterator::CHILD_FIRST
+            );
+
+            /** @var \SplFileInfo $item */
+            foreach ($directoryIterator as $item) {
+                if ($item->isDir()) {
+                    rmdir($item);
+                } else {
+                    unlink($item);
+                }
+            }
+
+            rmdir($this->params->tmpSkeleton);
 
             // check for error while copying files
             if (false === $result) {

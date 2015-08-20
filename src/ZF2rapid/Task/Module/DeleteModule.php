@@ -8,6 +8,9 @@
  */
 namespace ZF2rapid\Task\Module;
 
+use Prophecy\Doubler\ClassPatch\SplFileInfoPatch;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Zend\Console\ColorInterface as Color;
 use ZF2rapid\Task\AbstractTask;
 
@@ -85,10 +88,24 @@ class DeleteModule extends AbstractTask
 
         $this->console->writeLine();
 
-        /**
-         * @todo check on Windows
-         */
-        exec('rm -R ' . $this->params->moduleDir);
+        // delete module directory and its content
+        $directoryIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $this->params->moduleDir, RecursiveDirectoryIterator::SKIP_DOTS
+            ),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        /** @var \SplFileInfo $item */
+        foreach ($directoryIterator as $item) {
+            if ($item->isDir()) {
+                rmdir($item);
+            } else {
+                unlink($item);
+            }
+        }
+
+        rmdir($this->params->moduleDir);
 
         return 0;
     }

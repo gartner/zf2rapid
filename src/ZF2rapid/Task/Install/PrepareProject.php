@@ -8,6 +8,8 @@
  */
 namespace ZF2rapid\Task\Install;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ZF2rapid\Task\AbstractTask;
 
 /**
@@ -27,21 +29,30 @@ class PrepareProject extends AbstractTask
         // output message
         $this->console->writeTaskLine('task_install_prepare_project_preparing');
 
-        /**
-         * @todo check on Windows
-         */
         // change data file rights
-        exec('chmod 777 -R ' . $this->params->projectPath . '/data');
+        $directoryIterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $this->params->projectPath . '/data'
+            ),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        foreach ($directoryIterator as $item) {
+            chmod($item, 0777);
+        }
 
         // change public assets vendor file rights if exists
         if (file_exists($this->params->projectPath . '/public/assets/vendor')) {
-            /**
-             * @todo check on Windows
-             */
-            exec(
-                'chmod 777 -R ' . $this->params->projectPath
-                . '/public/assets/vendor'
+            $directoryIterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator(
+                    $this->params->projectPath . '/public/assets/vendor'
+                ),
+                RecursiveIteratorIterator::SELF_FIRST
             );
+
+            foreach ($directoryIterator as $item) {
+                chmod($item, 0777);
+            }
         }
 
         // set ZendDeveloperTools configuration file source and target

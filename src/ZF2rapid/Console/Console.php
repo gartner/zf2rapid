@@ -432,7 +432,7 @@ class Console implements AdapterInterface, ConsoleInterface
 
         $this->writeLine();
 
-        return $answer;
+        return strtolower($answer);
     }
 
     /**

@@ -25,11 +25,11 @@ class ProjectPath extends AbstractTask
     public function processCommandTask()
     {
         // set project path if set
-        if ($this->route->getMatchedParam('path')) {
-            $projectPath = realpath($this->route->getMatchedParam('path'));
+        if ($this->route->getMatchedParam('projectPath')) {
+            $projectPath = realpath($this->route->getMatchedParam('projectPath'));
 
             if (!$projectPath) {
-                $projectPath = $this->route->getMatchedParam('path');
+                $projectPath = $this->route->getMatchedParam('projectPath');
             }
 
             $this->params->projectPath = $projectPath;

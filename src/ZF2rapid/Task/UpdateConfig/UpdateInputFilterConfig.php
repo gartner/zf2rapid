@@ -31,7 +31,7 @@ class UpdateInputFilterConfig extends AbstractUpdateServiceManagerConfig
             . $this->params->paramInputFilter;
 
         $result = $this->updateConfig(
-            'controller_plugins',
+            'input_filters',
             $configKey,
             $this->params->paramInputFilter,
             $this->params->config['namespaceInputFilter']

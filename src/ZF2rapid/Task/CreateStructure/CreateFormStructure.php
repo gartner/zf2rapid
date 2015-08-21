@@ -23,7 +23,7 @@ class CreateFormStructure extends AbstractCreateStructureTask
     public function processCommandTask()
     {
         $result = $this->createDirectory(
-            $this->params->formDir, 'Controller plugin'
+            $this->params->formDir, 'From'
         );
 
         return $result == true ? 0 : 1;

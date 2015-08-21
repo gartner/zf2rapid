@@ -31,7 +31,7 @@ class RemoveInputFilterConfig extends AbstractRemoveServiceManagerConfig
             . $this->params->paramInputFilter;
 
         $result = $this->removeConfig(
-            'controller_plugins',
+            'input_filters',
             $configKey
         );
 

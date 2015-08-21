@@ -31,7 +31,7 @@ class UpdateHydratorConfig extends AbstractUpdateServiceManagerConfig
             . $this->params->paramHydrator;
 
         $result = $this->updateConfig(
-            'controller_plugins',
+            'hydrators',
             $configKey,
             $this->params->paramHydrator,
             $this->params->config['namespaceHydrator']

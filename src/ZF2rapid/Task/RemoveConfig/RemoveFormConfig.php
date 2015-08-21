@@ -31,7 +31,7 @@ class RemoveFormConfig extends AbstractRemoveServiceManagerConfig
             . $this->params->paramForm;
 
         $result = $this->removeConfig(
-            'controller_plugins',
+            'form_elements',
             $configKey
         );
 

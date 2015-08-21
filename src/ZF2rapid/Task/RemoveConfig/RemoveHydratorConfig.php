@@ -31,7 +31,7 @@ class RemoveHydratorConfig extends AbstractRemoveServiceManagerConfig
             . $this->params->paramHydrator;
 
         $result = $this->removeConfig(
-            'controller_plugins',
+            'hydrators',
             $configKey
         );
 

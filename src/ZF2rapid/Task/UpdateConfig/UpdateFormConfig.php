@@ -31,7 +31,7 @@ class UpdateFormConfig extends AbstractUpdateServiceManagerConfig
             . $this->params->paramForm;
 
         $result = $this->updateConfig(
-            'controller_plugins',
+            'form_elements',
             $configKey,
             $this->params->paramForm,
             $this->params->config['namespaceForm']

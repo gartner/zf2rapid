@@ -23,7 +23,7 @@ class CreateHydratorStructure extends AbstractCreateStructureTask
     public function processCommandTask()
     {
         $result = $this->createDirectory(
-            $this->params->hydratorDir, 'Controller plugin'
+            $this->params->hydratorDir, 'Hydrator'
         );
 
         return $result == true ? 0 : 1;

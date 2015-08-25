@@ -28,8 +28,13 @@ class GenerateClassMap extends AbstractTask
         $this->console->writeTaskLine('task_generate_map_class_map_running');
 
         // define generator files
-        $generator = $this->params->projectPath
-            . '/vendor/bin/classmap_generator.php';
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $generator = $this->params->projectPath . '/vendor/bin/classmap_generator.php.bat';
+            $command = $generator . ' -l ' . $this->params->moduleDir . ' -s';
+        } else {
+            $generator = $this->params->projectPath . '/vendor/bin/classmap_generator.php';
+            $command = 'php ' . $generator . ' -l ' . $this->params->moduleDir . ' -s';
+        }
 
         // create src module
         if (!file_exists($generator)) {
@@ -40,15 +45,8 @@ class GenerateClassMap extends AbstractTask
             return 1;
         }
 
-        /**
-         * @todo check on Windows
-         */
         // run classmap generator
-        exec(
-            'php ' . $generator . ' -l ' . $this->params->moduleDir . ' -s',
-            $output,
-            $return
-        );
+        exec($command, $output, $return);
 
         return 0;
     }

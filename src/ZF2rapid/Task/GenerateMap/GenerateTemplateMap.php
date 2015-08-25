@@ -28,9 +28,18 @@ class GenerateTemplateMap extends AbstractTask
         $this->console->writeTaskLine('task_generate_map_template_map_running');
 
         // define generator files
-        $generator = $this->params->projectPath
-            . '/vendor/bin/templatemap_generator.php';
-
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $generator = $this->params->projectPath
+                . '/vendor/bin/templatemap_generator.php.bat';
+            $command   = $generator . ' -l ' . $this->params->moduleDir . ' -v '
+                . $this->params->moduleDir . DIRECTORY_SEPARATOR . 'view';
+        } else {
+            $generator = $this->params->projectPath
+                . '/vendor/bin/templatemap_generator.php';
+            $command   = 'php ' . $generator . ' -l ' . $this->params->moduleDir
+                . ' -v ' . $this->params->moduleDir . DIRECTORY_SEPARATOR
+                . 'view';
+        }
         // create src module
         if (!file_exists($generator)) {
             $this->console->writeFailLine(
@@ -40,16 +49,8 @@ class GenerateTemplateMap extends AbstractTask
             return 1;
         }
 
-        /**
-         * @todo check on Windows
-         */
         // run templatemap generator
-        exec(
-            'php ' . $generator . ' -l ' . $this->params->moduleDir . ' -v '
-            . $this->params->moduleDir . DIRECTORY_SEPARATOR . 'view',
-            $output,
-            $return
-        );
+        exec($command, $output, $return);
 
         return 0;
     }

@@ -31,9 +31,7 @@ class UpdateComposer extends AbstractTask
                 'task_install_update_composer_self_updating'
             );
 
-            /**
-             * @todo check on Windows
-             */
+            // run composer self-update
             exec(
                 'php ' . $this->params->projectPath
                 . '/composer.phar self-update -q',
@@ -62,9 +60,6 @@ class UpdateComposer extends AbstractTask
                     'task_install_update_composer_installer'
                 );
 
-                /**
-                 * @todo check on Windows
-                 */
                 // run composer installer
                 exec(
                     'php ' . $installer . ' --install-dir '

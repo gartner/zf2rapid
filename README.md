@@ -6,7 +6,6 @@ Console application to create ZF2 application prototypes rapidly.
 
  * [Features](#features)
  * [Requirements](#requirements)
- * [Warning](#warning)
  * [Documentation](#documentation)
  * [Roadmap](#roadmap)
 
@@ -45,11 +44,6 @@ Console application to create ZF2 application prototypes rapidly.
 
 Please see the [composer.json](composer.json) file for all requirements.
 
-## Warning
-
-An important note for all Windows users. ZF2rapid is not fully supported on 
-Windows yet! 
-
 ## Documentation
 
  * For installation instructions please see the [ZF2rapid Installation-Guide](docs/installation.md).
@@ -59,19 +53,27 @@ Windows yet!
 
 ## Roadmap
 
-### Version 0.5.0
-
-* Write documentation                           (done)
-* Write tutorial                                (done)
-
 ### Version 0.6.0
 
-* Write tests for ZF2rapid                      (wip)
+* First public release (done)
 
 ### Version 0.7.0
 
-* Add CRUD commands                             (todo)
+* Write tests for ZF2rapid (wip)
 
 ### Version 0.8.0
 
-* Add module inspections                        (todo)
+* Add module inspections (todo)
+
+### Version 0.9.0
+
+* Add simple CRUD commands with DB connection (todo)
+
+### Version 1.0.0
+
+* First stable release (todo)
+
+### Further plans
+
+* Support ZF3 MVC applications (todo)
+* Support ZF3 middleware applications (todo)

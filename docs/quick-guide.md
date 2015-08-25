@@ -5,7 +5,7 @@ with ZF2rapid.
 
 Create a new project to a custom path and switch to the new project path:
 
-    $ zf2rapid create-project /path/to/mynewproject
+    $ zf2rapid create-project -projectPath=/path/to/mynewproject
     $ cd /path/to/mynewproject/
 
 Show installed modules, controllers and actions:

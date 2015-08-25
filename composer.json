@@ -6,15 +6,15 @@
   "require": {
     "php": ">=5.5",
     "zfcampus/zf-console": "dev-master",
-    "zendframework/zend-code": "2.*",
-    "zendframework/zend-filter": "2.*",
-    "zendframework/zend-i18n": "2.*",
-    "zendframework/zend-loader": "2.*",
-    "zendframework/zend-modulemanager": "2.*",
-    "zendframework/zend-mvc": "2.*",
-    "zendframework/zend-servicemanager": "2.*",
-    "zendframework/zend-version": "2.*",
-    "zendframework/zend-view": "2.*"
+    "zendframework/zend-code": "~2.5",
+    "zendframework/zend-filter": "~2.5",
+    "zendframework/zend-i18n": "~2.5",
+    "zendframework/zend-loader": "~2.5",
+    "zendframework/zend-modulemanager": "~2.5",
+    "zendframework/zend-mvc": "~2.5",
+    "zendframework/zend-servicemanager": "~2.5",
+    "zendframework/zend-version": "~2.5",
+    "zendframework/zend-view": "~2.5"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.7"

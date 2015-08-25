@@ -66,10 +66,10 @@ The routing configuration should look like this.
     );
  
 You can also specify the strict mode for the routing. With the additional option 
-`-s` the created routing only allows existing controllers and actions. This 
+`--strict` the created routing only allows existing controllers and actions. This 
 option is disabled by default.
 
-    $ zf2rapid create-routing Shop
+    $ zf2rapid create-routing Shop --strict
 
 When using the strict mode the routing configuration should look like this.
 
@@ -129,7 +129,7 @@ Your screen should look like this:
 When you want to generate the class map for a module you need to specify the 
 name of the module and, optionally, the project path. 
  
-    $ zf2rapid create-classmap Shop
+    $ zf2rapid generate-classmap Shop
 
 The following tasks are executed when creating the class map:
 
@@ -154,7 +154,7 @@ You should create your class maps regularly or at least when deploying your modu
 When you want to generate the template map for a module you need to specify the 
 name of the module and, optionally, the project path. 
 
-    $ zf2rapid create-templatemap Shop
+    $ zf2rapid generate-templatemap Shop
 
 The following tasks are executed when creating the template map:
 

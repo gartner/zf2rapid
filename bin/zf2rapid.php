@@ -16,15 +16,10 @@ use ZF2rapid\Console\Console;
 define('ZF2RAPID_ROOT', __DIR__ . '/..');
 
 // get vendor autoloading
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    // Local install
-    require __DIR__ . '/../vendor/autoload.php';
-} elseif (file_exists(getcwd() . '/vendor/autoload.php')) {
-    // Root project is current working directory
-    require getcwd() . '/vendor/autoload.php';
-} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
-    // Relative to composer install
-    require __DIR__ . '/../../../autoload.php';
+if (file_exists(ZF2RAPID_ROOT . '/vendor/autoload.php')) {
+    require ZF2RAPID_ROOT . '/vendor/autoload.php';
+} elseif (file_exists(ZF2RAPID_ROOT . '/../../../vendor/autoload.php')) {
+    require ZF2RAPID_ROOT . '/../../../vendor/autoload.php';
 } else {
     fwrite(STDERR, "Unable to setup autoloading; aborting\n");
     exit(2);

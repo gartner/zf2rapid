@@ -42,7 +42,12 @@ Console application to create ZF2 application prototypes rapidly.
 
 ## Requirements
 
-Please see the [composer.json](composer.json) file for all requirements.
+ZF2rapid is based on [ZF\Console](https://github.com/zfcampus/zf-console) and 
+some Zend Framework components like Zend\ServiceManager, Zend\ModuleManager 
+or Zend\Code. It also requires PHP 5.5 and the PHP Extension `ext/intl`.  
+
+Please see the [composer.json](composer.json) file for further requirement 
+details.
 
 ## Documentation
 

@@ -5,6 +5,7 @@
   "homepage": "http://to.be.named",
   "require": {
     "php": ">=5.5",
+    "ext-intl" : "*",
     "zfcampus/zf-console": "dev-master",
     "zendframework/zend-code": "~2.5",
     "zendframework/zend-filter": "~2.5",

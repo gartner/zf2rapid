@@ -16,7 +16,14 @@ use ZF2rapid\Console\Console;
 define('ZF2RAPID_ROOT', __DIR__ . '/..');
 
 // get vendor autoloading
-include ZF2RAPID_ROOT . '/vendor/autoload.php';
+if (file_exists(ZF2RAPID_ROOT . '/vendor/autoload.php')) {
+    require ZF2RAPID_ROOT . '/vendor/autoload.php';
+} elseif (file_exists(ZF2RAPID_ROOT . '/../../../vendor/autoload.php')) {
+    require ZF2RAPID_ROOT . '/../../../vendor/autoload.php';
+} else {
+    fwrite(STDERR, "Unable to setup autoloading; aborting\n");
+    exit(2);
+}
 
 // set locale
 Locale::setDefault('en_US');

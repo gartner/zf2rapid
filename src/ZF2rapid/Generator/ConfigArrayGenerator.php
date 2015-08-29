@@ -76,20 +76,23 @@ class ConfigArrayGenerator extends ValueGenerator
                     $value, $level + 1
                 );
             } else {
-                if (strpos($value, $this->params->projectPath) === 0) {
+                if (strpos($value, $this->params->moduleConfigDir) === 0) {
+                    $configData[$key] = '__DIR__ . \''
+                        . str_replace(
+                            $this->params->moduleConfigDir, '', $value
+                        )
+                        . '\'';
+                } elseif (strpos($value, $this->params->moduleDir) === 0) {
+                    $configData[$key] = $this->params->moduleRootConstant
+                        . ' . \''
+                        . str_replace($this->params->moduleDir, '', $value)
+                        . '\'';
+                } elseif (strpos($value, $this->params->projectPath) === 0) {
                     $configData[$key] = $this->params->applicationRootConstant
                         . ' . \''
                         . str_replace($this->params->projectPath, '', $value)
                         . '\'';
                 }
-
-                if (strpos($value, $this->params->moduleDir) === 0) {
-                    $configData[$key] = $this->params->moduleRootConstant
-                        . ' . \''
-                        . str_replace($this->params->moduleDir, '', $value)
-                        . '\'';
-                }
-
             }
         }
 
@@ -120,8 +123,7 @@ class ConfigArrayGenerator extends ValueGenerator
         $configData['view_manager']['template_map'] = 'include '
             . $this->params->moduleRootConstant . ' . \''
             . '/template_map.php'
-            . '\'';
-        ;
+            . '\'';;
 
         return $configData;
     }

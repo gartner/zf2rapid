@@ -90,6 +90,26 @@ class Application extends ZFApplication
     }
 
     /**
+     * Run the application
+     *
+     * Make sure that banner and footer are not shown for autoload command
+     *
+     * @param array $args
+     * @return int
+     */
+    public function run(array $args = null)
+    {
+        global $argv;
+
+        if (isset($argv[1]) && $argv[1] == 'autocomplete' && !isset($argv[2])) {
+            $this->setBanner(function () {return 0;});
+            $this->setFooter(function () {return 0;});
+        }
+
+        return parent::run($args);
+    }
+
+    /**
      * Translate the route texts
      *
      * @param array $routes

@@ -40,9 +40,9 @@ class UpdateComposer extends AbstractTask
             );
         } else {
             // check for composer in tmp root
-            if (!file_exists($this->params->tmpRoot . '/composer.phar')) {
+            if (!file_exists($this->params->tmpDir . '/composer.phar')) {
                 // set installer
-                $installer = $this->params->tmpRoot . '/composer_installer.php';
+                $installer = $this->params->tmpDir . '/composer_installer.php';
 
                 // check for composer installer in tmp root
                 if (!file_exists($installer)) {
@@ -71,7 +71,7 @@ class UpdateComposer extends AbstractTask
 
             // copy composer.phar from tmp root
             copy(
-                $this->params->tmpRoot . '/composer.phar',
+                $this->params->tmpDir . '/composer.phar',
                 $this->params->projectPath . '/composer.phar'
             );
         }

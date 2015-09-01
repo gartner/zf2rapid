@@ -242,6 +242,18 @@ class Params extends AbstractTask
             $this->params->paramFactory = false;
         }
 
+        $this->params->paramActivation = true;
+
+        if ($this->route->getMatchedParam('no-activation')) {
+            $this->params->paramActivation = false;
+        }
+
+        $this->params->paramDeactivation = true;
+
+        if ($this->route->getMatchedParam('no-deactivation')) {
+            $this->params->paramDeactivation = false;
+        }
+
         if ($this->route->getMatchedParam('strict')) {
             $this->params->paramStrict = $this->route->getMatchedParam(
                 'strict'

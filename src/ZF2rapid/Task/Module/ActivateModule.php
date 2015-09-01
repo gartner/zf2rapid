@@ -27,6 +27,10 @@ class ActivateModule extends AbstractTask
      */
     public function processCommandTask()
     {
+        if (!$this->params->paramActivation) {
+            return 0;
+        }
+
         // output message
         $this->console->writeTaskLine(
             'task_module_activate_module_config_file',

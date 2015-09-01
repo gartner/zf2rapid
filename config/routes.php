@@ -104,7 +104,7 @@ return array(
             '<module>'           => 'route_create_controller_plugin_option_module',
             '<controllerPlugin>' => 'route_create_controller_plugin_option_plugin',
             '--projectPath='     => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '--modulePath='      => 'route_param_module_path',
             '--no-factory'       => 'route_create_controller_plugin_option_factory',
         ),
         'defaults'             => array(
@@ -126,7 +126,7 @@ return array(
             '<module>'           => 'route_create_controller_plugin_factory_option_module',
             '<controllerPlugin>' => 'route_create_controller_plugin_factory_option_plugin',
             '--projectPath='     => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '--modulePath='      => 'route_param_module_path',
         ),
         'defaults'             => array(
             'projectPath' => '.',
@@ -315,16 +315,18 @@ return array(
     ),
     array(
         'name'                 => 'create-module',
-        'route'                => 'create-module <module> [--projectPath=] [--modulePath=]',
+        'route'                => 'create-module <module> [--projectPath=] [--modulePath=] [--no-activation]',
         'description'          => 'route_create_module_description',
         'short_description'    => 'route_create_module_short_description',
         'options_descriptions' => array(
-            '<module>'       => 'route_create_module_option_module',
-            '--projectPath=' => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '<module>'        => 'route_create_module_option_module',
+            '--projectPath='  => 'route_param_project_path',
+            '--modulePath='   => 'route_param_module_path',
+            '--no-activation' => 'route_create_module_option_no_activation',
         ),
         'defaults'             => array(
-            'projectPath' => '.',
+            'projectPath'   => '.',
+            'no-activation' => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
@@ -542,7 +544,7 @@ return array(
             '<module>'           => 'route_delete_controller_plugin_option_module',
             '<controllerPlugin>' => 'route_delete_controller_plugin_option_plugin',
             '--projectPath='     => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '--modulePath='      => 'route_param_module_path',
         ),
         'defaults'             => array(
             'projectPath'   => '.',
@@ -563,7 +565,7 @@ return array(
             '<module>'           => 'route_delete_controller_plugin_factory_option_module',
             '<controllerPlugin>' => 'route_delete_controller_plugin_factory_option_plugin',
             '--projectPath='     => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '--modulePath='      => 'route_param_module_path',
         ),
         'defaults'             => array(
             'projectPath'   => '.',
@@ -734,7 +736,7 @@ return array(
         ),
         'defaults'             => array(
             'projectPath'   => '.',
-            '--modulePath='  => 'route_param_module_path',
+            '--modulePath=' => 'route_param_module_path',
             'removeFactory' => true,
         ),
         'filters'              => array(
@@ -745,16 +747,18 @@ return array(
     ),
     array(
         'name'                 => 'delete-module',
-        'route'                => 'delete-module <module> [--projectPath=] [--modulePath=]',
+        'route'                => 'delete-module <module> [--projectPath=] [--modulePath=] [--no-deactivation]',
         'description'          => 'route_delete_module_description',
         'short_description'    => 'route_delete_module_short_description',
         'options_descriptions' => array(
-            '<module>'       => 'route_delete_module_option_module',
-            '--projectPath=' => 'route_param_project_path',
-            '--modulePath='  => 'route_param_module_path',
+            '<module>'          => 'route_delete_module_option_module',
+            '--projectPath='    => 'route_param_project_path',
+            '--modulePath='     => 'route_param_module_path',
+            '--no-deactivation' => 'route_delete_module_option_no_deactivation',
         ),
         'defaults'             => array(
-            'projectPath' => '.',
+            'projectPath'     => '.',
+            'no-deactivation' => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),

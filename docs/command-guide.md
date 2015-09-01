@@ -76,9 +76,10 @@ The following configuration keys can be changed for your current project:
 When creating a new module you need to specify the `<module>`. Optionally, you 
 can specify the `--projectPath=` of the Zend Framework 2 project to create the new
 module in. You will be asked in which application configuration file the new 
-module should be activated.
+module should be activated. If you want to prevent the activation of the module, 
+you can use the optional `--no-activation` flag. 
 
-    $ zf2rapid create-module <module> [--projectPath=] [--modulePath=]
+    $ zf2rapid create-module <module> [--projectPath=] [--modulePath=] [--no-activation]
 
 You can activate a module manually for any application configuration file. You
 need to specify the `<module>` and optionally the `--projectPath=` of the Zend 
@@ -93,9 +94,10 @@ Framework 2 project.
     $ zf2rapid deactivate-module <module> [--projectPath=] [--modulePath=]
 
 You can delete a module `<module>`. Optionally, you can specify the `--projectPath=` of 
-the Zend Framework 2 project to delete the module from.
+the Zend Framework 2 project to delete the module from. If you want to prevent 
+the deactivation of the module, you can use the optional `--no-deactivation` flag. 
  
-    $ zf2rapid delete-module <module> [--projectPath=] [--modulePath=]
+    $ zf2rapid delete-module <module> [--projectPath=] [--modulePath=] [--no-deactivation]
 
 You can display all modules of the current Zend Framework 2 project. Optionally, 
 you can specify the `--projectPath=` of the Zend Framework 2 project to display the 

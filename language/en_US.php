@@ -99,6 +99,7 @@ return array(
     'route_create_module_description'                          => 'Create a new module within the specified path',
     'route_create_module_short_description'                    => 'Create new module',
     'route_create_module_option_module'                        => 'The name of the module to create; mandatory',
+    'route_create_module_option_no_activation'                 => 'Prevent the activation of the new module (disabled by default)',
 
     'route_create_project_description'                         => 'Create a new ZF2 project within the specified path',
     'route_create_project_short_description'                   => 'Create new ZF2 project',
@@ -204,6 +205,7 @@ return array(
     'route_delete_module_description'                          => 'Delete an existing module within the specified path',
     'route_delete_module_short_description'                    => 'Delete existing module',
     'route_delete_module_option_module'                        => 'The name of the module to delete; mandatory',
+    'route_delete_module_option_no_deactivation'               => 'Prevent the deactivation of the deleted module (disabled by default)',
 
     'route_delete_validator_description'                       => 'Delete an existing validator for module within the specified path',
     'route_delete_validator_short_description'                 => 'Delete validator',

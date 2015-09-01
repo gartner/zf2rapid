@@ -27,6 +27,10 @@ class DeactivateModule extends AbstractTask
      */
     public function processCommandTask()
     {
+        if (!$this->params->paramDeactivation) {
+            return 0;
+        }
+
         // output message
         $this->console->writeTaskLine(
             'task_module_deactivate_module_config_file',

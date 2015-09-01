@@ -8,7 +8,6 @@
  */
 namespace ZF2rapid\Task\Module;
 
-use Prophecy\Doubler\ClassPatch\SplFileInfoPatch;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Zend\Console\ColorInterface as Color;

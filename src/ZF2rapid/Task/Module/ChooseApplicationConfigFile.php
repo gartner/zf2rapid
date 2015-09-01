@@ -25,6 +25,10 @@ class ChooseApplicationConfigFile extends AbstractTask
      */
     public function processCommandTask()
     {
+        if (!$this->params->paramActivation) {
+            return 0;
+        }
+
         // set filter dirs
         $filterDirs = array('..', '.', 'autoload');
 

@@ -50,16 +50,16 @@ class ConfigFile extends AbstractTask
     public function processCommandTask()
     {
         // check if file is writable
-        if (!isset($this->params->projectPath)) {
+        if (!isset($this->params->workingPath)) {
             $this->console->writeFailLine(
-                'task_setup_config_file_no_project_path'
+                'task_setup_config_file_no_working_path'
             );
 
             return 1;
         }
 
         // set config file name
-        $configFile = $this->params->projectPath . '/' . self::CONFIG_FILE_NAME;
+        $configFile = $this->params->workingPath . '/' . self::CONFIG_FILE_NAME;
 
         // check config file existence
         if (file_exists(($configFile))) {
@@ -75,7 +75,7 @@ class ConfigFile extends AbstractTask
         $this->params->set('config', $this->configFileDefaults);
 
         // check if file is writable
-        if (!is_writable($this->params->projectPath)) {
+        if (!is_writable($this->params->workingPath)) {
             $this->console->writeFailLine(
                 'task_setup_config_file_not_writable'
             );

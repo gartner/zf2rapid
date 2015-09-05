@@ -8,6 +8,8 @@
  */
 namespace ZF2rapid\Task\GenerateMap;
 
+use ZF2rapid\Generator\ConfigArrayGenerator;
+use ZF2rapid\Generator\ConfigFileGenerator;
 use ZF2rapid\Task\AbstractTask;
 
 /**
@@ -24,29 +26,53 @@ class GenerateClassMap extends AbstractTask
      */
     public function processCommandTask()
     {
-        // output message
-        $this->console->writeTaskLine('task_generate_map_class_map_running');
-
-        // define generator files
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $generator = $this->params->projectPath . '/vendor/bin/classmap_generator.php.bat';
-            $command = $generator . ' -l ' . $this->params->moduleDir . ' -s';
-        } else {
-            $generator = $this->params->projectPath . '/vendor/bin/classmap_generator.php';
-            $command = 'php ' . $generator . ' -l ' . $this->params->moduleDir . ' -s';
-        }
-
-        // create src module
-        if (!file_exists($generator)) {
-            $this->console->writeFailLine(
-                'task_generate_map_class_map_not_exists'
+        // check for project
+        if ($this->params->paramWithProject) {
+            // output message
+            $this->console->writeTaskLine(
+                'task_generate_map_class_map_running'
             );
 
-            return 1;
-        }
+            // define generator files
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                $generator = $this->params->workingPath
+                    . '/vendor/bin/classmap_generator.php.bat';
+                $command   = $generator . ' -l ' . $this->params->moduleDir
+                    . ' -s';
+            } else {
+                $generator = $this->params->workingPath
+                    . '/vendor/bin/classmap_generator.php';
+                $command   = 'php ' . $generator . ' -l '
+                    . $this->params->moduleDir . ' -s';
+            }
 
-        // run classmap generator
-        exec($command, $output, $return);
+            // create src module
+            if (!file_exists($generator)) {
+                $this->console->writeFailLine(
+                    'task_generate_map_class_map_not_exists'
+                );
+
+                return 1;
+            }
+
+            // run classmap generator
+            exec($command, $output, $return);
+        } else {
+            // create config array
+            $config = new ConfigArrayGenerator(array(), $this->params);
+
+            // create file
+            $file = new ConfigFileGenerator(
+                $config->generate(), $this->params->config
+            );
+
+            // setup map file
+            $mapFile = $this->params->moduleDir . DIRECTORY_SEPARATOR
+                . 'autoload_classmap.php';
+
+            // write file
+            file_put_contents($mapFile, $file->generate());
+        }
 
         return 0;
     }

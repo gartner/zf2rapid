@@ -86,7 +86,7 @@ class LoadModules extends AbstractTask
             'task_fetch_load_modules_not_found',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath, Color::GREEN
+                    $this->params->workingPath, Color::GREEN
                 )
             )
         );
@@ -170,7 +170,7 @@ class LoadModules extends AbstractTask
         // add project path to module paths
         foreach ($modulePaths as $key => $modulePath) {
             $modulePaths[$key] = realpath(
-                $this->params->projectPath . DIRECTORY_SEPARATOR . $modulePath
+                $this->params->workingPath . DIRECTORY_SEPARATOR . $modulePath
             );
         }
 

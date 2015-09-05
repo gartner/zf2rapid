@@ -72,7 +72,7 @@ class ProjectPathMandatoryTest extends PHPUnit_Framework_TestCase
     public function testWithNoProjectPathSet()
     {
         $this->console->expects($this->once())->method('writeFailLine')->with(
-            $this->equalTo('task_check_project_path_mandatory')
+            $this->equalTo('task_check_working_path_mandatory')
         );
 
         $task = new ProjectPathMandatory();
@@ -88,11 +88,11 @@ class ProjectPathMandatoryTest extends PHPUnit_Framework_TestCase
     public function testWithProjectPathSet()
     {
         $this->console->expects($this->never())->method('writeFailLine')->with(
-            $this->equalTo('task_check_project_path_mandatory')
+            $this->equalTo('task_check_working_path_mandatory')
         );
 
         $this->parameters->set(
-            'projectPath', '/path/to/project/'
+            'workingPath', '/path/to/project/'
         );
 
         $task = new ProjectPathMandatory();

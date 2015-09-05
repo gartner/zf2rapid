@@ -32,7 +32,7 @@ class PrepareProject extends AbstractTask
         // change data file rights
         $directoryIterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
-                $this->params->projectPath . '/data'
+                $this->params->workingPath . '/data'
             ),
             RecursiveIteratorIterator::SELF_FIRST
         );
@@ -42,10 +42,10 @@ class PrepareProject extends AbstractTask
         }
 
         // change public assets vendor file rights if exists
-        if (file_exists($this->params->projectPath . '/public/assets/vendor')) {
+        if (file_exists($this->params->workingPath . '/public/assets/vendor')) {
             $directoryIterator = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator(
-                    $this->params->projectPath . '/public/assets/vendor'
+                    $this->params->workingPath . '/public/assets/vendor'
                 ),
                 RecursiveIteratorIterator::SELF_FIRST
             );
@@ -56,10 +56,10 @@ class PrepareProject extends AbstractTask
         }
 
         // set ZendDeveloperTools configuration file source and target
-        $fileSource = $this->params->projectPath
+        $fileSource = $this->params->workingPath
             . '/vendor/zendframework/zend-developer-tools'
             . '/config/zenddevelopertools.local.php.dist';
-        $fileTarget = $this->params->projectPath
+        $fileTarget = $this->params->workingPath
             . '/config/autoload/zenddevelopertools.local.php';
 
         // copy ZendDeveloperTools configuration if exists
@@ -68,9 +68,9 @@ class PrepareProject extends AbstractTask
         }
 
         // set autoload local config file source and target
-        $fileSource = $this->params->projectPath
+        $fileSource = $this->params->workingPath
             . '/config/autoload/local.php.dist';
-        $fileTarget = $this->params->projectPath
+        $fileTarget = $this->params->workingPath
             . '/config/autoload/local.php';
 
         // copy autoload local configuration if exists

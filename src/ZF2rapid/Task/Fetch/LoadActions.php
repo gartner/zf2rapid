@@ -90,7 +90,7 @@ class LoadActions extends AbstractTask
 
                         // check action file exists
                         if (!file_exists(
-                            $this->params->projectPath . $actionFile
+                            $this->params->workingPath . $actionFile
                         )
                         ) {
                             $actionFile = false;

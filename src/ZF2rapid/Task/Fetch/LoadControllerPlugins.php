@@ -49,7 +49,7 @@ class LoadControllerPlugins extends AbstractTask
             'task_fetch_load_controller_plugins_not_found',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath, Color::GREEN
+                    $this->params->workingPath, Color::GREEN
                 )
             )
         );

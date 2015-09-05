@@ -25,7 +25,7 @@ class UpdateComposer extends AbstractTask
     public function processCommandTask()
     {
         // start self-update if composer is available
-        if (file_exists($this->params->projectPath . '/composer.phar')) {
+        if (file_exists($this->params->workingPath . '/composer.phar')) {
             // output message
             $this->console->writeTaskLine(
                 'task_install_update_composer_self_updating'
@@ -33,7 +33,7 @@ class UpdateComposer extends AbstractTask
 
             // run composer self-update
             exec(
-                'php ' . $this->params->projectPath
+                'php ' . $this->params->workingPath
                 . '/composer.phar self-update -q',
                 $output,
                 $return
@@ -72,12 +72,12 @@ class UpdateComposer extends AbstractTask
             // copy composer.phar from tmp root
             copy(
                 $this->params->tmpDir . '/composer.phar',
-                $this->params->projectPath . '/composer.phar'
+                $this->params->workingPath . '/composer.phar'
             );
         }
 
         // change file rights
-        chmod($this->params->projectPath . '/composer.phar', 0755);
+        chmod($this->params->workingPath . '/composer.phar', 0755);
 
         return 0;
     }

@@ -90,7 +90,7 @@ class ModulePathExistsTest extends PHPUnit_Framework_TestCase
     public function testWithModulePathNotExisting()
     {
         $this->console->expects($this->once())->method('writeFailLine')->with(
-            $this->equalTo('task_check_project_path_not_exists')
+            $this->equalTo('task_check_working_path_not_exists')
         );
 
         $this->console->expects($this->once())->method('colorize');
@@ -112,7 +112,7 @@ class ModulePathExistsTest extends PHPUnit_Framework_TestCase
     public function testWithModulePathExisting()
     {
         $this->console->expects($this->never())->method('writeFailLine')->with(
-            $this->equalTo('task_check_project_path_not_exists')
+            $this->equalTo('task_check_working_path_not_exists')
         );
 
         $this->console->expects($this->never())->method('colorize');

@@ -26,10 +26,10 @@ class ProjectPathEmpty extends AbstractTask
     public function processCommandTask()
     {
         // check if project path exists
-        if (is_dir($this->params->projectPath)) {
+        if (is_dir($this->params->workingPath)) {
 
             // scan directory
-            $dir = scandir($this->params->projectPath);
+            $dir = scandir($this->params->workingPath);
 
             // ignore current and parent path
             unset($dir[array_search('.', $dir)]);
@@ -40,10 +40,10 @@ class ProjectPathEmpty extends AbstractTask
             if (count($dir) > 0) {
                 // stop with error
                 $this->console->writeFailLine(
-                    'task_check_project_path_not_empty',
+                    'task_check_working_path_not_empty',
                     array(
                         $this->console->colorize(
-                            $this->params->projectPath, Color::GREEN
+                            $this->params->workingPath, Color::GREEN
                         )
                     )
                 );
@@ -52,13 +52,13 @@ class ProjectPathEmpty extends AbstractTask
             }
         } else {
             // create new project path if it does not exists
-            mkdir($this->params->projectPath, 0777, true);
+            mkdir($this->params->workingPath, 0777, true);
 
             $this->console->writeTaskLine(
-                'task_check_project_path_created',
+                'task_check_working_path_created',
                 array(
                     $this->console->colorize(
-                        realpath($this->params->projectPath), Color::GREEN
+                        realpath($this->params->workingPath), Color::GREEN
                     )
                 )
             );

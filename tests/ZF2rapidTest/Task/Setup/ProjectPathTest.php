@@ -13,7 +13,7 @@ use PHPUnit_Framework_TestCase;
 use Zend\Stdlib\Parameters;
 use ZF\Console\Route;
 use ZF2rapid\Console\ConsoleInterface;
-use ZF2rapid\Task\Setup\ProjectPath;
+use ZF2rapid\Task\Setup\WorkingPath;
 
 /**
  * Class ProjectPathTest
@@ -59,9 +59,9 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
      */
     public function testInstantiation()
     {
-        $task = new ProjectPath();
+        $task = new WorkingPath();
 
-        $this->assertInstanceOf('ZF2rapid\Task\Setup\ProjectPath', $task);
+        $this->assertInstanceOf('ZF2rapid\Task\Setup\WorkingPath', $task);
     }
 
     /**
@@ -69,7 +69,7 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
      */
     public function testInvocation()
     {
-        $task = new ProjectPath();
+        $task = new WorkingPath();
 
         $result = $task($this->route, $this->console, $this->parameters);
 
@@ -89,12 +89,12 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
             $this->returnValueMap($paramValueMap)
         );
 
-        $task = new ProjectPath();
+        $task = new WorkingPath();
 
         $result = $task($this->route, $this->console, $this->parameters);
 
         $this->assertEquals(0, $result);
-        $this->assertEquals('/path/to/project', $this->parameters->projectPath);
+        $this->assertEquals('/path/to/project', $this->parameters->workingPath);
 
         $this->assertEquals(
             'APPLICATION_ROOT', $this->parameters->applicationRootConstant
@@ -126,12 +126,12 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
             $this->returnValueMap($paramValueMap)
         );
 
-        $task = new ProjectPath();
+        $task = new WorkingPath();
 
         $result = $task($this->route, $this->console, $this->parameters);
 
         $this->assertEquals(0, $result);
-        $this->assertEquals('/tmp', $this->parameters->projectPath);
+        $this->assertEquals('/tmp', $this->parameters->workingPath);
 
         $this->assertEquals(
             '/tmp/module',

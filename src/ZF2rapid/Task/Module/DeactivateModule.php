@@ -27,6 +27,12 @@ class DeactivateModule extends AbstractTask
      */
     public function processCommandTask()
     {
+        // check for project
+        if (!$this->params->paramWithProject) {
+            return 0;
+        }
+
+        // check for activation
         if (!$this->params->paramDeactivation) {
             return 0;
         }

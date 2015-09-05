@@ -87,10 +87,10 @@ class ConfigArrayGenerator extends ValueGenerator
                         . ' . \''
                         . str_replace($this->params->moduleDir, '', $value)
                         . '\'';
-                } elseif (strpos($value, $this->params->projectPath) === 0) {
+                } elseif (strpos($value, $this->params->workingPath) === 0) {
                     $configData[$key] = $this->params->applicationRootConstant
                         . ' . \''
-                        . str_replace($this->params->projectPath, '', $value)
+                        . str_replace($this->params->workingPath, '', $value)
                         . '\'';
                 }
             }

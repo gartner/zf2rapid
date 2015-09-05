@@ -27,6 +27,12 @@ class ActivateModule extends AbstractTask
      */
     public function processCommandTask()
     {
+        // check for project
+        if (!$this->params->paramWithProject) {
+            return 0;
+        }
+
+        // check for activation
         if (!$this->params->paramActivation) {
             return 0;
         }

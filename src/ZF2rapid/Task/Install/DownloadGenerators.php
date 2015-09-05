@@ -25,9 +25,9 @@ class DownloadGenerators extends AbstractTask
     public function processCommandTask()
     {
         // define generator files
-        $classMapGenerator    = $this->params->projectPath
+        $classMapGenerator    = $this->params->workingPath
             . '/vendor/bin/classmap_generator.php';
-        $templateMapGenerator = $this->params->projectPath
+        $templateMapGenerator = $this->params->workingPath
             . '/vendor/bin/templatemap_generator.php';
 
         // check if class map generator exists

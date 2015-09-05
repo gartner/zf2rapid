@@ -46,7 +46,7 @@ class UnknownModules extends AbstractTask
                 'task_display_unknown_modules_not_exist',
                 array(
                     $this->console->colorize(
-                        $this->params->projectPath, Color::GREEN
+                        $this->params->workingPath, Color::GREEN
                     ),
                 )
             );

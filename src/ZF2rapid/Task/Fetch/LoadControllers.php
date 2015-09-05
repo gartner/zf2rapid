@@ -49,7 +49,7 @@ class LoadControllers extends AbstractTask
             'task_fetch_load_controllers_not_found',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath, Color::GREEN
+                    $this->params->workingPath, Color::GREEN
                 )
             )
         );

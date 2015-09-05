@@ -23,7 +23,7 @@ class CreateProject extends AbstractCommand
      */
     protected $tasks
         = array(
-            'ZF2rapid\Task\Setup\ProjectPath',
+            'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\Params',
             'ZF2rapid\Task\Check\ProjectPathMandatory',
             'ZF2rapid\Task\Check\ProjectPathEmpty',
@@ -56,7 +56,7 @@ class CreateProject extends AbstractCommand
             'command_create_project_working_dir',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath, Color::GREEN
+                    $this->params->workingPath, Color::GREEN
                 )
             )
         );

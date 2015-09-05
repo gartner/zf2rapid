@@ -24,7 +24,7 @@ Assuming that all your projects are placed in the path `/home/devhost` the
 command to create a new project for this tutorial below this path could be as 
 follows:
 
-    $ zf2rapid create-project --projectPath=/home/devhost/zf2rapid-tutorial
+    $ zf2rapid create-project --workingPath=/home/devhost/zf2rapid-tutorial
 
 The following tasks are executed when creating a new project:
 

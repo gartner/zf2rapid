@@ -24,20 +24,21 @@ class Params extends AbstractTask
      */
     public function processCommandTask()
     {
-        if ($this->route->getMatchedParam('modulePath')) {
-            $this->params->modulePath = $this->route->getMatchedParam(
-                'modulePath'
-            );
+        if ($this->route->getMatchedParam('without-project')) {
+            $this->params->paramWithProject = false;
         } else {
-            $this->params->modulePath = 'module';
+            $this->params->paramWithProject = true;
         }
 
-        if ($this->params->projectPath) {
-            $this->params->projectModuleDir = $this->params->projectPath
-                . DIRECTORY_SEPARATOR . $this->params->modulePath;
+        if ($this->params->workingPath && $this->params->paramWithProject) {
+            $this->params->projectModuleDir = $this->params->workingPath
+                . DIRECTORY_SEPARATOR . 'module';
 
-            $this->params->projectConfigDir = $this->params->projectPath
+            $this->params->projectConfigDir = $this->params->workingPath
                 . DIRECTORY_SEPARATOR . 'config';
+        } else {
+            $this->params->projectModuleDir = $this->params->workingPath;
+            $this->params->projectConfigDir = null;
         }
 
         if ($this->route->getMatchedParam('module')) {

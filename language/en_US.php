@@ -16,8 +16,8 @@ return array(
     'badge_task'                                               => ' TASK ',
     'badge_pick'                                               => ' PICK ',
 
-    'route_param_project_path'                                 => 'The directory of the ZF2 project to work in; defaults to current working directory',
-    'route_param_module_path'                                  => 'The module directory to work in; defaults to "module"',
+    'route_param_working_path'                                 => 'The path to work in; defaults to current working path',
+    'route_param_without_project'                              => 'Ignore if working path does not contain a ZF2 project; defaults to current working path',
 
     'route_activate_module_description'                        => 'Activate an existing module within the specified path',
     'route_activate_module_short_description'                  => 'Activate existing module',
@@ -406,10 +406,10 @@ return array(
 
     'task_check_file_exists_not_found'                         => 'The %1$s %2$s does not exist in module %3$s.',
     'task_check_base_hydrator_param_unknown'                   => 'The base hydrator %1$s is unknown.',
-    'task_check_project_path_not_empty'                        => 'The specified project path %1$s is not empty. ZF2 project can not be installed here.',
-    'task_check_project_path_created'                          => 'Project path %1$s was created.',
-    'task_check_project_path_mandatory'                        => 'You must specify a path to create a new ZF2 project.',
-    'task_check_module_path_created'                           => 'The module path %1$s was created.',
+    'task_check_working_path_not_empty'                        => 'The specified project path %1$s is not empty. ZF2 project can not be installed here.',
+    'task_check_working_path_created'                          => 'Project path %1$s was created.',
+    'task_check_working_path_mandatory'                        => 'You must specify a path to create a new ZF2 project.',
+    'task_check_project_path_not_exists'                       => 'There is no ZF2 project within %1$s.',
     'task_check_module_path_not_exists'                        => 'The module path does not exist within %1$s.',
     'task_check_module_not_exists'                             => 'The module %1$s does not exist in %2$s.',
     'task_check_checking_file'                                 => 'Checking %1$s file...',
@@ -560,7 +560,7 @@ return array(
 
     'task_remove_config_module_config_file_not_exists'         => 'The module config file %1$s does not exist.',
 
-    'task_setup_config_file_no_project_path'                   => 'The ZF2rapid project path is not set.',
+    'task_setup_config_file_no_working_path'                   => 'The ZF2rapid project path is not set.',
     'task_setup_config_file_not_writable'                      => 'The ZF2rapid configuration file is not writable.',
 
     'task_tool_configuration_change_missing_config_key'        => 'It is not possible to change a configuration option without specifying the configuration key.',

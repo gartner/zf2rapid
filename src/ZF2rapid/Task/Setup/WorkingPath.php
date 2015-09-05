@@ -11,11 +11,11 @@ namespace ZF2rapid\Task\Setup;
 use ZF2rapid\Task\AbstractTask;
 
 /**
- * Class ProjectPath
+ * Class WorkingPath
  *
  * @package ZF2rapid\Task\Setup
  */
-class ProjectPath extends AbstractTask
+class WorkingPath extends AbstractTask
 {
     /**
      * Process the command
@@ -25,14 +25,14 @@ class ProjectPath extends AbstractTask
     public function processCommandTask()
     {
         // set project path if set
-        if ($this->route->getMatchedParam('projectPath')) {
-            $projectPath = realpath($this->route->getMatchedParam('projectPath'));
+        if ($this->route->getMatchedParam('workingPath')) {
+            $workingPath = realpath($this->route->getMatchedParam('workingPath'));
 
-            if (!$projectPath) {
-                $projectPath = $this->route->getMatchedParam('projectPath');
+            if (!$workingPath) {
+                $workingPath = $this->route->getMatchedParam('workingPath');
             }
 
-            $this->params->projectPath = $projectPath;
+            $this->params->workingPath = $workingPath;
 
             $this->params->applicationRootConstant = 'APPLICATION_ROOT';
 
@@ -40,7 +40,7 @@ class ProjectPath extends AbstractTask
             if (!defined($this->params->applicationRootConstant)) {
                 define(
                     $this->params->applicationRootConstant,
-                    $this->params->projectPath
+                    $this->params->workingPath
                 );
             }
 

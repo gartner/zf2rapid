@@ -26,28 +26,28 @@ class ZFVersion extends AbstractTask
      */
     public function processCommandTask()
     {
-        $projectPath = $this->params->projectPath;
+        $workingPath = $this->params->workingPath;
 
         if (is_dir(
-            $projectPath . '/vendor/zendframework/zendframework/library'
+            $workingPath . '/vendor/zendframework/zendframework/library'
         )) {
             $library = '/vendor/zendframework/zendframework/library';
         } elseif (is_dir(
-            $projectPath . '/vendor/zendframework/zend-version'
+            $workingPath . '/vendor/zendframework/zend-version'
         )) {
             $library = '/vendor/zendframework/zend-version';
-        } elseif (is_dir($projectPath . '/vendor/ZF2/library')) {
+        } elseif (is_dir($workingPath . '/vendor/ZF2/library')) {
             $library = '/vendor/ZF2/library';
         } else {
             $library = false;
         }
 
         // set version file name
-        $versionFile = $projectPath . $library . '/Zend/Version/Version.php';
+        $versionFile = $workingPath . $library . '/Zend/Version/Version.php';
 
         // check for individual Zend\Version repository
         if (!file_exists($versionFile)) {
-            $versionFile = $projectPath . $library . '/src/Version.php';
+            $versionFile = $workingPath . $library . '/src/Version.php';
         }
 
         // load version file
@@ -58,7 +58,7 @@ class ZFVersion extends AbstractTask
             'task_display_zfversion_path',
             array(
                 $this->console->colorize(
-                    $projectPath . $library, Color::GREEN
+                    $workingPath . $library, Color::GREEN
                 )
             )
         );
@@ -67,7 +67,7 @@ class ZFVersion extends AbstractTask
             'task_display_zfversion_version',
             array(
                 $this->console->colorize(
-                    $projectPath, Color::GREEN
+                    $workingPath, Color::GREEN
                 ),
                 $this->console->colorize(
                     Version::VERSION, Color::BLUE

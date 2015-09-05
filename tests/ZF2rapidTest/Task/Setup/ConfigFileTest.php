@@ -100,7 +100,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
     public function testNoProjectPathSet()
     {
         $this->console->expects($this->once())->method('writeFailLine')->with(
-            $this->equalTo('task_setup_config_file_no_project_path')
+            $this->equalTo('task_setup_config_file_no_working_path')
         );
 
         $task = new ConfigFile();
@@ -120,7 +120,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
         );
 
         $this->parameters->set(
-            'projectPath', '/path/to/project/'
+            'workingPath', '/path/to/project/'
         );
 
         $task = new ConfigFile();
@@ -136,7 +136,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
     public function testWithNonExistingFile()
     {
         $this->parameters->set(
-            'projectPath', $this->zf2rapidFileDir
+            'workingPath', $this->zf2rapidFileDir
         );
 
         $task = new ConfigFile();
@@ -184,7 +184,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
     public function testWithExistingFile()
     {
         $this->parameters->set(
-            'projectPath', $this->zf2rapidFileDir
+            'workingPath', $this->zf2rapidFileDir
         );
 
         $expectedConfig = array(

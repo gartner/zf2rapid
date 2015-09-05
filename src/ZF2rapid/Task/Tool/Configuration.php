@@ -211,7 +211,7 @@ class Configuration extends AbstractTask
     protected function changeConfiguration($paramKey, $paramValue)
     {
         // set config file name
-        $configFile = $this->params->projectPath . '/'
+        $configFile = $this->params->workingPath . '/'
             . ConfigFile::CONFIG_FILE_NAME;
 
         // change value for configuration key
@@ -247,7 +247,7 @@ class Configuration extends AbstractTask
             'task_tool_configuration_show_configuration_list',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath
+                    $this->params->workingPath
                     . '/' . ConfigFile::CONFIG_FILE_NAME,
                     Color::GREEN
                 )

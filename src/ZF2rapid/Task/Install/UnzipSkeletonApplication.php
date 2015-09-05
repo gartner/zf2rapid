@@ -81,7 +81,7 @@ class UnzipSkeletonApplication extends AbstractTask
 
             // copy files from tmp to project path
             $result = $this->copyFiles(
-                $this->params->tmpSkeleton, $this->params->projectPath
+                $this->params->tmpSkeleton, $this->params->workingPath
             );
 
             // close archive

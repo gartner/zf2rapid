@@ -29,8 +29,8 @@ class RunComposer extends AbstractTask
 
         // start installation of dependencies
         exec(
-            'php ' . $this->params->projectPath
-            . '/composer.phar --working-dir=' . $this->params->projectPath
+            'php ' . $this->params->workingPath
+            . '/composer.phar --working-dir=' . $this->params->workingPath
             . ' install -q',
             $output,
             $return

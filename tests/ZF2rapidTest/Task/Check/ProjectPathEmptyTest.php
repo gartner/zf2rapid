@@ -114,12 +114,12 @@ class ProjectPathEmptyTest extends PHPUnit_Framework_TestCase
     public function testWithProjectPathNotExists()
     {
         $this->console->expects($this->once())->method('writeTaskLine')->with(
-            $this->equalTo('task_check_project_path_created')
+            $this->equalTo('task_check_working_path_created')
         );
 
         $this->console->expects($this->once())->method('colorize');
 
-        $this->parameters->set('projectPath', $this->zf2rapidProjectPath);
+        $this->parameters->set('workingPath', $this->zf2rapidProjectPath);
 
         $this->assertFileNotExists($this->zf2rapidProjectPath);
 
@@ -145,7 +145,7 @@ class ProjectPathEmptyTest extends PHPUnit_Framework_TestCase
 
         $this->console->expects($this->never())->method('colorize');
 
-        $this->parameters->set('projectPath', $this->zf2rapidProjectPath);
+        $this->parameters->set('workingPath', $this->zf2rapidProjectPath);
 
         $this->assertFileExists($this->zf2rapidProjectPath);
 
@@ -180,7 +180,7 @@ class ProjectPathEmptyTest extends PHPUnit_Framework_TestCase
 
         $this->console->expects($this->never())->method('colorize');
 
-        $this->parameters->set('projectPath', $this->zf2rapidProjectPath);
+        $this->parameters->set('workingPath', $this->zf2rapidProjectPath);
 
         $this->assertFileExists($this->zf2rapidProjectPath);
 
@@ -214,12 +214,12 @@ class ProjectPathEmptyTest extends PHPUnit_Framework_TestCase
         }
 
         $this->console->expects($this->once())->method('writeFailLine')->with(
-            $this->equalTo('task_check_project_path_not_empty')
+            $this->equalTo('task_check_working_path_not_empty')
         );
 
         $this->console->expects($this->once())->method('colorize');
 
-        $this->parameters->set('projectPath', $this->zf2rapidProjectPath);
+        $this->parameters->set('workingPath', $this->zf2rapidProjectPath);
 
         $this->assertFileExists($this->zf2rapidProjectPath);
 

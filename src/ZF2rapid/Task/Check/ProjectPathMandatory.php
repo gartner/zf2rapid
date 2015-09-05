@@ -24,10 +24,10 @@ class ProjectPathMandatory extends AbstractTask
      */
     public function processCommandTask()
     {
-        // check if projectPath was set
-        if (!$this->params->projectPath) {
+        // check if workingPath was set
+        if (!$this->params->workingPath) {
             $this->console->writeFailLine(
-                'task_check_project_path_mandatory'
+                'task_check_working_path_mandatory'
             );
 
             return 1;

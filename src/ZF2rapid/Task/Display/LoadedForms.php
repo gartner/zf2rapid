@@ -30,7 +30,7 @@ class LoadedForms extends AbstractTask
             'task_display_loaded_forms_found_in_path',
             array(
                 $this->console->colorize(
-                    $this->params->projectPath, Color::GREEN
+                    $this->params->workingPath, Color::GREEN
                 )
             )
         );

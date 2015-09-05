@@ -1,11 +1,12 @@
 CONTRIBUTING
 ------------
 
-Contributions are welcome, you can send pull requests with changes :
+Contributions are welcome, you can send pull requests with changes:
 
-- Typo fix.
+- typo fixes
 - patch(es)
-- new feature(s).
+- new feature(s)
+- write unit tests
 
 Tests
 -----

@@ -77,7 +77,9 @@ When creating a new module you need to specify the `<module>`. Optionally, you
 can specify the `--workingPath=` of the Zend Framework 2 project to create the new
 module in. You will be asked in which application configuration file the new 
 module should be activated. If you want to prevent the activation of the module, 
-you can use the optional `--no-activation` flag. 
+you can use the optional `--no-activation` flag. When using the 
+`--without-project` no check for a valid ZF2 project is made and no module 
+activation is processed.
 
     $ zf2rapid create-module <module> [--workingPath=] [--without-project] [--no-activation]
 

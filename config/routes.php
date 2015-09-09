@@ -13,16 +13,18 @@ use ZF2rapid\Filter\NormalizeParam as NormalizeParamFilter;
 return array(
     array(
         'name'                 => 'activate-module',
-        'route'                => 'activate-module <module> [--workingPath=] [--without-project]',
+        'route'                => 'activate-module <module> [--workingPath=] [--configFile=] [--without-project]',
         'description'          => 'route_activate_module_description',
         'short_description'    => 'route_activate_module_short_description',
         'options_descriptions' => array(
             '<module>'          => 'route_activate_module_option_module',
             '--workingPath='    => 'route_param_working_path',
+            '--configFile='     => 'route_param_config_file',
             '--without-project' => 'route_param_without_project',
         ),
         'defaults'             => array(
             'workingPath' => '.',
+            'configFile'  => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
@@ -315,17 +317,19 @@ return array(
     ),
     array(
         'name'                 => 'create-module',
-        'route'                => 'create-module <module> [--workingPath=] [--without-project] [--no-activation]',
+        'route'                => 'create-module <module> [--workingPath=] [--configFile=] [--without-project] [--no-activation]',
         'description'          => 'route_create_module_description',
         'short_description'    => 'route_create_module_short_description',
         'options_descriptions' => array(
             '<module>'          => 'route_create_module_option_module',
             '--workingPath='    => 'route_param_working_path',
+            '--configFile='     => 'route_param_config_file',
             '--without-project' => 'route_param_without_project',
             '--no-activation'   => 'route_create_module_option_no_activation',
         ),
         'defaults'             => array(
             'workingPath'   => '.',
+            'configFile'    => false,
             'no-activation' => false,
         ),
         'filters'              => array(
@@ -455,16 +459,18 @@ return array(
     ),
     array(
         'name'                 => 'deactivate-module',
-        'route'                => 'deactivate-module <module> [--workingPath=] [--without-project]',
+        'route'                => 'deactivate-module <module> [--workingPath=] [--configFile=] [--without-project]',
         'description'          => 'route_deactivate_module_description',
         'short_description'    => 'route_deactivate_module_short_description',
         'options_descriptions' => array(
             '<module>'          => 'route_deactivate_module_option_module',
             '--workingPath='    => 'route_param_working_path',
+            '--configFile='     => 'route_param_config_file',
             '--without-project' => 'route_param_without_project',
         ),
         'defaults'             => array(
             'workingPath' => '.',
+            'configFile'  => false,
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
@@ -748,17 +754,19 @@ return array(
     ),
     array(
         'name'                 => 'delete-module',
-        'route'                => 'delete-module <module> [--workingPath=] [--without-project] [--no-deactivation]',
+        'route'                => 'delete-module <module> [--workingPath=] [--configFile=] [--without-project] [--no-deactivation]',
         'description'          => 'route_delete_module_description',
         'short_description'    => 'route_delete_module_short_description',
         'options_descriptions' => array(
             '<module>'          => 'route_delete_module_option_module',
             '--workingPath='    => 'route_param_working_path',
+            '--configFile='     => 'route_param_config_file',
             '--without-project' => 'route_param_without_project',
             '--no-deactivation' => 'route_delete_module_option_no_deactivation',
         ),
         'defaults'             => array(
             'workingPath'     => '.',
+            'configFile'      => false,
             'no-deactivation' => false,
         ),
         'filters'              => array(

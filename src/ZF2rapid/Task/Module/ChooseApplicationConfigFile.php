@@ -35,30 +35,35 @@ class ChooseApplicationConfigFile extends AbstractTask
             return 0;
         }
 
-        // set filter dirs
-        $filterDirs = array('..', '.', 'autoload');
+        // check for specified config file
+        if ($this->params->paramConfigFile) {
+            $this->params->configFile = $this->params->paramConfigFile;
+        } else {
+            // set filter dirs
+            $filterDirs = array('..', '.', 'autoload');
 
-        // get existing config files
-        $configFiles = array_values(
-            array_diff(scandir($this->params->projectConfigDir), $filterDirs)
-        );
+            // get existing config files
+            $configFiles = array_values(
+                array_diff(scandir($this->params->projectConfigDir), $filterDirs)
+            );
 
-        // set indention
-        $spaces = Console::INDENTION_PROMPT_OPTIONS;
+            // set indention
+            $spaces = Console::INDENTION_PROMPT_OPTIONS;
 
-        // add option keys
-        foreach ($configFiles as $key => $file) {
-            $configFiles[$spaces . chr(ord('a') + $key)] = $file;
-            unset($configFiles[$key]);
+            // add option keys
+            foreach ($configFiles as $key => $file) {
+                $configFiles[$spaces . chr(ord('a') + $key)] = $file;
+                unset($configFiles[$key]);
+            }
+
+            $chosenConfigFile = $this->console->writeSelectPrompt(
+                'task_module_choose_config_file_prompt',
+                $configFiles
+            );
+
+            // set skeleton application name
+            $this->params->configFile = $configFiles[$spaces . $chosenConfigFile];
         }
-
-        $chosenConfigFile = $this->console->writeSelectPrompt(
-            'task_module_choose_config_file_prompt',
-            $configFiles
-        );
-
-        // set skeleton application name
-        $this->params->configFile = $configFiles[$spaces . $chosenConfigFile];
 
         return 0;
     }

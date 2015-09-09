@@ -76,30 +76,35 @@ The following configuration keys can be changed for your current project:
 When creating a new module you need to specify the `<module>`. Optionally, you 
 can specify the `--workingPath=` of the Zend Framework 2 project to create the new
 module in. You will be asked in which application configuration file the new 
-module should be activated. If you want to prevent the activation of the module, 
-you can use the optional `--no-activation` flag. When using the 
+module should be activated. Alternatively, you can specify the `--configFile` 
+directly to activate the module in. If you want to prevent the activation of 
+the module, you can use the optional `--no-activation` flag. When using the 
 `--without-project` no check for a valid ZF2 project is made and no module 
 activation is processed.
 
-    $ zf2rapid create-module <module> [--workingPath=] [--without-project] [--no-activation]
+    $ zf2rapid create-module <module> [--workingPath=] [--configFile=] [--without-project] [--no-activation]
 
 You can activate a module manually for any application configuration file. You
 need to specify the `<module>` and optionally the `--workingPath=` of the Zend 
-Framework 2 project.
+Framework 2 project. Alternatively, you can specify the `--configFile` 
+directly to activate the module in.
  
-    $ zf2rapid activate-module <module> [--workingPath=] [--without-project]
+    $ zf2rapid activate-module <module> [--workingPath=] [--configFile=] [--without-project]
 
 You can deactivate a module manually in any application configuration file. You
 need to specify the `<module>` and optionally the `--workingPath=` of the Zend 
-Framework 2 project.
+Framework 2 project. Alternatively, you can specify the `--configFile` 
+directly to activate the module in.
  
-    $ zf2rapid deactivate-module <module> [--workingPath=] [--without-project]
+    $ zf2rapid deactivate-module <module> [--workingPath=] [--configFile=] [--without-project]
 
 You can delete a module `<module>`. Optionally, you can specify the `--workingPath=` of 
 the Zend Framework 2 project to delete the module from. If you want to prevent 
 the deactivation of the module, you can use the optional `--no-deactivation` flag. 
+Alternatively, you can specify the `--configFile` directly to activate the 
+module in.
  
-    $ zf2rapid delete-module <module> [--workingPath=] [--without-project] [--no-deactivation]
+    $ zf2rapid delete-module <module> [--workingPath=] [--configFile=] [--without-project] [--no-deactivation]
 
 You can display all modules of the current Zend Framework 2 project. Optionally, 
 you can specify the `--workingPath=` of the Zend Framework 2 project to display the 

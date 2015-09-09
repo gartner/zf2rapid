@@ -267,6 +267,10 @@ class Params extends AbstractTask
             );
         }
 
+        $this->params->paramConfigFile = $this->route->getMatchedParam(
+            'configFile'
+        );
+
         return 0;
     }
 

@@ -17,6 +17,7 @@ return array(
     'badge_pick'                                               => ' PICK ',
 
     'route_param_working_path'                                 => 'The path to work in; defaults to current working path',
+    'route_param_config_file'                                  => 'Specify the configuration file to activate or deactivate a module in; defaults to not bet set',
     'route_param_without_project'                              => 'Ignore if working path does not contain a ZF2 project; defaults to current working path',
 
     'route_activate_module_description'                        => 'Activate an existing module within the specified path',

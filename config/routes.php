@@ -339,12 +339,11 @@ return array(
     ),
     array(
         'name'                 => 'create-project',
-        'route'                => 'create-project [--workingPath=] [--without-project]',
+        'route'                => 'create-project [--workingPath=]',
         'description'          => 'route_create_project_description',
         'short_description'    => 'route_create_project_short_description',
         'options_descriptions' => array(
-            '--workingPath='    => 'route_param_working_path',
-            '--without-project' => 'route_param_without_project',
+            '--workingPath=' => 'route_param_working_path',
         ),
         'defaults'             => array(
             'workingPath' => false,

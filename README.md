@@ -68,7 +68,7 @@ details.
 
 ### Version 0.7.0
 
-* Write tests for ZF2rapid (wip)
+* Add simple CRUD commands with DB connection (todo)
 
 ### Version 0.8.0
 
@@ -76,7 +76,7 @@ details.
 
 ### Version 0.9.0
 
-* Add simple CRUD commands with DB connection (todo)
+* Write tests for ZF2rapid (wip)
 
 ### Version 1.0.0
 

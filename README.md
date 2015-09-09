@@ -68,7 +68,7 @@ details.
 
 ### Version 0.7.0
 
-* Add simple CRUD commands with DB connection (todo)
+* Add simple CRUD commands with DB connection (wip)
 
 ### Version 0.8.0
 

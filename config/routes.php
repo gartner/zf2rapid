@@ -457,6 +457,32 @@ return array(
         'handler'              => 'ZF2rapid\Command\Create\CreateViewHelperFactory',
     ),
     array(
+        'name'                 => 'crud-check-db',
+        'route'                => 'crud-check-db [--workingPath=]',
+        'description'          => 'route_crud_check_db_description',
+        'short_description'    => 'route_crud_check_db_short_description',
+        'options_descriptions' => array(
+            '--workingPath=' => 'route_param_working_path',
+        ),
+        'defaults'             => array(
+            'workingPath' => '.',
+        ),
+        'handler'              => 'ZF2rapid\Command\Crud\CheckDb',
+    ),
+    array(
+        'name'                 => 'crud-show-tables',
+        'route'                => 'crud-show-tables [--workingPath=]',
+        'description'          => 'route_crud_show_tables_description',
+        'short_description'    => 'route_crud_show_tables_short_description',
+        'options_descriptions' => array(
+            '--workingPath=' => 'route_param_working_path',
+        ),
+        'defaults'             => array(
+            'workingPath' => '.',
+        ),
+        'handler'              => 'ZF2rapid\Command\Crud\ShowTables',
+    ),
+    array(
         'name'                 => 'deactivate-module',
         'route'                => 'deactivate-module <module> [--workingPath=] [--configFile=] [--without-project]',
         'description'          => 'route_deactivate_module_description',

@@ -133,6 +133,12 @@ return array(
     'route_create_view_helper_factory_option_module'           => 'The name of the module to create the view helper factory in; mandatory',
     'route_create_view_helper_factory_option_view_helper'      => 'The name of the view helper to create the factory for; mandatory',
 
+    'route_crud_check_db_description'                          => 'Check if the current database connection is valid and the database can be accessed',
+    'route_crud_check_db_short_description'                    => 'Check the database connection',
+
+    'route_crud_show_tables_description'                       => 'Show all tables in the database for the current database connection',
+    'route_crud_show_tables_short_description'                 => 'Show tables in database',
+
     'route_deactivate_module_description'                      => 'Deactivate an existing module within the specified path',
     'route_deactivate_module_short_description'                => 'Deactivate existing module',
     'route_deactivate_module_option_module'                    => 'The name of the module to deactivate; mandatory',
@@ -332,6 +338,12 @@ return array(
     'command_create_view_helper_factory_start'                 => 'Creating factory for view helper...',
     'command_create_view_helper_factory_stop'                  => 'The factory for ZF2 view helper %1$s for module %2$s was successfully created.',
 
+    'command_crud_check_db_start'                              => 'Checking the database connection...',
+    'command_crud_check_db_stop'                               => 'The connection to the database was successful.',
+
+    'command_crud_show_tables_start'                           => 'Fetching tables for database connection...',
+    'command_crud_show_tables_stop'                            => 'The tables for the database connection were successfully displayed.',
+
     'command_deactivate_module_start'                          => 'Deactivating existing module...',
     'command_deactivate_module_stop'                           => 'The existing ZF2 module %1$s was successfully deactivated.',
 
@@ -424,6 +436,13 @@ return array(
     'task_create_structure_module_src_dir_not_created'         => 'The module src directory %1$s could not be created.',
     'task_create_structure_module_view_dir_not_created'        => 'The module view directory %1$s could not be created.',
     'task_create_structure_module_root_created'                => 'Module root %1$s was created.',
+
+    'task_crud_check_db_connection_no_config'                  => 'No database configuration found in this ZF2 project.',
+    'task_crud_check_db_connection_config_inconsistent'        => 'Database configuration seems to be inconsistent. Database adapter creation failed. Please check database configuration.',
+    'task_crud_check_db_connection_failed'                     => 'The connection to the database failed. Please check database configuration.',
+
+    'task_crud_show_tables_found'                              => 'The following tables were found in database %1$s',
+    'task_crud_show_tables_table_name'                         => 'Table %1$s',
 
     'task_delete_action_view_not_exists'                       => 'The action view script %1$s does not exists for module %2$s.',
     'task_delete_action_method_deleting'                       => 'Deleting action method from controller...',

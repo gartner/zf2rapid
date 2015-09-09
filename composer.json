@@ -8,6 +8,8 @@
     "ext-intl" : "*",
     "zfcampus/zf-console": "dev-master",
     "zendframework/zend-code": "~2.5",
+    "zendframework/zend-config": "~2.5",
+    "zendframework/zend-db": "~2.5",
     "zendframework/zend-filter": "~2.5",
     "zendframework/zend-i18n": "~2.5",
     "zendframework/zend-loader": "~2.5",

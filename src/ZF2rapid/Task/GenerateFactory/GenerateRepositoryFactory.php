@@ -10,53 +10,43 @@ namespace ZF2rapid\Task\GenerateFactory;
 
 use Zend\Console\ColorInterface as Color;
 use ZF2rapid\Generator\ClassFileGenerator;
-use ZF2rapid\Generator\FactoryGenerator;
+use ZF2rapid\Generator\RepositoryFactoryGenerator;
 use ZF2rapid\Task\AbstractTask;
 
 /**
- * Class GenerateControllerPluginFactory
+ * Class GenerateRepositoryFactory
  *
- * @package ZF2rapid\Task\ControllerPlugin
+ * @package ZF2rapid\Task\GenerateFactory
  */
-abstract class AbstractGenerateFactory extends AbstractTask
+class GenerateRepositoryFactory extends AbstractTask
 {
     /**
-     * Generate the factory
+     * Process the command
      *
-     * @param string $factoryDir
-     * @param string $factoryName
-     * @param string $factoryText
-     * @param string $namespaceName
-     * @param string $managerName
-     *
-     * @return bool
+     * @return integer
      */
-    protected function generateFactory(
-        $factoryDir, $factoryName, $factoryText, $namespaceName, $managerName
-    ) {
-        if (!$this->params->paramFactory) {
-            return true;
-        }
-
+    public function processCommandTask()
+    {
         // output message
         $this->console->writeTaskLine(
             'task_generate_factory_writing',
             array(
-                $factoryText
+                'repository'
             )
         );
 
         // set factory file
-        $factoryFile = $factoryDir . '/' . $factoryName . 'Factory.php';
+        $factoryFile = $this->params->repositoryDir . '/'
+            . $this->params->repositoryClassName . 'Factory.php';
 
         // check if factory file exists
         if (file_exists($factoryFile)) {
             $this->console->writeFailLine(
                 'task_generate_factory_exists',
                 array(
-                    $factoryText,
+                    'repository',
                     $this->console->colorize(
-                        $factoryName, Color::GREEN
+                        $this->params->repositoryClassName, Color::GREEN
                     ),
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
@@ -64,15 +54,15 @@ abstract class AbstractGenerateFactory extends AbstractTask
                 )
             );
 
-            return false;
+            return 1;
         }
 
         // create class
-        $class = new FactoryGenerator(
-            $factoryName,
+        $class = new RepositoryFactoryGenerator(
+            $this->params->repositoryClassName,
             $this->params->paramModule,
-            $namespaceName,
-            $managerName,
+            $this->params->config['namespaceRepository'],
+            $this->params->paramTableName,
             $this->params->config
         );
 
@@ -84,6 +74,6 @@ abstract class AbstractGenerateFactory extends AbstractTask
         // write file
         file_put_contents($factoryFile, $file->generate());
 
-        return true;
+        return 0;
     }
 }

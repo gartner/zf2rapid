@@ -139,6 +139,11 @@ return array(
     'route_crud_show_tables_description'                       => 'Show all tables in the database for the current database connection',
     'route_crud_show_tables_short_description'                 => 'Show tables in database',
 
+    'route_crud_create_model_description'                      => 'Create all model classes (entity, hydrator, table gateway, repository) for a database table',
+    'route_crud_create_model_short_description'                => 'Create model class for database table',
+    'route_crud_create_model_option_module'                    => 'The name of the module to create the model classes in; mandatory',
+    'route_crud_create_model_option_table'                     => 'The name of the database table to create the model classes for; mandatory',
+
     'route_deactivate_module_description'                      => 'Deactivate an existing module within the specified path',
     'route_deactivate_module_short_description'                => 'Deactivate existing module',
     'route_deactivate_module_option_module'                    => 'The name of the module to deactivate; mandatory',
@@ -344,6 +349,9 @@ return array(
     'command_crud_show_tables_start'                           => 'Fetching tables for database connection...',
     'command_crud_show_tables_stop'                            => 'The tables for the database connection were successfully displayed.',
 
+    'command_crud_create_model_start'                          => 'Creating model classes for database table ...',
+    'command_crud_create_model_stop'                           => 'The model classes for the database table were successfully created.',
+
     'command_deactivate_module_start'                          => 'Deactivating existing module...',
     'command_deactivate_module_stop'                           => 'The existing ZF2 module %1$s was successfully deactivated.',
 
@@ -444,6 +452,9 @@ return array(
     'task_crud_show_tables_found'                              => 'The following tables were found in database %1$s',
     'task_crud_show_tables_table_name'                         => 'Table %1$s',
 
+    'task_crud_check_table_name'                               => 'Checking if table %1$s exists...',
+    'task_crud_check_table_not_exists'                         => 'Database table %1$s does not exist in database %2$s.',
+
     'task_delete_action_view_not_exists'                       => 'The action view script %1$s does not exists for module %2$s.',
     'task_delete_action_method_deleting'                       => 'Deleting action method from controller...',
     'task_delete_action_method_not_exists'                     => 'The action %1$s does not exist in controller %2$s of module %3$s.',
@@ -521,6 +532,8 @@ return array(
 
     'task_generate_class_writing'                              => 'Writing %1$s class file...',
     'task_generate_class_exists'                               => 'The %1$s %2$s already exists for module %3$s.',
+
+    'task_generate_class_create_entity'                        => 'Writing entity class %1$s file...',
 
     'task_generate_factory_writing'                            => 'Writing %1$s factory file...',
     'task_generate_factory_exists'                             => 'The factory for %1$s %2$s already exists for module %3$s.',

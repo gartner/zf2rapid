@@ -22,11 +22,6 @@ use Zend\Code\Generator\GeneratorInterface;
 interface ClassGeneratorInterface extends GeneratorInterface
 {
     /**
-     * @param array $config
-     */
-    public function __construct(array $config = array());
-
-    /**
      * Build the class
      *
      * @param string $className

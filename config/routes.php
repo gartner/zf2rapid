@@ -470,6 +470,24 @@ return array(
         'handler'              => 'ZF2rapid\Command\Crud\CheckDb',
     ),
     array(
+        'name'                 => 'crud-create-model',
+        'route'                => 'crud-create-model <module> <tableName> [--workingPath=]',
+        'description'          => 'route_crud_create_model_description',
+        'short_description'    => 'route_crud_create_model_short_description',
+        'options_descriptions' => array(
+            '<module>'       => 'route_crud_create_model_option_module',
+            '<tableName>'    => 'route_crud_create_model_option_table',
+            '--workingPath=' => 'route_param_working_path',
+        ),
+        'defaults'             => array(
+            'workingPath' => '.',
+        ),
+        'filters'              => array(
+            'module' => new NormalizeParamFilter(),
+        ),
+        'handler'              => 'ZF2rapid\Command\Crud\CreateModel',
+    ),
+    array(
         'name'                 => 'crud-show-tables',
         'route'                => 'crud-show-tables [--workingPath=]',
         'description'          => 'route_crud_show_tables_description',

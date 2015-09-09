@@ -8,14 +8,14 @@
  */
 namespace ZF2rapid\Task\GenerateClass;
 
-use ZF2rapid\Generator\HydratorClassGenerator;
+use ZF2rapid\Generator\TableGatewayClassGenerator;
 
 /**
- * Class GenerateHydratorClass
+ * Class GenerateTableGatewayClass
  *
  * @package ZF2rapid\Task\GenerateClass
  */
-class GenerateHydratorClass extends AbstractGenerateClass
+class GenerateTableGatewayClass extends AbstractGenerateClass
 {
     /**
      * Process the command
@@ -24,22 +24,16 @@ class GenerateHydratorClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        if (isset($this->params->hydratorClassName)) {
-            $hydrator = $this->params->hydratorClassName;
-        } else {
-            $hydrator = $this->params->paramHydrator;
-        }
-
         $result = $this->generateClass(
-            $this->params->hydratorDir,
-            $hydrator,
-            'hydrator',
-            new HydratorClassGenerator(
-                $this->params->config,
-                $this->params->paramBaseHydrator
+            $this->params->tableGatewayDir,
+            $this->params->tableGatewayClassName,
+            'table gateway',
+            new TableGatewayClassGenerator(
+                $this->params->config, $this->params->currentTableObject
             )
         );
 
         return $result == true ? 0 : 1;
     }
+
 }

@@ -17,6 +17,7 @@ In this Command-Guide all ZF2rapid commands and their arguments ar explained.
  * [Input filters](#input-filters)
  * [Forms](#forms)
  * [Hydrators](#hydrators)
+ * [CRUD](#crud)
 
 ## Help
 
@@ -70,6 +71,9 @@ The following configuration keys can be changed for your current project:
 | namespaceInputFilter      | namespace for all input filter classes within a module      | 
 | namespaceForm             | namespace for all form classes within a module              | 
 | namespaceHydrator         | namespace for all hydrator classes within a module          |
+| namespaceEntity           | namespace for all entity classes within a module            |
+| namespaceTableGateway     | namespace for all table gateway classes within a module     |
+| namespaceRepository       | namespace for all repository classes within a module        |
 
 ## Modules
 
@@ -444,3 +448,10 @@ modules to show the hydrators for.
 
     $ zf2rapid show-hydrators [--workingPath=] [--without-project] [--modules=]
 
+## CRUD
+
+The CRUD commands can generate model and controller classes and view scripts for
+a simplified admin center to Create, Read, Update and Delete datasets for a 
+database table.
+
+to be continued... 

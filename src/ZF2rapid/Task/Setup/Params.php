@@ -271,6 +271,65 @@ class Params extends AbstractTask
             'configFile'
         );
 
+        if ($this->route->getMatchedParam('tableName')) {
+            $this->params->paramTableName = $this->route->getMatchedParam(
+                'tableName'
+            );
+
+            $this->params->entityClassName = $this->filterUnderscoreToCamelCase(
+                    $this->params->paramTableName
+                ) . 'Entity';
+
+            $this->params->entityDir = $this->params->moduleSrcDir
+                . DIRECTORY_SEPARATOR
+                . str_replace(
+                    '\\',
+                    DIRECTORY_SEPARATOR,
+                    $this->params->config['namespaceEntity']
+                );
+
+            $this->params->hydratorClassName
+                = $this->filterUnderscoreToCamelCase(
+                    $this->params->paramTableName
+                ) . 'Hydrator';
+
+            $this->params->paramBaseHydrator = 'ArraySerializable';
+
+            $this->params->hydratorDir = $this->params->moduleSrcDir
+                . DIRECTORY_SEPARATOR
+                . str_replace(
+                    '\\',
+                    DIRECTORY_SEPARATOR,
+                    $this->params->config['namespaceHydrator']
+                );
+
+            $this->params->tableGatewayClassName
+                = $this->filterUnderscoreToCamelCase(
+                    $this->params->paramTableName
+                ) . 'TableGateway';
+
+            $this->params->tableGatewayDir = $this->params->moduleSrcDir
+                . DIRECTORY_SEPARATOR
+                . str_replace(
+                    '\\',
+                    DIRECTORY_SEPARATOR,
+                    $this->params->config['namespaceTableGateway']
+                );
+
+            $this->params->repositoryClassName
+                = $this->filterUnderscoreToCamelCase(
+                    $this->params->paramTableName
+                ) . 'Repository';
+
+            $this->params->repositoryDir = $this->params->moduleSrcDir
+                . DIRECTORY_SEPARATOR
+                . str_replace(
+                    '\\',
+                    DIRECTORY_SEPARATOR,
+                    $this->params->config['namespaceRepository']
+                );
+        }
+
         return 0;
     }
 

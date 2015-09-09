@@ -40,6 +40,9 @@ class ConfigFile extends AbstractTask
             'namespaceInputFilter'      => 'InputFilter',
             'namespaceForm'             => 'Form',
             'namespaceHydrator'         => 'Hydrator',
+            'namespaceEntity'           => 'Entity',
+            'namespaceTableGateway'     => 'TableGateway',
+            'namespaceRepository'       => 'Repository',
         );
 
     /**
@@ -67,6 +70,26 @@ class ConfigFile extends AbstractTask
             $this->params->config = json_decode(
                 file_get_contents($configFile), true
             );
+
+            // check if new config keys were added
+            if (array_keys($this->params->config) != array_keys(
+                    $this->configFileDefaults
+                )
+            ) {
+                // merge config
+                $this->params->config = array_merge(
+                    $this->configFileDefaults, $this->params->config
+                );
+
+                // write merged config data to file
+                file_put_contents(
+                    $configFile,
+                    json_encode(
+                        $this->params->config,
+                        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+                    )
+                );
+            }
 
             return 0;
         }

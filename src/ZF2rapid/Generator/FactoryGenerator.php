@@ -30,18 +30,25 @@ class FactoryGenerator extends ClassGenerator
     protected $config = array();
 
     /**
+     * @var array
+     */
+    protected $hydratorStrategies;
+
+    /**
      * @param string $className
      * @param string $moduleName
      * @param string $namespaceName
      * @param string $managerName
      * @param array  $config
+     * @param array  $currentHydratorStrategies
      */
     public function __construct(
         $className, $moduleName, $namespaceName, $managerName,
-        array $config = array()
+        array $config = array(), array $currentHydratorStrategies = array()
     ) {
         // set config data
-        $this->config = $config;
+        $this->config             = $config;
+        $this->hydratorStrategies = $currentHydratorStrategies;
 
         // call parent constructor
         parent::__construct(
@@ -56,7 +63,7 @@ class FactoryGenerator extends ClassGenerator
         $this->setImplementedInterfaces(array('FactoryInterface'));
 
         // add methods
-        $this->addCreateServiceMethod($className, $managerName);
+        $this->addCreateServiceMethod($className, $moduleName, $managerName);
         $this->addClassDocBlock($className);
     }
 
@@ -85,20 +92,30 @@ class FactoryGenerator extends ClassGenerator
      * Generate the create service method
      *
      * @param string $className
+     * @param string $moduleName
      * @param string $managerName
      */
-    protected function addCreateServiceMethod($className, $managerName)
+    protected function addCreateServiceMethod($className, $moduleName, $managerName)
     {
         // set action body
-        $body = array(
-            '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */',
-            '$serviceLocator = $' . $managerName . '->getServiceLocator();',
-            '',
-            '$instance = new ' . $className . '();',
-            '',
-            'return $instance;',
-        );
+        $body = array();
+        $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
+        $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
+        $body[] = '';
+        $body[] = '$instance = new ' . $className . '();';
+
+        foreach ($this->hydratorStrategies as $table => $strategyClass) {
+            $body[] = '$instance->addStrategy(\'' . $table . '\', new ' . $strategyClass . '());';
+        }
+
+        $body[] = '';
+        $body[] = 'return $instance;';
+
         $body = implode(AbstractGenerator::LINE_FEED, $body);
+
+        foreach ($this->hydratorStrategies as $table => $strategyClass) {
+            $this->addUse($moduleName . '\\' . $this->config['namespaceHydrator'] . '\\Strategy\\' . $strategyClass);
+        }
 
         // create method
         $method = new MethodGenerator();

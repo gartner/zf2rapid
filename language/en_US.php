@@ -535,6 +535,8 @@ return array(
 
     'task_generate_class_create_entity'                        => 'Writing entity class %1$s file...',
 
+    'task_generate_strategy_writing'                           => 'Writing %1$s strategy file...',
+
     'task_generate_factory_writing'                            => 'Writing %1$s factory file...',
     'task_generate_factory_exists'                             => 'The factory for %1$s %2$s already exists for module %3$s.',
 

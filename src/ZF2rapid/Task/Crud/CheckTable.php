@@ -12,6 +12,7 @@ use Exception;
 use Zend\Console\ColorInterface as Color;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Metadata\Metadata;
+use Zend\Db\Metadata\Object\TableObject;
 use ZF2rapid\Task\AbstractTask;
 
 /**
@@ -66,7 +67,14 @@ class CheckTable extends AbstractTask
             return 1;
         }
 
-        $this->params->currentTableObject = $table;
+        $tableObjects = array();
+
+        /** @var TableObject $tableObject */
+        foreach ($metaData->getTables() as $tableObject) {
+            $tableObjects[$tableObject->getName()] = $tableObject;
+        }
+
+        $this->params->currentTableObjects = $tableObjects;
 
         return 0;
     }

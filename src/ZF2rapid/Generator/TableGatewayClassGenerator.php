@@ -8,9 +8,14 @@
  */
 namespace ZF2rapid\Generator;
 
+use Zend\Code\Generator\AbstractGenerator;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlock\Tag\GenericTag;
 use Zend\Code\Generator\DocBlockGenerator;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Generator\ParameterGenerator;
+use Zend\Db\Metadata\Object\ColumnObject;
+use Zend\Db\Metadata\Object\ConstraintObject;
 use Zend\Db\Metadata\Object\TableObject;
 
 /**
@@ -27,20 +32,27 @@ class TableGatewayClassGenerator extends ClassGenerator
     protected $config = array();
 
     /**
-     * @var
+     * @var string
      */
-    protected $tableObject;
+    protected $tableName;
 
     /**
-     * @param array       $config
-     * @param TableObject $tableObject
+     * @var array
+     */
+    protected $tableObjects;
+
+    /**
+     * @param array  $config
+     * @param string $tableName
+     * @param array  $tableObjects
      */
     public function __construct(
-        array $config = array(), TableObject $tableObject
+        array $config = array(), $tableName, array $tableObjects = array()
     ) {
         // set config data
-        $this->config      = $config;
-        $this->tableObject = $tableObject;
+        $this->config       = $config;
+        $this->tableName    = $tableName;
+        $this->tableObjects = $tableObjects;
 
         // call parent constructor
         parent::__construct();
@@ -64,6 +76,9 @@ class TableGatewayClassGenerator extends ClassGenerator
         $this->addUse('ZF2rapidDomain\TableGateway\AbstractTableGateway');
         $this->setExtendedClass('AbstractTableGateway');
         $this->addClassDocBlock($className, $moduleName);
+
+        // add selectWith() method if needed
+        $this->addSelectWithMethod();
     }
 
     /**
@@ -87,5 +102,95 @@ class TableGatewayClassGenerator extends ClassGenerator
                 )
             );
         }
+    }
+
+    /**
+     * Add a selectWith() method if table has an external dependency
+     *
+     * @return MethodGenerator
+     */
+    protected function addSelectWithMethod()
+    {
+        /** @var TableObject $currentTable */
+        $currentTable = $this->tableObjects[$this->tableName];
+
+        $foreignKeys = array();
+
+        /** @var $tableConstraint ConstraintObject */
+        foreach ($currentTable->getConstraints() as $tableConstraint) {
+            if (!$tableConstraint->isForeignKey()) {
+                continue;
+            }
+
+            $foreignKeys[] = $tableConstraint;
+        }
+
+        if (empty($foreignKeys)) {
+            return true;
+        }
+
+        $body = array();
+
+        /** @var ConstraintObject $foreignKey */
+        foreach ($foreignKeys as $foreignKey) {
+            $refTableName = $foreignKey->getReferencedTableName();
+
+            /** @var TableObject $refTableObject */
+            $refTableObject = $this->tableObjects[$refTableName];
+
+            $body[] = '$select->join(';
+            $body[] = '    \'' . $refTableName . '\',';
+            $body[] = '    \'' . $this->tableName . '.'
+                . $foreignKey->getColumns()[0] . ' = ' . $refTableName . '.'
+                . $foreignKey->getReferencedColumns()[0] . '\',';
+            $body[] = '    array(';
+
+            
+            /** @var ColumnObject $column */
+            foreach ($refTableObject->getColumns() as $column) {
+                $body[] = '        \'' . $refTableName . '.' . $column->getName(
+                    ) . '\' => \'' . $column->getName() . '\',';
+            }
+
+            $body[] = '    )';
+            $body[] = ');';
+            $body[] = '';
+        }
+
+        $body[] = 'return parent::selectWith($select);';
+
+        $body = implode(AbstractGenerator::LINE_FEED, $body);
+
+        $this->addUse('Zend\Db\ResultSet\ResultSetInterface');
+        $this->addUse('Zend\Db\Sql\Select');
+
+        $selectMethod = new MethodGenerator('selectWith');
+        $selectMethod->addFlag(MethodGenerator::FLAG_PUBLIC);
+        $selectMethod->setParameter(
+            new ParameterGenerator('select', 'Select')
+        );
+        $selectMethod->setDocBlock(
+            new DocBlockGenerator(
+                'Add join tables',
+                null,
+                array(
+                    array(
+                        'name'        => 'param',
+                        'description' => 'Select $select',
+                    ),
+                    array(
+                        'name'        => 'return',
+                        'description' => 'ResultSetInterface',
+                    ),
+                )
+            )
+        );
+
+
+        $selectMethod->setBody($body);
+
+        $this->addMethodFromGenerator($selectMethod);
+
+        return true;
     }
 }

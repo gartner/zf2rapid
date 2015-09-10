@@ -24,13 +24,14 @@ class GenerateEntityClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
+        $currentTable
+            = $this->params->currentTableObjects[$this->params->paramTableName];
+
         $result = $this->generateClass(
             $this->params->entityDir,
             $this->params->entityClassName,
             'entity',
-            new EntityClassGenerator(
-                $this->params->config, $this->params->currentTableObject
-            )
+            new EntityClassGenerator($this->params->config, $currentTable)
         );
 
         return $result == true ? 0 : 1;

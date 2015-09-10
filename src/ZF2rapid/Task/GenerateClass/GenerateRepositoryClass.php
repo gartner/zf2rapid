@@ -24,13 +24,14 @@ class GenerateRepositoryClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
+        $currentTable
+            = $this->params->currentTableObjects[$this->params->paramTableName];
+
         $result = $this->generateClass(
             $this->params->repositoryDir,
             $this->params->repositoryClassName,
             'repository',
-            new RepositoryClassGenerator(
-                $this->params->config, $this->params->currentTableObject
-            )
+            new RepositoryClassGenerator($this->params->config, $currentTable)
         );
 
         return $result == true ? 0 : 1;

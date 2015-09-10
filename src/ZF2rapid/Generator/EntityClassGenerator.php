@@ -125,23 +125,40 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function fetchTableColumns()
     {
+        $foreignKeys = array();
+
+        /** @var ConstraintObject $tableConstraint */
+        foreach ($this->tableObject->getConstraints() as $tableConstraint) {
+            if (!$tableConstraint->isForeignKey()) {
+                continue;
+            }
+
+            $foreignKeys[$tableConstraint->getColumns()[0]]
+                = $tableConstraint->getReferencedTableName();
+        }
+
         $columns = array();
 
         /** @var $tableColumn ColumnObject */
         foreach ($this->tableObject->getColumns() as $tableColumn) {
-            switch ($tableColumn->getDataType()) {
-                case 'varchar':
-                case 'char':
-                case 'text':
-                case 'enum':
-                case 'set':
-                case 'datetime':
-                case 'timestamp':
-                    $type = 'string';
-                    break;
+            if (isset($foreignKeys[$tableColumn->getName()])) {
+                $type = ucfirst($foreignKeys[$tableColumn->getName()])
+                    . 'Entity';
+            } else {
+                switch ($tableColumn->getDataType()) {
+                    case 'varchar':
+                    case 'char':
+                    case 'text':
+                    case 'enum':
+                    case 'set':
+                    case 'datetime':
+                    case 'timestamp':
+                        $type = 'string';
+                        break;
 
-                default:
-                    $type = 'integer';
+                    default:
+                        $type = 'integer';
+                }
             }
 
             $name = lcfirst(
@@ -165,7 +182,7 @@ class EntityClassGenerator extends ClassGenerator
 
         /** @var $tableConstraint ConstraintObject */
         foreach ($this->tableObject->getConstraints() as $tableConstraint) {
-            if ($tableConstraint->getType() != 'PRIMARY KEY') {
+            if (!$tableConstraint->isPrimaryKey()) {
                 continue;
             }
 
@@ -183,8 +200,9 @@ class EntityClassGenerator extends ClassGenerator
      *
      * @return MethodGenerator
      */
-    protected function generateIdentifierMethod(array $primaryColumns, array $tableColumns)
-    {
+    protected function generateIdentifierMethod(
+        array $primaryColumns, array $tableColumns
+    ) {
         if (count($primaryColumns) == 1) {
             $columnType = $tableColumns[$primaryColumns[0]];
 
@@ -241,7 +259,7 @@ class EntityClassGenerator extends ClassGenerator
     protected function generateProperty($columnName, $columnType)
     {
         $property = new PropertyGenerator($columnName);
-        $property->addFlag(PropertyGenerator::FLAG_PRIVATE);
+        $property->addFlag(PropertyGenerator::FLAG_PROTECTED);
         $property->setDocBlock(
             new DocBlockGenerator(
                 $columnName . ' property',
@@ -266,13 +284,22 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function generateSetMethod($columnName, $columnType)
     {
+        if (in_array($columnType, array('string', 'integer'))) {
+            $body = '$this->' . $columnName . ' = (' . $columnType . ') $'
+                . $columnName . ';';
+
+            $parameter = new ParameterGenerator($columnName);
+        } else {
+            $body = '$this->' . $columnName . ' = $' . $columnName . ';';
+
+            $parameter = new ParameterGenerator($columnName, $columnType);
+        }
+
         $setMethodName = 'set' . ucfirst($columnName);
 
         $setMethod = new MethodGenerator($setMethodName);
         $setMethod->addFlag(MethodGenerator::FLAG_PROTECTED);
-        $setMethod->setParameter(
-            new ParameterGenerator($columnName)
-        );
+        $setMethod->setParameter($parameter);
         $setMethod->setDocBlock(
             new DocBlockGenerator(
                 'Set ' . $columnName,
@@ -285,10 +312,8 @@ class EntityClassGenerator extends ClassGenerator
                 )
             )
         );
-        $setMethod->setBody(
-            '$this->' . $columnName . ' = (' . $columnType . ') $' . $columnName
-            . ';'
-        );
+
+        $setMethod->setBody($body);
 
         return $setMethod;
     }

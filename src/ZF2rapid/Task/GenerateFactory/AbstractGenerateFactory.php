@@ -73,7 +73,8 @@ abstract class AbstractGenerateFactory extends AbstractTask
             $this->params->paramModule,
             $namespaceName,
             $managerName,
-            $this->params->config
+            $this->params->config,
+            $this->params->currentHydratorStrategies
         );
 
         // create file

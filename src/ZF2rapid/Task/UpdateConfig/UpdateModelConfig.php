@@ -27,7 +27,7 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
             'Writing model configuration...'
         );
 
-        $this->params->paramFactory = false;
+        $this->params->paramFactory = true;
 
         $configKey = $this->params->paramModule . '\Db\\'
             . $this->filterUnderscoreToCamelCase($this->params->paramTableName);
@@ -42,8 +42,6 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
         if (!$result) {
             return 1;
         }
-
-        $this->params->paramFactory = true;
 
         $configKey = $this->params->paramModule . '\Model\TableGateway\\'
             . $this->filterUnderscoreToCamelCase($this->params->paramTableName);

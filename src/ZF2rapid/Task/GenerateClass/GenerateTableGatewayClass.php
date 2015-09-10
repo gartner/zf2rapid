@@ -29,7 +29,9 @@ class GenerateTableGatewayClass extends AbstractGenerateClass
             $this->params->tableGatewayClassName,
             'table gateway',
             new TableGatewayClassGenerator(
-                $this->params->config, $this->params->currentTableObject
+                $this->params->config,
+                $this->params->paramTableName,
+                $this->params->currentTableObjects
             )
         );
 

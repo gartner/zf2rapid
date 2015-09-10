@@ -303,6 +303,9 @@ class Params extends AbstractTask
                     $this->params->config['namespaceHydrator']
                 );
 
+            $this->params->hydratorStrategyDir = $this->params->hydratorDir
+                . DIRECTORY_SEPARATOR . 'Strategy';
+
             $this->params->tableGatewayClassName
                 = $this->filterUnderscoreToCamelCase(
                     $this->params->paramTableName

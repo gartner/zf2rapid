@@ -39,6 +39,14 @@ class CreateModelStructure extends AbstractCreateStructureTask
         }
 
         $result = $this->createDirectory(
+            $this->params->hydratorStrategyDir, 'Hydrator Strategy'
+        );
+
+        if (!$result) {
+            return 1;
+        }
+
+        $result = $this->createDirectory(
             $this->params->tableGatewayDir, 'TableGateway'
         );
 

@@ -41,7 +41,7 @@ class HydratorStrategyGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $tableObjects;
+    protected $loadedTables;
 
     /**
      * @var string
@@ -57,8 +57,8 @@ class HydratorStrategyGenerator extends ClassGenerator
         // set config data
         $this->config       = $params->config;
         $this->refTableName = $refTableName;
-        $this->tableObjects = $params->currentTableObjects;
-        $this->entityClass  = ucfirst($refTableName) . 'Entity';
+        $this->loadedTables = $params->loadedTables;
+        $this->entityClass  = $params->tableConfig[$refTableName]['entityClass'];
 
         // call parent constructor
         parent::__construct();
@@ -165,8 +165,7 @@ class HydratorStrategyGenerator extends ClassGenerator
      */
     protected function addHydrateMethod()
     {
-        /** @var TableObject $refTableObject */
-        $refTableObject = $this->tableObjects[$this->refTableName];
+        $refTableData = $this->loadedTables[$this->refTableName];
 
         // set action body
         $body   = array();
@@ -176,7 +175,7 @@ class HydratorStrategyGenerator extends ClassGenerator
         $body[] = '    array(';
 
         /** @var ColumnObject $column */
-        foreach ($refTableObject->getColumns() as $column) {
+        foreach ($refTableData['columns'] as $column) {
             $body[] = '        \'' . $column->getName() . '\' => $data[\''
                 . $this->refTableName . '.' . $column->getName() . '\'],';
         }

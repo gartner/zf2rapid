@@ -271,27 +271,33 @@ class Params extends AbstractTask
             'configFile'
         );
 
-        if ($this->route->getMatchedParam('tableName')) {
-            $this->params->paramTableName = $this->route->getMatchedParam(
-                'tableName'
+        if ($this->route->getMatchedParam('tables')) {
+            $this->params->paramTableList = $this->route->getMatchedParam(
+                'tables'
             );
 
-            $this->params->entityClassName = $this->filterUnderscoreToCamelCase(
-                    $this->params->paramTableName
-                ) . 'Entity';
+            $this->params->tableConfig = array();
+
+            foreach ($this->params->paramTableList as $tableName) {
+                $tableClass = $this->filterUnderscoreToCamelCase($tableName);
+
+                $config = array();
+
+                $config['tableClass'] = $tableClass;
+
+                $config['entityClass']       = $tableClass . 'Entity';
+                $config['hydratorClass']     = $tableClass . 'Hydrator';
+                $config['tableGatewayClass'] = $tableClass . 'TableGateway';
+                $config['repositoryClass']   = $tableClass . 'Repository';
+
+                $this->params->tableConfig[$tableName] = $config;
+            }
 
             $this->params->entityDir = $this->params->moduleSrcDir
-                . DIRECTORY_SEPARATOR
-                . str_replace(
-                    '\\',
-                    DIRECTORY_SEPARATOR,
+                . DIRECTORY_SEPARATOR . str_replace(
+                    '\\', DIRECTORY_SEPARATOR,
                     $this->params->config['namespaceEntity']
                 );
-
-            $this->params->hydratorClassName
-                = $this->filterUnderscoreToCamelCase(
-                    $this->params->paramTableName
-                ) . 'Hydrator';
 
             $this->params->paramBaseHydrator = 'ArraySerializable';
 
@@ -306,11 +312,6 @@ class Params extends AbstractTask
             $this->params->hydratorStrategyDir = $this->params->hydratorDir
                 . DIRECTORY_SEPARATOR . 'Strategy';
 
-            $this->params->tableGatewayClassName
-                = $this->filterUnderscoreToCamelCase(
-                    $this->params->paramTableName
-                ) . 'TableGateway';
-
             $this->params->tableGatewayDir = $this->params->moduleSrcDir
                 . DIRECTORY_SEPARATOR
                 . str_replace(
@@ -318,11 +319,6 @@ class Params extends AbstractTask
                     DIRECTORY_SEPARATOR,
                     $this->params->config['namespaceTableGateway']
                 );
-
-            $this->params->repositoryClassName
-                = $this->filterUnderscoreToCamelCase(
-                    $this->params->paramTableName
-                ) . 'Repository';
 
             $this->params->repositoryDir = $this->params->moduleSrcDir
                 . DIRECTORY_SEPARATOR
@@ -332,6 +328,8 @@ class Params extends AbstractTask
                     $this->params->config['namespaceRepository']
                 );
         }
+
+        $this->params->currentHydratorStrategies = array();
 
         return 0;
     }

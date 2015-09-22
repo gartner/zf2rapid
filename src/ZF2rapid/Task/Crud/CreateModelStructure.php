@@ -6,7 +6,9 @@
  * @copyright Copyright (c) 2014 - 2015 Ralf Eggert
  * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
  */
-namespace ZF2rapid\Task\CreateStructure;
+namespace ZF2rapid\Task\Crud;
+
+use ZF2rapid\Task\CreateStructure\AbstractCreateStructureTask;
 
 /**
  * Class CreateModelStructure

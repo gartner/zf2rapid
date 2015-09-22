@@ -142,7 +142,7 @@ return array(
     'route_crud_create_model_description'                      => 'Create all model classes (entity, hydrator, table gateway, repository) for a database table',
     'route_crud_create_model_short_description'                => 'Create model class for database table',
     'route_crud_create_model_option_module'                    => 'The name of the module to create the model classes in; mandatory',
-    'route_crud_create_model_option_table'                     => 'The name of the database table to create the model classes for; mandatory',
+    'route_crud_create_model_option_tables'                    => 'The names of the database tables to create the model classes for; mandatory',
 
     'route_deactivate_module_description'                      => 'Deactivate an existing module within the specified path',
     'route_deactivate_module_short_description'                => 'Deactivate existing module',
@@ -452,8 +452,11 @@ return array(
     'task_crud_show_tables_found'                              => 'The following tables were found in database %1$s',
     'task_crud_show_tables_table_name'                         => 'Table %1$s',
 
-    'task_crud_check_table_name'                               => 'Checking if table %1$s exists...',
-    'task_crud_check_table_not_exists'                         => 'Database table %1$s does not exist in database %2$s.',
+    'task_crud_load_tables_name'                               => 'Loading tables %1$s from database...',
+    'task_crud_load_tables_not_exists_one'                     => 'Database table %1$s does not exist in database %2$s.',
+    'task_crud_load_tables_not_exists_more'                    => 'Database tables %1$s do not exist in database %2$s.',
+    'task_crud_load_tables_needed_one'                         => 'Due to a foreign key constraint you need to process table %1$s from database %2$s as well.',
+    'task_crud_load_tables_needed_more'                        => 'Due to a foreign key constraint you need to process tables %1$s from database %2$s as well.',
 
     'task_delete_action_view_not_exists'                       => 'The action view script %1$s does not exists for module %2$s.',
     'task_delete_action_method_deleting'                       => 'Deleting action method from controller...',

@@ -39,20 +39,20 @@ class TableGatewayClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $tableObjects;
+    protected $loadedTables;
 
     /**
      * @param array  $config
      * @param string $tableName
-     * @param array  $tableObjects
+     * @param array  $loadedTables
      */
     public function __construct(
-        array $config = array(), $tableName, array $tableObjects = array()
+        array $config = array(), $tableName, array $loadedTables = array()
     ) {
         // set config data
         $this->config       = $config;
         $this->tableName    = $tableName;
-        $this->tableObjects = $tableObjects;
+        $this->loadedTables = $loadedTables;
 
         // call parent constructor
         parent::__construct();
@@ -111,19 +111,7 @@ class TableGatewayClassGenerator extends ClassGenerator
      */
     protected function addSelectWithMethod()
     {
-        /** @var TableObject $currentTable */
-        $currentTable = $this->tableObjects[$this->tableName];
-
-        $foreignKeys = array();
-
-        /** @var $tableConstraint ConstraintObject */
-        foreach ($currentTable->getConstraints() as $tableConstraint) {
-            if (!$tableConstraint->isForeignKey()) {
-                continue;
-            }
-
-            $foreignKeys[] = $tableConstraint;
-        }
+        $foreignKeys = $this->loadedTables[$this->tableName]['foreignKeys'];
 
         if (empty($foreignKeys)) {
             return true;
@@ -135,8 +123,7 @@ class TableGatewayClassGenerator extends ClassGenerator
         foreach ($foreignKeys as $foreignKey) {
             $refTableName = $foreignKey->getReferencedTableName();
 
-            /** @var TableObject $refTableObject */
-            $refTableObject = $this->tableObjects[$refTableName];
+            $refTableColumns = $this->loadedTables[$refTableName]['columns'];
 
             $body[] = '$select->join(';
             $body[] = '    \'' . $refTableName . '\',';
@@ -147,7 +134,7 @@ class TableGatewayClassGenerator extends ClassGenerator
 
             
             /** @var ColumnObject $column */
-            foreach ($refTableObject->getColumns() as $column) {
+            foreach ($refTableColumns as $column) {
                 $body[] = '        \'' . $refTableName . '.' . $column->getName(
                     ) . '\' => \'' . $column->getName() . '\',';
             }

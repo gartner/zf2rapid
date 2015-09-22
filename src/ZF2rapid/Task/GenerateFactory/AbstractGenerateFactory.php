@@ -28,11 +28,13 @@ abstract class AbstractGenerateFactory extends AbstractTask
      * @param string $factoryText
      * @param string $namespaceName
      * @param string $managerName
+     * @param array  $hydratorStrategies
      *
      * @return bool
      */
     protected function generateFactory(
-        $factoryDir, $factoryName, $factoryText, $namespaceName, $managerName
+        $factoryDir, $factoryName, $factoryText, $namespaceName, $managerName,
+        array $hydratorStrategies = array()
     ) {
         if (!$this->params->paramFactory) {
             return true;
@@ -74,7 +76,7 @@ abstract class AbstractGenerateFactory extends AbstractTask
             $namespaceName,
             $managerName,
             $this->params->config,
-            $this->params->currentHydratorStrategies
+            $hydratorStrategies
         );
 
         // create file

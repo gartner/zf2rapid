@@ -6,9 +6,10 @@
  * @copyright Copyright (c) 2014 - 2015 Ralf Eggert
  * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
  */
-namespace ZF2rapid\Task\GenerateClass;
+namespace ZF2rapid\Task\Crud;
 
 use ZF2rapid\Generator\RepositoryClassGenerator;
+use ZF2rapid\Task\GenerateClass\AbstractGenerateClass;
 
 /**
  * Class GenerateRepositoryClass
@@ -24,17 +25,21 @@ class GenerateRepositoryClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        $currentTable
-            = $this->params->currentTableObjects[$this->params->paramTableName];
+        foreach ($this->params->tableConfig as $tableKey => $tableConfig) {
+            $result = $this->generateClass(
+                $this->params->repositoryDir,
+                $tableConfig['repositoryClass'],
+                'repository',
+                new RepositoryClassGenerator($this->params->config)
+            );
 
-        $result = $this->generateClass(
-            $this->params->repositoryDir,
-            $this->params->repositoryClassName,
-            'repository',
-            new RepositoryClassGenerator($this->params->config, $currentTable)
-        );
 
-        return $result == true ? 0 : 1;
+            if (!$result) {
+                return 1;
+            }
+        }
+
+        return 0;
     }
 
 }

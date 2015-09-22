@@ -36,18 +36,18 @@ class EntityClassGenerator extends ClassGenerator
     /**
      * @var
      */
-    protected $tableObject;
+    protected $tableData;
 
     /**
-     * @param array       $config
-     * @param TableObject $tableObject
+     * @param array $config
+     * @param array $tableData
      */
     public function __construct(
-        array $config = array(), TableObject $tableObject
+        array $config = array(), array $tableData = array()
     ) {
         // set config data
-        $this->config      = $config;
-        $this->tableObject = $tableObject;
+        $this->config    = $config;
+        $this->tableData = $tableData;
 
         // call parent constructor
         parent::__construct();
@@ -128,11 +128,7 @@ class EntityClassGenerator extends ClassGenerator
         $foreignKeys = array();
 
         /** @var ConstraintObject $tableConstraint */
-        foreach ($this->tableObject->getConstraints() as $tableConstraint) {
-            if (!$tableConstraint->isForeignKey()) {
-                continue;
-            }
-
+        foreach ($this->tableData['foreignKeys'] as $tableConstraint) {
             $foreignKeys[$tableConstraint->getColumns()[0]]
                 = $tableConstraint->getReferencedTableName();
         }
@@ -140,7 +136,7 @@ class EntityClassGenerator extends ClassGenerator
         $columns = array();
 
         /** @var $tableColumn ColumnObject */
-        foreach ($this->tableObject->getColumns() as $tableColumn) {
+        foreach ($this->tableData['columns'] as $tableColumn) {
             if (isset($foreignKeys[$tableColumn->getName()])) {
                 $type = ucfirst($foreignKeys[$tableColumn->getName()])
                     . 'Entity';
@@ -178,20 +174,10 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function fetchPrimaryColumns()
     {
-        $primaryColumns = array();
+        /** @var ConstraintObject $primaryKey */
+        $primaryKey = $this->tableData['primaryKey'];
 
-        /** @var $tableConstraint ConstraintObject */
-        foreach ($this->tableObject->getConstraints() as $tableConstraint) {
-            if (!$tableConstraint->isPrimaryKey()) {
-                continue;
-            }
-
-            $primaryColumns = array_merge(
-                $primaryColumns, $tableConstraint->getColumns()
-            );
-        }
-
-        return $primaryColumns;
+        return $primaryKey->getColumns();
     }
 
     /**

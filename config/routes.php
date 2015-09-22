@@ -471,19 +471,21 @@ return array(
     ),
     array(
         'name'                 => 'crud-create-model',
-        'route'                => 'crud-create-model <module> <tableName> [--workingPath=]',
+        'route'                => 'crud-create-model <module> <tables> [--workingPath=]',
         'description'          => 'route_crud_create_model_description',
         'short_description'    => 'route_crud_create_model_short_description',
         'options_descriptions' => array(
             '<module>'       => 'route_crud_create_model_option_module',
-            '<tableName>'    => 'route_crud_create_model_option_table',
+            '<tables>'       => 'route_crud_create_model_option_tables',
             '--workingPath=' => 'route_param_working_path',
         ),
         'defaults'             => array(
             'workingPath' => '.',
+            'tables'      => array(),
         ),
         'filters'              => array(
             'module' => new NormalizeParamFilter(),
+            'tables' => new ExplodeFilter(','),
         ),
         'handler'              => 'ZF2rapid\Command\Crud\CreateModel',
     ),

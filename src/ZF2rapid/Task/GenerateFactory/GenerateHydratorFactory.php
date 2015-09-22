@@ -22,15 +22,9 @@ class GenerateHydratorFactory extends AbstractGenerateFactory
      */
     public function processCommandTask()
     {
-        if (isset($this->params->hydratorClassName)) {
-            $hydrator = $this->params->hydratorClassName;
-        } else {
-            $hydrator = $this->params->paramHydrator;
-        }
-
         $result = $this->generateFactory(
             $this->params->hydratorDir,
-            $hydrator,
+            $this->params->paramHydrator,
             'hydrator',
             $this->params->config['namespaceHydrator'],
             'hydratorManager'

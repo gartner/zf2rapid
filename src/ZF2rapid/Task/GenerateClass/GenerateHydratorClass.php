@@ -24,15 +24,9 @@ class GenerateHydratorClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        if (isset($this->params->hydratorClassName)) {
-            $hydrator = $this->params->hydratorClassName;
-        } else {
-            $hydrator = $this->params->paramHydrator;
-        }
-
         $result = $this->generateClass(
             $this->params->hydratorDir,
-            $hydrator,
+            $this->params->paramHydrator,
             'hydrator',
             new HydratorClassGenerator(
                 $this->params->config,

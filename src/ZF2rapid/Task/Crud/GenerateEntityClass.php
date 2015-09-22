@@ -6,9 +6,10 @@
  * @copyright Copyright (c) 2014 - 2015 Ralf Eggert
  * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
  */
-namespace ZF2rapid\Task\GenerateClass;
+namespace ZF2rapid\Task\Crud;
 
 use ZF2rapid\Generator\EntityClassGenerator;
+use ZF2rapid\Task\GenerateClass\AbstractGenerateClass;
 
 /**
  * Class GenerateEntityClass
@@ -24,17 +25,20 @@ class GenerateEntityClass extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        $currentTable
-            = $this->params->currentTableObjects[$this->params->paramTableName];
+        foreach ($this->params->loadedTables as $tableKey => $tableData) {
+            $result = $this->generateClass(
+                $this->params->entityDir,
+                $this->params->tableConfig[$tableKey]['entityClass'],
+                'entity',
+                new EntityClassGenerator($this->params->config, $tableData)
+            );
 
-        $result = $this->generateClass(
-            $this->params->entityDir,
-            $this->params->entityClassName,
-            'entity',
-            new EntityClassGenerator($this->params->config, $currentTable)
-        );
+            if (!$result) {
+                return 1;
+            }
+        }
 
-        return $result == true ? 0 : 1;
+        return 0;
     }
 
 }

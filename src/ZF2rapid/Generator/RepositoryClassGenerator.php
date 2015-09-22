@@ -11,7 +11,6 @@ namespace ZF2rapid\Generator;
 use Zend\Code\Generator\ClassGenerator;
 use Zend\Code\Generator\DocBlock\Tag\GenericTag;
 use Zend\Code\Generator\DocBlockGenerator;
-use Zend\Db\Metadata\Object\TableObject;
 
 /**
  * Class RepositoryClassGenerator
@@ -27,20 +26,12 @@ class RepositoryClassGenerator extends ClassGenerator
     protected $config = array();
 
     /**
-     * @var
+     * @param array $config
      */
-    protected $tableObject;
-
-    /**
-     * @param array       $config
-     * @param TableObject $tableObject
-     */
-    public function __construct(
-        array $config = array(), TableObject $tableObject
-    ) {
+    public function __construct(array $config = array())
+    {
         // set config data
-        $this->config      = $config;
-        $this->tableObject = $tableObject;
+        $this->config = $config;
 
         // call parent constructor
         parent::__construct();

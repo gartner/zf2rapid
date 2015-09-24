@@ -185,7 +185,7 @@ model classes should be added.
 The `/module/Customer/src/Customer/Model/Entity/CountryEntity.php` file contains 
 the `CountryEntity` class, which consists of the properties `code` and `name` 
 from the database table `country` and the corresponding setter and getter 
-methods.
+methods. The following listing is reduced to the essential. 
 
     <?php
     /**
@@ -208,75 +208,26 @@ methods.
      */
     class CountryEntity extends AbstractEntity
     {
-    
-        /**
-         * code property
-         *
-         * @var string
-         */
         protected $code = null;
-    
-        /**
-         * name property
-         *
-         * @var string
-         */
         protected $name = null;
     
-        /**
-         * Get the primary identifier
-         *
-         * @return string
-         */
-        public function getIdentifier()
-        {
-            return $this->getCode();
-        }
+        public function getIdentifier() {}
     
-        /**
-         * Set code
-         *
-         * @param string $code
-         */
-        protected function setCode($code)
-        {
-            $this->code = (string) $code;
-        }
+        protected function setCode($code) {}
     
-        /**
-         * Get code
-         *
-         * @return string
-         */
-        public function getCode()
-        {
-            return $this->code;
-        }
+        public function getCode() {}
     
-        /**
-         * Set name
-         *
-         * @param string $name
-         */
-        protected function setName($name)
-        {
-            $this->name = (string) $name;
-        }
+        protected function setName($name) {}
     
-        /**
-         * Get name
-         *
-         * @return string
-         */
-        public function getName()
-        {
-            return $this->name;
-        }
+        public function getName() {}
     }
 
 The `/module/Customer/src/Customer/Model/Entity/CustomerEntity.php` file 
 contains the `CustomerEntity` class, which consists all the properties from the 
-database table `customer` and the corresponding setter and getter methods.
+database table `customer` and the corresponding setter and getter methods. The 
+following listing is reduced to the essential. Please note that columns with 
+underscores have be camelCased and that the `setCountry()` method has a type hint
+for the `CountryEntity`.
 
     <?php
     /**
@@ -299,291 +250,337 @@ database table `customer` and the corresponding setter and getter methods.
      */
     class CustomerEntity extends AbstractEntity
     {
-    
-        /**
-         * id property
-         *
-         * @var integer
-         */
         protected $id = null;
-    
-        /**
-         * created property
-         *
-         * @var string
-         */
         protected $created = null;
-    
-        /**
-         * changed property
-         *
-         * @var string
-         */
         protected $changed = null;
-    
-        /**
-         * status property
-         *
-         * @var string
-         */
         protected $status = null;
-    
-        /**
-         * firstName property
-         *
-         * @var string
-         */
         protected $firstName = null;
-    
-        /**
-         * lastName property
-         *
-         * @var string
-         */
         protected $lastName = null;
-    
-        /**
-         * street property
-         *
-         * @var string
-         */
         protected $street = null;
-    
-        /**
-         * zip property
-         *
-         * @var string
-         */
         protected $zip = null;
-    
-        /**
-         * city property
-         *
-         * @var string
-         */
         protected $city = null;
-    
-        /**
-         * country property
-         *
-         * @var CountryEntity
-         */
         protected $country = null;
     
-        /**
-         * Get the primary identifier
-         *
-         * @return integer
-         */
-        public function getIdentifier()
-        {
-            return $this->getId();
-        }
+        public function getIdentifier() {}
     
-        /**
-         * Set id
-         *
-         * @param integer $id
-         */
-        protected function setId($id)
-        {
-            $this->id = (integer) $id;
-        }
+        protected function setId($id) {}
     
-        /**
-         * Get id
-         *
-         * @return integer
-         */
-        public function getId()
-        {
-            return $this->id;
-        }
+        public function getId() {}
     
-        /**
-         * Set created
-         *
-         * @param string $created
-         */
-        protected function setCreated($created)
-        {
-            $this->created = (string) $created;
-        }
+        protected function setCreated($created) {}
     
-        /**
-         * Get created
-         *
-         * @return string
-         */
-        public function getCreated()
-        {
-            return $this->created;
-        }
+        public function getCreated() {}
     
-        /**
-         * Set changed
-         *
-         * @param string $changed
-         */
-        protected function setChanged($changed)
-        {
-            $this->changed = (string) $changed;
-        }
+        protected function setChanged($changed) {}
     
-        /**
-         * Get changed
-         *
-         * @return string
-         */
-        public function getChanged()
-        {
-            return $this->changed;
-        }
+        public function getChanged() {}
     
-        /**
-         * Set status
-         *
-         * @param string $status
-         */
-        protected function setStatus($status)
-        {
-            $this->status = (string) $status;
-        }
+        protected function setStatus($status) {}
     
-        /**
-         * Get status
-         *
-         * @return string
-         */
-        public function getStatus()
-        {
-            return $this->status;
-        }
+        public function getStatus() {}
     
-        /**
-         * Set firstName
-         *
-         * @param string $firstName
-         */
-        protected function setFirstName($firstName)
-        {
-            $this->firstName = (string) $firstName;
-        }
+        protected function setFirstName($firstName) {}
     
-        /**
-         * Get firstName
-         *
-         * @return string
-         */
-        public function getFirstName()
-        {
-            return $this->firstName;
-        }
+        public function getFirstName() {}
     
-        /**
-         * Set lastName
-         *
-         * @param string $lastName
-         */
-        protected function setLastName($lastName)
-        {
-            $this->lastName = (string) $lastName;
-        }
+        protected function setLastName($lastName) {}
     
-        /**
-         * Get lastName
-         *
-         * @return string
-         */
-        public function getLastName()
-        {
-            return $this->lastName;
-        }
+        public function getLastName() {}
     
-        /**
-         * Set street
-         *
-         * @param string $street
-         */
-        protected function setStreet($street)
-        {
-            $this->street = (string) $street;
-        }
+        protected function setStreet($street) {}
     
-        /**
-         * Get street
-         *
-         * @return string
-         */
-        public function getStreet()
-        {
-            return $this->street;
-        }
+        public function getStreet() {}
     
-        /**
-         * Set zip
-         *
-         * @param string $zip
-         */
-        protected function setZip($zip)
-        {
-            $this->zip = (string) $zip;
-        }
+        protected function setZip($zip) {}
     
-        /**
-         * Get zip
-         *
-         * @return string
-         */
-        public function getZip()
-        {
-            return $this->zip;
-        }
+        public function getZip() {}
     
-        /**
-         * Set city
-         *
-         * @param string $city
-         */
-        protected function setCity($city)
-        {
-            $this->city = (string) $city;
-        }
+        protected function setCity($city) {}
     
-        /**
-         * Get city
-         *
-         * @return string
-         */
-        public function getCity()
-        {
-            return $this->city;
-        }
+        public function getCity() {}
     
-        /**
-         * Set country
-         *
-         * @param CountryEntity $country
-         */
-        protected function setCountry(CountryEntity $country)
-        {
-            $this->country = $country;
-        }
+        protected function setCountry(CountryEntity $country) {}
     
-        /**
-         * Get country
-         *
-         * @return CountryEntity
-         */
-        public function getCountry()
-        {
-            return $this->country;
-        }
+        public function getCountry() {}
     }
+
+Both entity classes extends the `AbstractEntity` class from the 
+[ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module which was 
+installed with the SkeletonApplication in the first step. The `AbstractEntity` 
+class implements the methods `exchangeArray()` and `getArrayCopy()` which
+work together with the generated hydrators. The `AbstractEntity` also provides the
+`getIdentifier()` method to get the unique identifier for an entity.
 
 ## Generated hydrator classes, strategies and factories
 
+The `/module/Customer/src/Customer/Model/Hydrator/CountryHydrator.php` file contains 
+the `CountryHydrator` class, which extends the `ArraySerializable` hydrator. The following 
+listing is reduced to the essential. 
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    
+    namespace Customer\Model\Hydrator;
+    
+    use Zend\Stdlib\Hydrator\ArraySerializable;
+    
+    /**
+     * CountryHydrator
+     *
+     * Provides the CountryHydrator hydrator for the Customer Module
+     *
+     * @package Customer\Model\Hydrator
+     */
+    class CountryHydrator extends ArraySerializable
+    {
+        public function extract($object) {}
+    
+        public function hydrate(array $data, $object) {}
+    }
+
+The corresponding hydrator factory should be found in the 
+`/module/Customer/src/Customer/Model/Hydrator/CountryHydratorFactory.php` file and 
+contains an ready-to-use factory for your `CountryHydrator` if you need to inject 
+more dependencies later on. 
+
+The `CustomerHydrator` in the file `/module/Customer/src/Customer/Model/Hydrator/CustomerHydrator.php`
+looks quite similar to the `CountryHydrator` shown above. 
+
+In the file `/module/Customer/src/Customer/Model/Hydrator/CustomerHydratorFactory.php` you 
+should find the corresponding `CustomerHydratorFactory`. Please note the addition of a 
+hydrator strategy for the `country` column. 
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    
+    namespace Customer\Model\Hydrator;
+    
+    use Zend\ServiceManager\FactoryInterface;
+    use Zend\ServiceManager\ServiceLocatorAwareInterface;
+    use Zend\ServiceManager\ServiceLocatorInterface;
+    use Customer\Model\Hydrator\Strategy\CountryStrategy;
+    
+    /**
+     * CustomerHydratorFactory
+     *
+     * Creates an instance of CustomerHydrator
+     *
+     * @package Customer\Model\Hydrator
+     */
+    class CustomerHydratorFactory implements FactoryInterface
+    {
+    
+        /**
+         * Create service
+         *
+         * @param ServiceLocatorInterface $hydratorManager
+         * @return CustomerHydrator
+         */
+        public function createService(ServiceLocatorInterface $hydratorManager)
+        {
+            /** @var ServiceLocatorAwareInterface $hydratorManager */
+            $serviceLocator = $hydratorManager->getServiceLocator();
+    
+            $instance = new CustomerHydrator();
+            $instance->addStrategy('country', new CountryStrategy());
+    
+            return $instance;
+        }
+    }
+    
+The `CountryStrategy` class in the 
+`/module/Customer/src/Customer/Model/Hydrator/Strategy/CountryStrategey.php` file was generated
+to handle the foreign key constraint for the `country` column in the `customer` table. It helps 
+to convert the data read from the database into an `CountryEntity` and extract the relevant
+data from the `CountryEntity` to prepare the writing to the database.
+ 
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    
+    namespace Customer\Model\Hydrator\Strategy;
+    
+    use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
+    use Customer\Model\Entity\CountryEntity;
+    
+    /**
+     * CountryStrategy
+     *
+     * Provides the Country hydrator strategy for the Customer Module
+     *
+     * @package Customer\Model\Hydrator\Strategy
+     */
+    class CountryStrategy implements StrategyInterface
+    {
+    
+        /**
+         * Extract identifier from entity
+         *
+         * @param CountryEntity $value
+         * @return string
+         */
+        public function extract($value)
+        {
+            return $value->getIdentifier();
+        }
+    
+        /**
+         * Hydrate an entity by populating data
+         *
+         * @param $value
+         * @param array $data
+         * @return CountryEntity
+         */
+        public function hydrate($value, array $data = array())
+        {
+            $country = new CountryEntity();
+            $country->exchangeArray(
+                array(
+                    'code' => $data['country.code'],
+                    'name' => $data['country.name'],
+                )
+            );
+    
+            return $country;
+        }
+    }
+
+The generated hydrator classes, factories and strategies are prepared to work smoothly with
+the generated table gateway classes.
+
 ## Generated table gateway classes and factories
+
+The `/module/Customer/src/Customer/Model/TableGateway/CountryTableGateway.php` file contains 
+the `CountryTableGateway` class, which extends the `AbstractTableGateway` class from the 
+[ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. The corresponding 
+`CountryTableGatewayFactory` injects the database adapter and a `HydratingResultSet` instance
+with combines the `CountryEntity` and the `CountryHydrator`. 
+
+More interesting is the `CustomerTableGateway` class from the 
+`/module/Customer/src/Customer/Model/TableGateway/CustomerTableGateway.php` file which also 
+extends the `AbstractTableGateway` class from the `ZF2rapidDomain` module. Please
+note the `selectWith()` method which adds a join to the `country` table to combine the 
+customer data with the country data. This joined data will be used by the `CountryStrategy` 
+to convert it into an `CountryEntity` instance.
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace Customer\Model\TableGateway;
+    
+    use ZF2rapidDomain\TableGateway\AbstractTableGateway;
+    use Zend\Db\ResultSet\ResultSetInterface;
+    use Zend\Db\Sql\Select;
+    
+    /**
+     * CustomerTableGateway
+     *
+     * Provides the CustomerTableGateway table gateway for the Customer Module
+     *
+     * @package Customer\Model\TableGateway
+     */
+    class CustomerTableGateway extends AbstractTableGateway
+    {
+        /**
+         * Add join tables
+         *
+         * @param Select $select
+         * @return ResultSetInterface
+         */
+        public function selectWith(Select $select)
+        {
+            $select->join(
+                'country',
+                'customer.country = country.code',
+                array(
+                    'country.code' => 'code',
+                    'country.name' => 'name',
+                )
+            );
+    
+            return parent::selectWith($select);
+        }
+    }
+
+The corresponding factory for `CustomerTableGateway` class can be found in the 
+`/module/Customer/src/Customer/Model/TableGateway/CustomerTableGatewayFactory.php` file.
+This factory configures the `CustomerTableGateway` instance and injects the database adapter 
+and the needed `HydratingResultSet`.
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace Customer\Model\TableGateway;
+    
+    use Customer\Model\Entity\CustomerEntity;
+    use Customer\Model\Hydrator\CustomerHydrator;
+    use Zend\Db\Adapter\AdapterInterface;
+    use Zend\Db\ResultSet\HydratingResultSet;
+    use Zend\ServiceManager\FactoryInterface;
+    use Zend\ServiceManager\ServiceLocatorInterface;
+    use Zend\Stdlib\Hydrator\HydratorPluginManager;
+    
+    /**
+     * CustomerTableGatewayFactory
+     *
+     * Creates an instance of CustomerTableGateway
+     *
+     * @package Customer\Model\TableGateway
+     */
+    class CustomerTableGatewayFactory implements FactoryInterface
+    {
+        /**
+         * Create service
+         *
+         * @param ServiceLocatorInterface $serviceLocator
+         * @return CustomerTableGateway
+         */
+        public function createService(ServiceLocatorInterface $serviceLocator)
+        {
+            /** @var HydratorPluginManager $hydratorManager */
+            $hydratorManager = $serviceLocator->get('HydratorManager');
+    
+            /** @var AdapterInterface $dbAdapter */
+            $dbAdapter = $serviceLocator->get('Zend\Db\Adapter\Adapter');
+    
+            /** @var CustomerHydrator $hydrator */
+            $hydrator  = $hydratorManager->get('Customer\Db\Customer');
+            $entity    = new CustomerEntity();
+            $resultSet = new HydratingResultSet($hydrator, $entity);
+    
+            $instance = new CustomerTableGateway(
+                'customer', $dbAdapter, null, $resultSet
+            );
+    
+            return $instance;
+        }
+    }
+
+The table gateway classes will be used by the generated repository classes and ease
+the persistence of your data. They should not be used directly, but only in combination
+with the repositories.
 
 ## Generated repository classes and factories
 

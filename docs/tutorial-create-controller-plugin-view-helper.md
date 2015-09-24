@@ -8,7 +8,7 @@ ZF2rapid.
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
- * [Create model classes](tutorial-crud-create-model-classes.md)
+ * [Create model classes](tutorial-crud-create-model.md)
 
 ## Create controller plugin
 
@@ -391,4 +391,4 @@ names of these modules to the option `--modules=` and separate them with commas.
 
     $ zf2rapid show-view-helpers --modules=Shop,Application
 
-[Continue to create model classes](tutorial-crud-create-model-classes.md)
+[Continue to create model classes](tutorial-crud-create-model.md)

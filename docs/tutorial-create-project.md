@@ -8,7 +8,7 @@ ZF2rapid.
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
- * [Create model classes](tutorial-crud-create-model-classes.md)
+ * [Create model classes](tutorial-crud-create-model.md)
 
 ## Create new project
 
@@ -160,7 +160,10 @@ the file should look like this:
       "namespaceValidator": "Model\\Validator",
       "namespaceInputFilter": "Model\\InputFilter",
       "namespaceForm": "Application\\Form",
-      "namespaceHydrator": "Model\\Hydrator"
+      "namespaceHydrator": "Model\\Hydrator",
+      "namespaceEntity": "Model\\Entity",
+      "namespaceTableGateway": "Model\\TableGateway",
+      "namespaceRepository": "Model\\Repository"
     }
 
 Now you are ready to create a new module for your Zend Framework 2 project.

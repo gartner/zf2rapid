@@ -15,7 +15,7 @@
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
- * [Create model classes](tutorial-crud-create-model-classes.md)
+ * [Create model classes](tutorial-crud-create-model.md)
 
 ## Command-Guide
 

@@ -8,6 +8,7 @@ ZF2rapid.
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
+ * [Create model classes](tutorial-crud-create-model-classes.md)
 
 ## Create new controller
 
@@ -283,4 +284,4 @@ names of these controllers to the option `--controllers=` and separate them with
 
     $ zf2rapid show-actions --controllers=Index,Basket
 
-[Create routing and generate maps](tutorial-create-routing-maps.md)
+[Contiue to create routing and generate maps](tutorial-create-routing-maps.md)

@@ -454,4 +454,36 @@ The CRUD commands can generate model and controller classes and view scripts for
 a simplified admin center to Create, Read, Update and Delete datasets for a 
 database table.
 
-to be continued... 
+To use the CRUD commands you need to setup the database connection in the 
+project you want to create the classes and views in. This should be done in the 
+file `/config/autoload/development.php`, for example. Please enter your own 
+database configuration.
+
+    return array(
+        'db' => array(
+            'driver'  => 'pdo',
+            'dsn'     => 'mysql:dbname=DATEBASE;host=localhost;charset=utf8',
+            'user'    => 'USER',
+            'pass'    => 'PASS',
+        ),
+        [...]
+    );
+
+After this you can simply check the database configuration. Optionally, you can 
+specify the `--workingPath=` of the Zend Framework 2 project. 
+ 
+    $ zf2rapid crud-check-db [--workingPath=]
+
+You can also show all tables which are accessible for this database 
+configuration. Optionally, you can specify the `--workingPath=` of the Zend 
+Framework 2 project. 
+
+    $ zf2rapid crud-show-tables [--workingPath=]
+
+If you are ready you can create the model classes (entities, hydrator, table
+gateways, repositories) and the model configuration for one table or more 
+tables. You need to specify the `<module>` to create the model in and the 
+`<tables>` to create classes for as a comma-separated list. Optionally, you can 
+specify the `--workingPath=` of the Zend Framework 2 project.
+
+    $ zf2rapid crud-create-model <module> <tables> [--workingPath=]

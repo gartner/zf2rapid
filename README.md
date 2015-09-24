@@ -29,6 +29,11 @@ feature enhancements to the
    * Input filters
    * Forms
    * Hydrators
+ * (CRUD) Create model classes for a database table
+   * Entities
+   * Hydrators
+   * Table gateways
+   * Repositories
  * Show modules, controllers and actions for a project
  * Show ZF2 version for a project
  * Show other classes for a project

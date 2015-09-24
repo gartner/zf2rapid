@@ -8,6 +8,7 @@ ZF2rapid.
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
+ * [Create model classes](tutorial-crud-create-model-classes.md)
 
 ## Create controller plugin
 
@@ -389,3 +390,5 @@ If you want to display the view helpers of some specific module(s) you can add t
 names of these modules to the option `--modules=` and separate them with commas.
 
     $ zf2rapid show-view-helpers --modules=Shop,Application
+
+[Continue to create model classes](tutorial-crud-create-model-classes.md)

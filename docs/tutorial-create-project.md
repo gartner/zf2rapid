@@ -8,6 +8,7 @@ ZF2rapid.
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
+ * [Create model classes](tutorial-crud-create-model-classes.md)
 
 ## Create new project
 
@@ -112,6 +113,9 @@ The following configuration keys can be changed for your current project:
 | namespaceInputFilter      | namespace for all input filter classes within a module      | 
 | namespaceForm             | namespace for all form classes within a module              | 
 | namespaceHydrator         | namespace for all hydrator classes within a module          |
+| namespaceEntity           | namespace for all entity classes within a module            |
+| namespaceTableGateway     | namespace for all table gateway classes within a module     |
+| namespaceRepository       | namespace for all repository classes within a module        |
 
 First, we want to change the data for the file doc blocks.
 
@@ -129,8 +133,11 @@ classes that we will create later on.
     $ zf2rapid tool-config --configKey=namespaceInputFilter --configValue="Model\\InputFilter"
     $ zf2rapid tool-config --configKey=namespaceForm --configValue="Application\\Form"
     $ zf2rapid tool-config --configKey=namespaceHydrator --configValue="Model\\Hydrator"
+    $ zf2rapid tool-config --configKey=namespaceEntity --configValue="Model\\Entity"
+    $ zf2rapid tool-config --configKey=namespaceTableGateway --configValue="Model\\TableGateway"
+    $ zf2rapid tool-config --configKey=namespaceRepository --configValue="Model\\Repository"
 
-Your console screen should look like this, after changing the project 
+Your console screen should look similar to this, after changing the project 
 configuration:
 
 ![Console shot project configuration](console_project_configuration.jpg)

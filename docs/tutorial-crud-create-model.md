@@ -194,7 +194,6 @@ methods. The following listing is reduced to the essential.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    
     namespace Customer\Model\Entity;
     
     use ZF2rapidDomain\Entity\AbstractEntity;
@@ -236,7 +235,6 @@ for the `CountryEntity`.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    
     namespace Customer\Model\Entity;
     
     use ZF2rapidDomain\Entity\AbstractEntity;
@@ -324,7 +322,6 @@ listing is reduced to the essential.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    
     namespace Customer\Model\Hydrator;
     
     use Zend\Stdlib\Hydrator\ArraySerializable;
@@ -362,7 +359,6 @@ hydrator strategy for the `country` column.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    
     namespace Customer\Model\Hydrator;
     
     use Zend\ServiceManager\FactoryInterface;
@@ -411,7 +407,6 @@ data from the `CountryEntity` to prepare the writing to the database.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    
     namespace Customer\Model\Hydrator\Strategy;
     
     use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
@@ -584,10 +579,85 @@ with the repositories.
 
 ## Generated repository classes and factories
 
+The `/module/Customer/src/Customer/Model/Repository/CountryRepository.php` file contains 
+the `CountryRepository` class, which extends the `AbstractRepository` class from the 
+[ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. The corresponding 
+`CountryRepositoryFactory` injects the `CountryTableGateway` instance. 
 
+In the file `/module/Customer/src/Customer/Model/Repository/CustomerRepository.php` you
+will find the `CustomerRepository` class which also extends the `AbstractRepository` class 
+from the `ZF2rapidDomain` module. The `AbstractRepository` class provides a couple of methods
+for reading and persisting entities by using the `CustomerTableGateway` instance.
 
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace Customer\Model\Repository;
+    
+    use ZF2rapidDomain\Repository\AbstractRepository;
+    
+    /**
+     * CustomerRepository
+     *
+     * Provides the CustomerRepository repository for the Customer Module
+     *
+     * @package Customer\Model\Repository
+     */
+    class CustomerRepository extends AbstractRepository
+    {
+    }
 
+The repository factory `CustomerRepositoryFactory` is almost self-explanatory.
 
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace Customer\Model\Repository;
+    
+    use Customer\Model\TableGateway\CustomerTableGateway;
+    use Zend\ServiceManager\FactoryInterface;
+    use Zend\ServiceManager\ServiceLocatorInterface;
+    
+    /**
+     * CustomerRepositoryFactory
+     *
+     * Creates an instance of CustomerRepository
+     *
+     * @package Customer\Model\Repository
+     */
+    class CustomerRepositoryFactory implements FactoryInterface
+    {
+        /**
+         * Create service
+         *
+         * @param ServiceLocatorInterface $serviceLocator
+         * @return CustomerRepository
+         */
+        public function createService(ServiceLocatorInterface $serviceLocator)
+        {
+            /** @var CustomerTableGateway $tableGateway */
+            $tableGateway = $serviceLocator->get('Customer\Model\TableGateway\Customer');
+    
+            $instance = new CustomerRepository($tableGateway);
+    
+            return $instance;
+        }
+    }
 
-![Screen shot activated module](screen_activated_module.jpg)
-  
+The repository classes should be used within your controllers as a gateway to the database. 
+You should never access the table gateway instances directly. The repositories can also be used 
+within a view helper to read some data (but never ever to persist data).
+
+**Please note:** You can easily extend all the generated classes but you must be aware that you
+currently cannot rerun the class generation without the loss of your extensions. A better solution
+would be that you do not extend the classes themselves but create new classes which extend the 
+generated classes. 
+

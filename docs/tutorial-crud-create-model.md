@@ -9,7 +9,7 @@ ZF2rapid.
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
  * [Create model classes](tutorial-crud-create-model.md)
- * [Create application](tutorial-crud-application.md)
+ * [Create application](tutorial-crud-create-application.md)
 
 ## PLEASE READ CAREFULLY
 
@@ -668,4 +668,4 @@ currently cannot rerun the class generation without the loss of your extensions.
 would be that you do not extend the classes themselves but create new classes which extend the 
 generated classes. 
 
-[Continue to create application](tutorial-crud-application.md)
+[Continue to create application](tutorial-crud-create-application.md)

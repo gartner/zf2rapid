@@ -3,7 +3,7 @@
 In this tutorial you will learn how to create an application step by step with
 ZF2rapid.
 
- * [Create new project](tutorial-create-project.md)
+ * **Create new project**
  * [Create new module](tutorial-create-module.md)
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)

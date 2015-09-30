@@ -7,7 +7,7 @@ ZF2rapid.
  * [Create new module](tutorial-create-module.md)
  * [Create controllers and actions](tutorial-create-controllers-actions.md)
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
- * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
+ * **Create controller plugin and view helper**
  * [Create model classes](tutorial-crud-create-model.md)
  * [Create application](tutorial-crud-create-application.md)
 

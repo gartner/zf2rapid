@@ -271,6 +271,8 @@ class Params extends AbstractTask
             'configFile'
         );
 
+        $this->params->currentHydratorStrategies = array();
+
         if ($this->route->getMatchedParam('tables')) {
             $this->params->paramTableList = $this->route->getMatchedParam(
                 'tables'
@@ -329,7 +331,31 @@ class Params extends AbstractTask
                 );
         }
 
-        $this->params->currentHydratorStrategies = array();
+        if ($this->route->getMatchedParam('entity')) {
+            $this->params->paramEntityModule = $this->route->getMatchedParam('entity')[0];
+            $this->params->paramEntityClass  = $this->route->getMatchedParam('entity')[1];
+
+            $this->params->entityFullClass = $this->params->paramEntityModule . '\\'
+                . $this->params->config['namespaceEntity'] . '\\' . $this->params->paramEntityClass;
+
+            $this->params->entityModuleDir = $this->params->projectModuleDir . DIRECTORY_SEPARATOR
+                . $this->params->paramEntityModule;
+
+            $this->params->entityModuleSrcDir = $this->params->entityModuleDir . DIRECTORY_SEPARATOR . 'src'
+                . DIRECTORY_SEPARATOR . $this->params->paramEntityModule;
+
+            $this->params->entityFile = $this->params->entityModuleSrcDir . DIRECTORY_SEPARATOR
+                . str_replace('\\', DIRECTORY_SEPARATOR, $this->params->config['namespaceEntity'])
+                . DIRECTORY_SEPARATOR . $this->params->paramEntityClass . '.php';
+
+            $this->params->applicationControllerDir = $this->params->moduleSrcDir . DIRECTORY_SEPARATOR
+                . str_replace('\\', DIRECTORY_SEPARATOR, $this->params->config['namespaceController']);
+
+            $this->params->applicationViewDir = $this->params->moduleViewDir . DIRECTORY_SEPARATOR
+                . $this->filterCamelCaseToDash($this->params->paramEntityModule);
+
+            $this->params->applicationLanguageDir = $this->params->moduleDir . DIRECTORY_SEPARATOR . 'language';
+        }
 
         return 0;
     }

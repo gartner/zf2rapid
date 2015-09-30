@@ -62,9 +62,9 @@ class GenerateTableGatewayFactory extends AbstractTask
             $class = new TableGatewayFactoryGenerator(
                 $tableConfig['tableGatewayClass'],
                 $this->params->paramModule,
-                $this->params->config['namespaceTableGateway'],
                 $tableKey,
-                $this->params->config
+                $this->params->config,
+                $this->params->loadedTables
             );
 
             // create file
@@ -76,6 +76,7 @@ class GenerateTableGatewayFactory extends AbstractTask
             file_put_contents($factoryFile, $file->generate());
 
         }
+
         return 0;
     }
 }

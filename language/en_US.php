@@ -144,6 +144,11 @@ return array(
     'route_crud_create_model_option_module'                    => 'The name of the module to create the model classes in; mandatory',
     'route_crud_create_model_option_tables'                    => 'The names of the database tables to create the model classes for; mandatory',
 
+    'route_crud_create_application_description'                => 'Create application (controller, view) for a model entity',
+    'route_crud_create_application_short_description'          => 'Create application for model entity',
+    'route_crud_create_application_option_module'              => 'The name of the module to create the application in; mandatory',
+    'route_crud_create_application_option_entity'              => 'The entity to create the application for with the format ModuleName/EntityClassName; mandatory',
+
     'route_deactivate_module_description'                      => 'Deactivate an existing module within the specified path',
     'route_deactivate_module_short_description'                => 'Deactivate existing module',
     'route_deactivate_module_option_module'                    => 'The name of the module to deactivate; mandatory',
@@ -352,6 +357,9 @@ return array(
     'command_crud_create_model_start'                          => 'Creating model classes for database table ...',
     'command_crud_create_model_stop'                           => 'The model classes for the database table were successfully created.',
 
+    'command_crud_create_application_start'                    => 'Creating application for model entity...',
+    'command_crud_create_application_stop'                     => 'The application for the model entity was successfully created.',
+
     'command_deactivate_module_start'                          => 'Deactivating existing module...',
     'command_deactivate_module_stop'                           => 'The existing ZF2 module %1$s was successfully deactivated.',
 
@@ -457,6 +465,12 @@ return array(
     'task_crud_load_tables_not_exists_more'                    => 'Database tables %1$s do not exist in database %2$s.',
     'task_crud_load_tables_needed_one'                         => 'Due to a foreign key constraint you need to process table %1$s from database %2$s as well.',
     'task_crud_load_tables_needed_more'                        => 'Due to a foreign key constraint you need to process tables %1$s from database %2$s as well.',
+
+    'task_crud_load_entity_class'                              => 'Loading entity %1$s from module %2$s...',
+    'task_crud_load_entity_module_not_found'                   => 'The module %1$s does not exist...',
+    'task_crud_load_entity_entity_not_found'                   => 'The entity %1$s in module %2$s does not exist...',
+
+    'task_crud_generate_translation_file_writing'              => 'Writing translation file...',
 
     'task_delete_action_view_not_exists'                       => 'The action view script %1$s does not exists for module %2$s.',
     'task_delete_action_method_deleting'                       => 'Deleting action method from controller...',

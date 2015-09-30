@@ -17,7 +17,6 @@ use Zend\Code\Generator\ParameterGenerator;
 use Zend\Code\Generator\PropertyGenerator;
 use Zend\Db\Metadata\Object\ColumnObject;
 use Zend\Db\Metadata\Object\ConstraintObject;
-use Zend\Db\Metadata\Object\TableObject;
 use Zend\Filter\StaticFilter;
 
 /**
@@ -95,6 +94,16 @@ class EntityClassGenerator extends ClassGenerator
                 $this->generateGetMethod($columnName, $columnType)
             );
         }
+
+        // add __toString method
+        $this->addMethodFromGenerator(
+            $this->generateMagicToStringMethod($primaryColumns, $tableColumns)
+        );
+
+        // add toString method
+        $this->addMethodFromGenerator(
+            $this->generateNormalToStringMethod()
+        );
     }
 
     /**
@@ -332,4 +341,82 @@ class EntityClassGenerator extends ClassGenerator
 
         return $getMethod;
     }
+
+    /**
+     * @param array $primaryColumns
+     * @param array $tableColumns
+     *
+     * @return MethodGenerator
+     */
+    protected function generateMagicToStringMethod(array $primaryColumns, array $tableColumns)
+    {
+        $body = array();
+        $body[] = '$columns = array(';
+
+        foreach ($tableColumns as $columnName => $columnType) {
+            if (in_array($columnName, $primaryColumns)) {
+                continue;
+            }
+
+            $getMethod = 'get' . ucfirst($columnName);
+
+            $body[] = '    $this->' . $getMethod . '(),';
+        }
+
+        $body[] = ');';
+        $body[] = '';
+        $body[] = 'return implode(\' \', $columns);';
+
+        $body = implode(AbstractGenerator::LINE_FEED, $body);
+
+        $toStringMethod = new MethodGenerator('__toString');
+        $toStringMethod->addFlag(MethodGenerator::FLAG_PUBLIC);
+        $toStringMethod->setDocBlock(
+            new DocBlockGenerator(
+                'Output entity',
+                null,
+                array(
+                    array(
+                        'name'        => 'return',
+                        'description' => 'string',
+                    )
+                )
+            )
+        );
+        $toStringMethod->setBody($body);
+
+        return $toStringMethod;
+    }
+
+    /**
+     * @return MethodGenerator
+     */
+    protected function generateNormalToStringMethod()
+    {
+        $body = array(
+            'return $this->__toString();',
+        );
+
+        $body = implode(AbstractGenerator::LINE_FEED, $body);
+
+        $toStringMethod = new MethodGenerator('toString');
+        $toStringMethod->addFlag(MethodGenerator::FLAG_PUBLIC);
+        $toStringMethod->setDocBlock(
+            new DocBlockGenerator(
+                'Output entity',
+                null,
+                array(
+                    array(
+                        'name'        => 'return',
+                        'description' => 'string',
+                    )
+                )
+            )
+        );
+        $toStringMethod->setBody($body);
+
+        return $toStringMethod;
+    }
+
+
 }

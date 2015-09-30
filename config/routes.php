@@ -470,6 +470,25 @@ return array(
         'handler'              => 'ZF2rapid\Command\Crud\CheckDb',
     ),
     array(
+        'name'                 => 'crud-create-application',
+        'route'                => 'crud-create-application <module> <entity> [--workingPath=]',
+        'description'          => 'route_crud_create_application_description',
+        'short_description'    => 'route_crud_create_application_short_description',
+        'options_descriptions' => array(
+            '<module>'       => 'route_crud_create_application_option_module',
+            '<entity>'       => 'route_crud_create_application_option_entity',
+            '--workingPath=' => 'route_param_working_path',
+        ),
+        'defaults'             => array(
+            'workingPath' => '.',
+        ),
+        'filters'              => array(
+            'module' => new NormalizeParamFilter(),
+            'entity' => new ExplodeFilter('/'),
+        ),
+        'handler'              => 'ZF2rapid\Command\Crud\CreateApplication',
+    ),
+    array(
         'name'                 => 'crud-create-model',
         'route'                => 'crud-create-model <module> <tables> [--workingPath=]',
         'description'          => 'route_crud_create_model_description',

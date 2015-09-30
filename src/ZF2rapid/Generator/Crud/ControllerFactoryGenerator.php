@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2014 - 2015 Ralf Eggert
  * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
  */
-namespace ZF2rapid\Generator;
+namespace ZF2rapid\Generator\Crud;
 
 use Zend\Code\Generator\AbstractGenerator;
 use Zend\Code\Generator\ClassGenerator;
@@ -16,14 +16,13 @@ use Zend\Code\Generator\DocBlock\Tag\ReturnTag;
 use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
-use Zend\Db\Metadata\Object\ConstraintObject;
 
 /**
- * Class TableGatewayFactoryGenerator
+ * Class ControllerFactoryGenerator
  *
- * @package ZF2rapid\Generator
+ * @package ZF2rapid\Generator\Crud
  */
-class TableGatewayFactoryGenerator extends ClassGenerator
+class ControllerFactoryGenerator extends ClassGenerator
 {
     /**
      * @var array
@@ -31,43 +30,37 @@ class TableGatewayFactoryGenerator extends ClassGenerator
     protected $config = array();
 
     /**
-     * @param string $className
+     * @param string $controllerName
      * @param string $moduleName
-     * @param string $tableName
+     * @param string $entityModule
      * @param array  $config
-     * @param array  $loadedTables
      */
     public function __construct(
-        $className, $moduleName, $tableName, array $config = array(), array $loadedTables = array()
+        $controllerName, $moduleName, $entityModule, array $config = array()
     ) {
         // set config data
         $this->config = $config;
 
         // call parent constructor
         parent::__construct(
-            $className . 'Factory',
-            $moduleName . '\\' . $this->config['namespaceTableGateway']
+            $controllerName . 'Factory',
+            $moduleName . '\\' . $this->config['namespaceController']
         );
 
+        // prepare some params
+        $repositoryClass     = $moduleName . 'Repository';
+        $repositoryNamespace = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $repositoryClass;
+
         // add used namespaces and extended classes
-        $this->addUse(
-            $moduleName . '\\' . $this->config['namespaceEntity'] . '\\'
-            . ucfirst($tableName) . 'Entity'
-        );
-        $this->addUse(
-            $moduleName . '\\' . $this->config['namespaceHydrator'] . '\\'
-            . ucfirst($tableName) . 'Hydrator'
-        );
-        $this->addUse('Zend\Db\Adapter\AdapterInterface');
-        $this->addUse('Zend\Db\ResultSet\HydratingResultSet');
+        $this->addUse($repositoryNamespace);
         $this->addUse('Zend\ServiceManager\FactoryInterface');
+        $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
-        $this->addUse('Zend\Stdlib\Hydrator\HydratorPluginManager');
         $this->setImplementedInterfaces(array('FactoryInterface'));
 
         // add methods
-        $this->addCreateServiceMethod($className, $moduleName, $tableName, $loadedTables[$tableName]);
-        $this->addClassDocBlock($className);
+        $this->addCreateServiceMethod($controllerName, $moduleName, $entityModule);
+        $this->addClassDocBlock($controllerName);
     }
 
     /**
@@ -95,43 +88,26 @@ class TableGatewayFactoryGenerator extends ClassGenerator
      * Generate the create service method
      *
      * @param string $className
-     * @param string $moduleName
-     * @param string $tableName
-     * @param array  $loadedTable
+     * @param        $moduleName
+     * @param string $entityModule
      */
-    protected function addCreateServiceMethod(
-        $className, $moduleName, $tableName, array $loadedTable = array()
-    ) {
-        /** @var ConstraintObject $primaryKey */
-        $primaryKey     = $loadedTable['primaryKey'];
-        $primaryColumns = $primaryKey->getColumns();
-
-        $managerName     = 'serviceLocator';
-        $hydratorName    = ucfirst($tableName) . 'Hydrator';
-        $hydratorService = $moduleName . '\\Db\\' . ucfirst($tableName);
-        $entityName      = ucfirst($tableName) . 'Entity';
+    protected function addCreateServiceMethod($className, $moduleName, $entityModule)
+    {
+        // prepare some params
+        $repositoryClass   = $moduleName . 'Repository';
+        $repositoryParam   = lcfirst($repositoryClass);
+        $repositoryService = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $moduleName;
 
         // set action body
         $body   = array();
-        $body[] = '/** @var HydratorPluginManager $hydratorManager */';
-        $body[] = '$hydratorManager = $serviceLocator->get(\'HydratorManager\');';
+        $body[] = '/** @var ServiceLocatorAwareInterface $controllerManager */';
+        $body[] = '$serviceLocator = $controllerManager->getServiceLocator();';
         $body[] = '';
-        $body[] = '/** @var AdapterInterface $dbAdapter */';
-        $body[] = '$dbAdapter = $serviceLocator->get(\'Zend\Db\Adapter\Adapter\');';
+        $body[] = '/** @var ' . $repositoryClass . ' $' . $repositoryParam . ' */';
+        $body[] = '$' . $repositoryParam . ' = $serviceLocator->get(\'' . $repositoryService . '\');';
         $body[] = '';
-        $body[] = '/** @var ' . $hydratorName . ' $hydrator */';
-        $body[] = '$hydrator  = $hydratorManager->get(\'' . $hydratorService . '\');';
-        $body[] = '$entity    = new ' . $entityName . '();';
-        $body[] = '$resultSet = new HydratingResultSet($hydrator, $entity);';
-        $body[] = '';
-        $body[] = '$instance = new ' . $className . '(';
-        $body[] = '    \'' . $tableName . '\', $dbAdapter, null, $resultSet';
-        $body[] = ');';
-
-        if ($primaryColumns[0] != 'id') {
-            $body[] = '$instance->setPrimaryKey(\'' . $primaryColumns[0] . '\');';
-        }
-
+        $body[] = '$instance = new ' . $className . '();';
+        $body[] = '$instance->set' . $repositoryClass . '($' . $repositoryParam . ');';
         $body[] = '';
         $body[] = 'return $instance;';
 
@@ -144,7 +120,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $method->setParameters(
             array(
                 new ParameterGenerator(
-                    $managerName, 'ServiceLocatorInterface'
+                    'controllerManager', 'ServiceLocatorInterface'
                 ),
             )
         );
@@ -157,7 +133,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
                     null,
                     array(
                         new ParamTag(
-                            $managerName,
+                            'controllerManager',
                             array(
                                 'ServiceLocatorInterface',
                             )
@@ -171,5 +147,4 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         // add method
         $this->addMethodFromGenerator($method);
     }
-
 }

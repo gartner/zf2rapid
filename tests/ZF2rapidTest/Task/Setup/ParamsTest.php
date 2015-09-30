@@ -81,7 +81,7 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testModuleParam()
     {
-        $this->parameters->set('projectModuleDir', '/path/to/module/dir');
+        $this->parameters->set('workingPath', '/path/to/module/dir');
 
         $paramValueMap = array(
             array('module', null, 'testModule')
@@ -102,24 +102,24 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '/path/to/module/dir/testModule', $this->parameters->moduleDir
+            '/path/to/module/dir/module/testModule', $this->parameters->moduleDir
         );
         $this->assertTrue(defined('TEST_MODULE_MODULE_ROOT'));
         $this->assertEquals(
-            '/path/to/module/dir/testModule',
+            '/path/to/module/dir/module/testModule',
             constant('TEST_MODULE_MODULE_ROOT')
         );
 
         $this->assertEquals(
-            '/path/to/module/dir/testModule/config',
+            '/path/to/module/dir/module/testModule/config',
             $this->parameters->moduleConfigDir
         );
         $this->assertEquals(
-            '/path/to/module/dir/testModule/src/' . 'testModule',
+            '/path/to/module/dir/module/testModule/src/' . 'testModule',
             $this->parameters->moduleSrcDir
         );
         $this->assertEquals(
-            '/path/to/module/dir/testModule/view/test-module',
+            '/path/to/module/dir/module/testModule/view/test-module',
             $this->parameters->moduleViewDir
         );
     }

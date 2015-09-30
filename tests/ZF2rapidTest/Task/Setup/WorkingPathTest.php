@@ -16,11 +16,11 @@ use ZF2rapid\Console\ConsoleInterface;
 use ZF2rapid\Task\Setup\WorkingPath;
 
 /**
- * Class ProjectPathTest
+ * Class WorkingPathTest
  *
  * @package ZF2rapidTest\Task\Setup
  */
-class ProjectPathTest extends PHPUnit_Framework_TestCase
+class WorkingPathTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Route|PHPUnit_Framework_MockObject_MockObject
@@ -82,7 +82,7 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
     public function testPathParamNonExistingPath()
     {
         $paramValueMap = array(
-            array('path', null, '/path/to/project')
+            array('workingPath', null, '/path/to/project')
         );
 
         $this->route->method('getMatchedParam')->will(
@@ -102,15 +102,6 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(defined('APPLICATION_ROOT'));
         $this->assertEquals('/path/to/project', constant('APPLICATION_ROOT'));
-
-        $this->assertEquals(
-            '/path/to/project/module',
-            $this->parameters->projectModuleDir
-        );
-        $this->assertEquals(
-            '/path/to/project/config',
-            $this->parameters->projectConfigDir
-        );
     }
 
     /**
@@ -119,7 +110,7 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
     public function testPathParamExistingPath()
     {
         $paramValueMap = array(
-            array('path', null, '/tmp')
+            array('workingPath', null, '/tmp')
         );
 
         $this->route->method('getMatchedParam')->will(
@@ -132,14 +123,5 @@ class ProjectPathTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $result);
         $this->assertEquals('/tmp', $this->parameters->workingPath);
-
-        $this->assertEquals(
-            '/tmp/module',
-            $this->parameters->projectModuleDir
-        );
-        $this->assertEquals(
-            '/tmp/config',
-            $this->parameters->projectConfigDir
-        );
     }
 }

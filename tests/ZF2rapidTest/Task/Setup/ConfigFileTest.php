@@ -159,6 +159,9 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
             'namespaceInputFilter'      => 'InputFilter',
             'namespaceForm'             => 'Form',
             'namespaceHydrator'         => 'Hydrator',
+            'namespaceEntity'           => 'Entity',
+            'namespaceTableGateway'     => 'TableGateway',
+            'namespaceRepository'       => 'Repository',
         );
 
         $this->assertEquals($expectedConfig, $this->parameters->config);
@@ -187,7 +190,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
             'workingPath', $this->zf2rapidFileDir
         );
 
-        $expectedConfig = array(
+        $setupConfig = array(
             'foo' => 'bar',
             'one' => 'two',
         );
@@ -195,8 +198,30 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
         file_put_contents(
             $this->zf2rapidFileDir . $this->zf2rapidFileName,
             json_encode(
-                $expectedConfig,
+                $setupConfig,
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+            )
+        );
+
+        $expectedConfig = array_merge(
+            $setupConfig,
+            array(
+                'configFileFormat'          => 'php',
+                'flagAddDocBlocks'          => 'true',
+                'fileDocBlockText'          => 'ZF2 Application built by ZF2rapid',
+                'fileDocBlockCopyright'     => '(c) 2015 John Doe',
+                'fileDocBlockLicense'       => 'http://opensource.org/licenses/MIT The MIT License (MIT)',
+                'namespaceController'       => 'Controller',
+                'namespaceControllerPlugin' => 'Controller\\Plugin',
+                'namespaceViewHelper'       => 'View\\Helper',
+                'namespaceFilter'           => 'Filter',
+                'namespaceValidator'        => 'Validator',
+                'namespaceInputFilter'      => 'InputFilter',
+                'namespaceForm'             => 'Form',
+                'namespaceHydrator'         => 'Hydrator',
+                'namespaceEntity'           => 'Entity',
+                'namespaceTableGateway'     => 'TableGateway',
+                'namespaceRepository'       => 'Repository',
             )
         );
 

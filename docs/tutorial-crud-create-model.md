@@ -9,6 +9,7 @@ ZF2rapid.
  * [Create routing and generate maps](tutorial-create-routing-maps.md)
  * [Create controller plugin and view helper](tutorial-create-controller-plugin-view-helper.md)
  * [Create model classes](tutorial-crud-create-model.md)
+ * [Create application](tutorial-crud-application.md)
 
 ## PLEASE READ CAREFULLY
 
@@ -29,7 +30,9 @@ note, that your amendments will be lost when you try to rebuild the classes
 after you made changes to your database structure. 
 
 The generated classes should only be used for rapid prototyping or as a base for your
-own implementations! 
+own implementations!
+ 
+Currently the CRUD commands are only tested for a MySQL database!
 
 ## Create model classes
 
@@ -80,15 +83,19 @@ configuration.
 
     $ zf2rapid crud-show-tables
 
-Ww want to create a new `Customer` module first. All classes and files from the 
-CRUD commands should be placed within this module. 
+Ww want to create a new `CustomerDomain` module first. All classes and files from the 
+CRUD create model command will be placed within this module. Later on we will create other 
+modules to create the application in. So we will seperate the model from the application
+(controller and view) to ease the reusability of our model classes. If you don't like the term 
+`CustomerDomain` you can user a different name like `CustomerModel`. In the following we will 
+stick to `CustomerDomain`.
   
-    $ zf2rapid create-module Customer
+    $ zf2rapid create-module CustomerDomain
 
 Now you are ready to create all model classes for the tables within the new 
-`Customer` module . We will start with the `customer` table.
+`CustomerDomain` module . We will start with the `customer` table.
  
-    $ zf2rapid crud-create-model Customer customer
+    $ zf2rapid crud-create-model CustomerDomain customer
 
 Oops. You should get the error message `Due to a foreign key constraint you 
 need to process table country from database zf2rapid-example as well.`. The 
@@ -96,7 +103,7 @@ table `customer` is connected to the table `country` with a foreign key
 constraint. To fully create the model classes for the `customer` table you also 
 need to specify the `country` table as well.
 
-    $ zf2rapid crud-create-model Customer customer,country
+    $ zf2rapid crud-create-model CustomerDomain customer,country
 
 The following tasks are executed when creating new model classes:
 
@@ -112,17 +119,17 @@ The following tasks are executed when creating new model classes:
  * Create repository factory(ies)
  * Writing model configuration for module
 
-## Structure of new module
+## Structure of module `CustomerDomain` after model creation
 
-The generated structure of the `Customer` module should look like this:
+The generated structure of the `CustomerDomain` module should look like this:
 
     --- module
       +--- Application
-      +--- Customer
+      +--- CustomerDomain
          +--- config
          |  +--- module.config.php
          +--- src
-         |  +--- Customer
+         |  +--- CustomerDomain
          |       +--- Model                                    <---- new directory
          |           +--- Entity                               <---- new directory
          |           |  +--- CountryEntity.php                 <---- new file
@@ -145,13 +152,13 @@ The generated structure of the `Customer` module should look like this:
          |              +--- CustomerTableGateway.php          <---- new file
          |              +--- CustomerTableGatewayFactory.php   <---- new file
          +--- view
-         |  +--- customer
+         |  +--- customer-domain
          +--- autoload_classmap.php
          +--- Module.php
          +--- template_map.php
       +--- Shop
          
-To the `/module/Customer/config/module.config.php` file the configuration for the 
+To the `/module/CustomerDomain/config/module.config.php` file the configuration for the 
 model classes should be added. 
 
     <?php
@@ -166,23 +173,23 @@ model classes should be added.
         [...]
         'hydrators' => array(
             'factories' => array(
-                'Customer\\Db\\Customer' => 'Customer\\Model\\Hydrator\\CustomerHydratorFactory',
-                'Customer\\Db\\Country' => 'Customer\\Model\\Hydrator\\CountryHydratorFactory',
+                'CustomerDomain\\Db\\Customer' => 'CustomerDomain\\Model\\Hydrator\\CustomerHydratorFactory',
+                'CustomerDomain\\Db\\Country' => 'CustomerDomain\\Model\\Hydrator\\CountryHydratorFactory',
             ),
         ),
         'service_manager' => array(
             'factories' => array(
-                'Customer\\Model\\TableGateway\\Customer' => 'Customer\\Model\\TableGateway\\CustomerTableGatewayFactory',
-                'Customer\\Model\\Repository\\Customer' => 'Customer\\Model\\Repository\\CustomerRepositoryFactory',
-                'Customer\\Model\\TableGateway\\Country' => 'Customer\\Model\\TableGateway\\CountryTableGatewayFactory',
-                'Customer\\Model\\Repository\\Country' => 'Customer\\Model\\Repository\\CountryRepositoryFactory',
+                'CustomerDomain\\Model\\TableGateway\\Customer' => 'CustomerDomain\\Model\\TableGateway\\CustomerTableGatewayFactory',
+                'CustomerDomain\\Model\\Repository\\Customer' => 'CustomerDomain\\Model\\Repository\\CustomerRepositoryFactory',
+                'CustomerDomain\\Model\\TableGateway\\Country' => 'CustomerDomain\\Model\\TableGateway\\CountryTableGatewayFactory',
+                'CustomerDomain\\Model\\Repository\\Country' => 'CustomerDomain\\Model\\Repository\\CountryRepositoryFactory',
             ),
         ),
     );
 
 ## Generated entity classes
 
-The `/module/Customer/src/Customer/Model/Entity/CountryEntity.php` file contains 
+The `/module/CustomerDomain/src/CustomerDomain/Model/Entity/CountryEntity.php` file contains 
 the `CountryEntity` class, which consists of the properties `code` and `name` 
 from the database table `country` and the corresponding setter and getter 
 methods. The following listing is reduced to the essential. 
@@ -194,16 +201,16 @@ methods. The following listing is reduced to the essential.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Entity;
+    namespace CustomerDomain\Model\Entity;
     
     use ZF2rapidDomain\Entity\AbstractEntity;
     
     /**
      * CountryEntity
      *
-     * Provides the CountryEntity entity for the Customer Module
+     * Provides the CountryEntity entity for the CustomerDomain Module
      *
-     * @package Customer\Model\Entity
+     * @package CustomerDomain\Model\Entity
      */
     class CountryEntity extends AbstractEntity
     {
@@ -221,7 +228,7 @@ methods. The following listing is reduced to the essential.
         public function getName() {}
     }
 
-The `/module/Customer/src/Customer/Model/Entity/CustomerEntity.php` file 
+The `/module/CustomerDomain/src/CustomerDomain/Model/Entity/CustomerEntity.php` file 
 contains the `CustomerEntity` class, which consists all the properties from the 
 database table `customer` and the corresponding setter and getter methods. The 
 following listing is reduced to the essential. Please note that columns with 
@@ -235,16 +242,16 @@ for the `CountryEntity`.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Entity;
+    namespace CustomerDomain\Model\Entity;
     
     use ZF2rapidDomain\Entity\AbstractEntity;
     
     /**
-     * CustomerEntity
+     * CustomerDomainEntity
      *
-     * Provides the CustomerEntity entity for the Customer Module
+     * Provides the CustomerEntity entity for the CustomerDomain Module
      *
-     * @package Customer\Model\Entity
+     * @package CustomerDomain\Model\Entity
      */
     class CustomerEntity extends AbstractEntity
     {
@@ -311,7 +318,7 @@ work together with the generated hydrators. The `AbstractEntity` also provides t
 
 ## Generated hydrator classes, strategies and factories
 
-The `/module/Customer/src/Customer/Model/Hydrator/CountryHydrator.php` file contains 
+The `/module/CustomerDomain/src/CustomerDomain/Model/Hydrator/CountryHydrator.php` file contains 
 the `CountryHydrator` class, which extends the `ArraySerializable` hydrator. The following 
 listing is reduced to the essential. 
 
@@ -322,16 +329,16 @@ listing is reduced to the essential.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Hydrator;
+    namespace CustomerDomain\Model\Hydrator;
     
     use Zend\Stdlib\Hydrator\ArraySerializable;
     
     /**
      * CountryHydrator
      *
-     * Provides the CountryHydrator hydrator for the Customer Module
+     * Provides the CountryHydrator hydrator for the CustomerDomain Module
      *
-     * @package Customer\Model\Hydrator
+     * @package CustomerDomain\Model\Hydrator
      */
     class CountryHydrator extends ArraySerializable
     {
@@ -341,14 +348,14 @@ listing is reduced to the essential.
     }
 
 The corresponding hydrator factory should be found in the 
-`/module/Customer/src/Customer/Model/Hydrator/CountryHydratorFactory.php` file and 
+`/module/CustomerDomain/src/CustomerDomain/Model/Hydrator/CountryHydratorFactory.php` file and 
 contains an ready-to-use factory for your `CountryHydrator` if you need to inject 
 more dependencies later on. 
 
-The `CustomerHydrator` in the file `/module/Customer/src/Customer/Model/Hydrator/CustomerHydrator.php`
+The `CustomerHydrator` in the file `/module/CustomerDomain/src/CustomerDomain/Model/Hydrator/CustomerHydrator.php`
 looks quite similar to the `CountryHydrator` shown above. 
 
-In the file `/module/Customer/src/Customer/Model/Hydrator/CustomerHydratorFactory.php` you 
+In the file `/module/CustomerDomain/src/CustomerDomain/Model/Hydrator/CustomerHydratorFactory.php` you 
 should find the corresponding `CustomerHydratorFactory`. Please note the addition of a 
 hydrator strategy for the `country` column. 
 
@@ -359,19 +366,19 @@ hydrator strategy for the `country` column.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Hydrator;
+    namespace CustomerDomain\Model\Hydrator;
     
     use Zend\ServiceManager\FactoryInterface;
     use Zend\ServiceManager\ServiceLocatorAwareInterface;
     use Zend\ServiceManager\ServiceLocatorInterface;
-    use Customer\Model\Hydrator\Strategy\CountryStrategy;
+    use CustomerDomain\Model\Hydrator\Strategy\CountryStrategy;
     
     /**
      * CustomerHydratorFactory
      *
      * Creates an instance of CustomerHydrator
      *
-     * @package Customer\Model\Hydrator
+     * @package CustomerDomain\Model\Hydrator
      */
     class CustomerHydratorFactory implements FactoryInterface
     {
@@ -395,7 +402,7 @@ hydrator strategy for the `country` column.
     }
     
 The `CountryStrategy` class in the 
-`/module/Customer/src/Customer/Model/Hydrator/Strategy/CountryStrategey.php` file was generated
+`/module/CustomerDomain/src/CustomerDomain/Model/Hydrator/Strategy/CountryStrategey.php` file was generated
 to handle the foreign key constraint for the `country` column in the `customer` table. It helps 
 to convert the data read from the database into an `CountryEntity` and extract the relevant
 data from the `CountryEntity` to prepare the writing to the database.
@@ -407,17 +414,17 @@ data from the `CountryEntity` to prepare the writing to the database.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Hydrator\Strategy;
+    namespace CustomerDomain\Model\Hydrator\Strategy;
     
     use Zend\Stdlib\Hydrator\Strategy\StrategyInterface;
-    use Customer\Model\Entity\CountryEntity;
+    use CustomerDomain\Model\Entity\CountryEntity;
     
     /**
      * CountryStrategy
      *
-     * Provides the Country hydrator strategy for the Customer Module
+     * Provides the Country hydrator strategy for the CustomerDomain Module
      *
-     * @package Customer\Model\Hydrator\Strategy
+     * @package CustomerDomain\Model\Hydrator\Strategy
      */
     class CountryStrategy implements StrategyInterface
     {
@@ -459,14 +466,14 @@ the generated table gateway classes.
 
 ## Generated table gateway classes and factories
 
-The `/module/Customer/src/Customer/Model/TableGateway/CountryTableGateway.php` file contains 
+The `/module/CustomerDomain/src/CustomerDomain/Model/TableGateway/CountryTableGateway.php` file contains 
 the `CountryTableGateway` class, which extends the `AbstractTableGateway` class from the 
 [ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. The corresponding 
 `CountryTableGatewayFactory` injects the database adapter and a `HydratingResultSet` instance
 with combines the `CountryEntity` and the `CountryHydrator`. 
 
 More interesting is the `CustomerTableGateway` class from the 
-`/module/Customer/src/Customer/Model/TableGateway/CustomerTableGateway.php` file which also 
+`/module/CustomerDomain/src/CustomerDomain/Model/TableGateway/CustomerTableGateway.php` file which also 
 extends the `AbstractTableGateway` class from the `ZF2rapidDomain` module. Please
 note the `selectWith()` method which adds a join to the `country` table to combine the 
 customer data with the country data. This joined data will be used by the `CountryStrategy` 
@@ -479,7 +486,7 @@ to convert it into an `CountryEntity` instance.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\TableGateway;
+    namespace CustomerDomain\Model\TableGateway;
     
     use ZF2rapidDomain\TableGateway\AbstractTableGateway;
     use Zend\Db\ResultSet\ResultSetInterface;
@@ -488,9 +495,9 @@ to convert it into an `CountryEntity` instance.
     /**
      * CustomerTableGateway
      *
-     * Provides the CustomerTableGateway table gateway for the Customer Module
+     * Provides the CustomerTableGateway table gateway for the CustomerDomain Module
      *
-     * @package Customer\Model\TableGateway
+     * @package CustomerDomain\Model\TableGateway
      */
     class CustomerTableGateway extends AbstractTableGateway
     {
@@ -516,7 +523,7 @@ to convert it into an `CountryEntity` instance.
     }
 
 The corresponding factory for `CustomerTableGateway` class can be found in the 
-`/module/Customer/src/Customer/Model/TableGateway/CustomerTableGatewayFactory.php` file.
+`/module/CustomerDomain/src/CustomerDomain/Model/TableGateway/CustomerTableGatewayFactory.php` file.
 This factory configures the `CustomerTableGateway` instance and injects the database adapter 
 and the needed `HydratingResultSet`.
 
@@ -527,10 +534,10 @@ and the needed `HydratingResultSet`.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\TableGateway;
+    namespace CustomerDomain\Model\TableGateway;
     
-    use Customer\Model\Entity\CustomerEntity;
-    use Customer\Model\Hydrator\CustomerHydrator;
+    use CustomerDomain\Model\Entity\CustomerEntity;
+    use CustomerDomain\Model\Hydrator\CustomerHydrator;
     use Zend\Db\Adapter\AdapterInterface;
     use Zend\Db\ResultSet\HydratingResultSet;
     use Zend\ServiceManager\FactoryInterface;
@@ -542,7 +549,7 @@ and the needed `HydratingResultSet`.
      *
      * Creates an instance of CustomerTableGateway
      *
-     * @package Customer\Model\TableGateway
+     * @package CustomerDomain\Model\TableGateway
      */
     class CustomerTableGatewayFactory implements FactoryInterface
     {
@@ -561,7 +568,7 @@ and the needed `HydratingResultSet`.
             $dbAdapter = $serviceLocator->get('Zend\Db\Adapter\Adapter');
     
             /** @var CustomerHydrator $hydrator */
-            $hydrator  = $hydratorManager->get('Customer\Db\Customer');
+            $hydrator  = $hydratorManager->get('CustomerDomain\Db\Customer');
             $entity    = new CustomerEntity();
             $resultSet = new HydratingResultSet($hydrator, $entity);
     
@@ -579,12 +586,12 @@ with the repositories.
 
 ## Generated repository classes and factories
 
-The `/module/Customer/src/Customer/Model/Repository/CountryRepository.php` file contains 
+The `/module/CustomerDomain/src/CustomerDomain/Model/Repository/CountryRepository.php` file contains 
 the `CountryRepository` class, which extends the `AbstractRepository` class from the 
 [ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. The corresponding 
 `CountryRepositoryFactory` injects the `CountryTableGateway` instance. 
 
-In the file `/module/Customer/src/Customer/Model/Repository/CustomerRepository.php` you
+In the file `/module/CustomerDomain/src/CustomerDomain/Model/Repository/CustomerRepository.php` you
 will find the `CustomerRepository` class which also extends the `AbstractRepository` class 
 from the `ZF2rapidDomain` module. The `AbstractRepository` class provides a couple of methods
 for reading and persisting entities by using the `CustomerTableGateway` instance.
@@ -596,7 +603,7 @@ for reading and persisting entities by using the `CustomerTableGateway` instance
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Repository;
+    namespace CustomerDomain\Model\Repository;
     
     use ZF2rapidDomain\Repository\AbstractRepository;
     
@@ -605,7 +612,7 @@ for reading and persisting entities by using the `CustomerTableGateway` instance
      *
      * Provides the CustomerRepository repository for the Customer Module
      *
-     * @package Customer\Model\Repository
+     * @package CustomerDomain\Model\Repository
      */
     class CustomerRepository extends AbstractRepository
     {
@@ -620,9 +627,9 @@ The repository factory `CustomerRepositoryFactory` is almost self-explanatory.
      * @copyright (c) 2015 John Doe
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
-    namespace Customer\Model\Repository;
+    namespace CustomerDomain\Model\Repository;
     
-    use Customer\Model\TableGateway\CustomerTableGateway;
+    use CustomerDomain\Model\TableGateway\CustomerTableGateway;
     use Zend\ServiceManager\FactoryInterface;
     use Zend\ServiceManager\ServiceLocatorInterface;
     
@@ -631,7 +638,7 @@ The repository factory `CustomerRepositoryFactory` is almost self-explanatory.
      *
      * Creates an instance of CustomerRepository
      *
-     * @package Customer\Model\Repository
+     * @package CustomerDomain\Model\Repository
      */
     class CustomerRepositoryFactory implements FactoryInterface
     {
@@ -644,7 +651,7 @@ The repository factory `CustomerRepositoryFactory` is almost self-explanatory.
         public function createService(ServiceLocatorInterface $serviceLocator)
         {
             /** @var CustomerTableGateway $tableGateway */
-            $tableGateway = $serviceLocator->get('Customer\Model\TableGateway\Customer');
+            $tableGateway = $serviceLocator->get('CustomerDomain\Model\TableGateway\Customer');
     
             $instance = new CustomerRepository($tableGateway);
     
@@ -661,3 +668,4 @@ currently cannot rerun the class generation without the loss of your extensions.
 would be that you do not extend the classes themselves but create new classes which extend the 
 generated classes. 
 
+[Continue to create application](tutorial-crud-application.md)

@@ -9,6 +9,7 @@
 namespace ZF2rapid\Task\Crud;
 
 use Zend\Code\Reflection\ClassReflection;
+use Zend\Db\Metadata\Object\ColumnObject;
 use ZF2rapid\Generator\ConfigArrayGenerator;
 use ZF2rapid\Generator\ConfigFileGenerator;
 use ZF2rapid\Task\AbstractTask;
@@ -53,10 +54,32 @@ class GenerateTranslationFile extends AbstractTask
 
         // loop through entity properties
         foreach ($loadedEntity->getProperties() as $property) {
-            $translationKey  = $moduleIdentifier . '_label_' . $this->filterCamelCaseToUnderscore($property->getName());
-            $translationText = ucfirst(($property->getName()));
+            $key  = $moduleIdentifier . '_label_' . $this->filterCamelCaseToUnderscore($property->getName());
+            $text = ucfirst(($property->getName()));
 
-            $translationData[$translationKey] = $translationText;
+            $translationData[$key] = $text;
+        }
+
+        $loadedTable = $this->params->loadedTables[$entityIdentifier];
+
+        /** @var ColumnObject $column */
+        foreach ($loadedTable['columns'] as $column) {
+            if ($column->getDataType() == 'enum') {
+                $key  = $column->getTableName() . '_message_inarray_' . $column->getTableName() . '_' . $column->getName();
+                $text = 'Invalid ' . $column->getTableName() . '_' . $column->getName() . '!';
+
+                $translationData[$key] = $text;
+            } elseif ($column->getDataType() == 'varchar') {
+                $key  = $column->getTableName() . '_message_stringlength_' . $column->getTableName() . '_' . $column->getName();
+                $text = 'Wrong length for ' . $column->getTableName() . '_' . $column->getName() . '!';
+
+                $translationData[$key] = $text;
+            } elseif ($column->getDataType() == 'char') {
+                $key  = $column->getTableName() . '_message_stringlength_' . $column->getTableName() . '_' . $column->getName();
+                $text = 'Wrong length for ' . $column->getTableName() . '_' . $column->getName() . '!';
+
+                $translationData[$key] = $text;
+            }
         }
 
         // create config array

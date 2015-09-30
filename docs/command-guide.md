@@ -481,8 +481,8 @@ Framework 2 project.
     $ zf2rapid crud-show-tables [--workingPath=]
 
 If you are ready you can create the model classes (entities, hydrator, table
-gateways, repositories) and the model configuration for one table or more 
-tables. You need to specify the `<module>` to create the model in and the 
+gateways, repositories, input filter) and the model configuration for one table or 
+more tables. You need to specify the `<module>` to create the model in and the 
 `<tables>` to create classes for as a comma-separated list. Optionally, you can 
 specify the `--workingPath=` of the Zend Framework 2 project.
 

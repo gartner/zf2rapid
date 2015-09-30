@@ -46,7 +46,8 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
                 return 1;
             }
 
-            $configKey = $this->params->paramModule . '\Model\TableGateway\\'
+            $configKey = $this->params->paramModule . '\\'
+                . $this->params->config['namespaceTableGateway'] . '\\'
                 . $this->filterUnderscoreToCamelCase($tableKey);
 
             $result = $this->updateConfig(
@@ -60,7 +61,8 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
                 return 1;
             }
 
-            $configKey = $this->params->paramModule . '\Model\Repository\\'
+            $configKey = $this->params->paramModule . '\\'
+                . $this->params->config['namespaceRepository'] . '\\'
                 . $this->filterUnderscoreToCamelCase($tableKey);
 
             $result = $this->updateConfig(
@@ -68,6 +70,20 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
                 $configKey,
                 $tableConfig['repositoryClass'],
                 $this->params->config['namespaceRepository']
+            );
+
+            if (!$result) {
+                return 1;
+            }
+
+            $configKey = $this->params->paramModule . '\\'
+                . $this->filterUnderscoreToCamelCase($tableKey);
+
+            $result = $this->updateConfig(
+                'input_filters',
+                $configKey,
+                $tableConfig['inputFilterClass'],
+                $this->params->config['namespaceInputFilter']
             );
 
             if (!$result) {

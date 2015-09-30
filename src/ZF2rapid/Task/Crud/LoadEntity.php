@@ -80,6 +80,45 @@ class LoadEntity extends AbstractTask
 
         $this->params->loadedEntity = $entityClass->getClass();
 
+        /** @var Adapter $dbAdapter */
+        $dbAdapter = $this->params->dbAdapter;
+
+        // get Metadata for database adapter
+        $metaData = new Metadata($dbAdapter);
+
+        // init loaded tables
+        $loadedTables = array();
+
+        /** @var TableObject $tableObject */
+        foreach ($metaData->getTables() as $tableObject) {
+            $columns     = array();
+            $primaryKey  = array();
+            $foreignKeys = array();
+
+            /** @var ColumnObject $columnObject */
+            foreach ($tableObject->getColumns() as $columnObject) {
+                $columns[$columnObject->getName()] = $columnObject;
+            }
+
+            /** @var ConstraintObject $constraintObject */
+            foreach ($tableObject->getConstraints() as $constraintObject) {
+                if ($constraintObject->isPrimaryKey()) {
+                    $primaryKey = $constraintObject;
+                } elseif ($constraintObject->isForeignKey()) {
+                    $foreignKeys[$constraintObject->getName()]
+                        = $constraintObject;
+                }
+            }
+
+            $loadedTables[$tableObject->getName()] = array(
+                'columns'     => $columns,
+                'primaryKey'  => $primaryKey,
+                'foreignKeys' => $foreignKeys,
+            );
+        }
+
+        $this->params->loadedTables = $loadedTables;
+
         return 0;
     }
 

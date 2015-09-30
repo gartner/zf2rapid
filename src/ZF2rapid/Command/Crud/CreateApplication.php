@@ -27,6 +27,7 @@ class CreateApplication extends AbstractCommand
             'ZF2rapid\Task\Setup\Params',
             'ZF2rapid\Task\Check\ModulePathExists',
             'ZF2rapid\Task\Check\ModuleExists',
+            'ZF2rapid\Task\Crud\CheckDbConnection',
             'ZF2rapid\Task\Crud\LoadEntity',
             'ZF2rapid\Task\Crud\CreateApplicationStructure',
             'ZF2rapid\Task\Crud\GenerateIndexControllerClass',

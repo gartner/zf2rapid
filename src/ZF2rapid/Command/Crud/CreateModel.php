@@ -38,6 +38,8 @@ class CreateModel extends AbstractCommand
             'ZF2rapid\Task\Crud\GenerateTableGatewayFactory',
             'ZF2rapid\Task\Crud\GenerateRepositoryClass',
             'ZF2rapid\Task\Crud\GenerateRepositoryFactory',
+            'ZF2rapid\Task\Crud\GenerateInputFilterClass',
+            'ZF2rapid\Task\Crud\GenerateInputFilterFactory',
             'ZF2rapid\Task\Crud\UpdateModelConfig',
         );
 

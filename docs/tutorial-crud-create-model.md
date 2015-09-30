@@ -23,7 +23,8 @@ implementing a simple model layer with the Zend Framework 2. The entities repres
 your data as objects, the table gateways allow the access to database tables and 
 the hydrators help to convert the data passed from the database to your 
 entities. The generated repositories are meant to be used within your 
-controllers or other classes which access to the data.
+controllers or other classes which access to the data. The generated input filters 
+can be used for input validation with or without a form.
 
 You can extend the generated classes and add more logic to it. But please 
 note, that your amendments will be lost when you try to rebuild the classes 
@@ -117,6 +118,8 @@ The following tasks are executed when creating new model classes:
  * Create table gateway factory(ies)
  * Create repository class(es)
  * Create repository factory(ies)
+ * Create input filter class(es)
+ * Create input filter factory(ies)
  * Writing model configuration for module
 
 ## Structure of module `CustomerDomain` after model creation
@@ -468,9 +471,55 @@ the generated table gateway classes.
 
 The `/module/CustomerDomain/src/CustomerDomain/Model/TableGateway/CountryTableGateway.php` file contains 
 the `CountryTableGateway` class, which extends the `AbstractTableGateway` class from the 
-[ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. The corresponding 
-`CountryTableGatewayFactory` injects the database adapter and a `HydratingResultSet` instance
-with combines the `CountryEntity` and the `CountryHydrator`. 
+[ZF2rapidDomain](https://github.com/ZFrapid/zf2rapid-domain) module. An `getOptions()` method 
+was generated to get an option list of the data from the table.
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace CustomerDomain\Model\TableGateway;
+    
+    use ZF2rapidDomain\TableGateway\AbstractTableGateway;
+    use CustomerDomain\Model\Entity\CountryEntity;
+    
+    /**
+     * CountryTableGateway
+     *
+     * Provides the CountryTableGateway table gateway for the CustomerDomain Module
+     *
+     * @package CustomerDomain\Model\TableGateway
+     */
+    class CountryTableGateway extends AbstractTableGateway
+    {
+        /**
+         * Get option list
+         *
+         * @return array
+         */
+        public function getOptions()
+        {
+            $options = array();
+    
+            /** @var CountryEntity $entity */
+            foreach ($this->fetchAllEntities() as $entity) {
+                $columns = array(
+                    $entity->getName(),
+                );
+    
+                $options[$entity->getIdentifier()] = implode(' ', $columns);
+            }
+    
+            return $options;
+        }
+    }
+
+
+The corresponding `CountryTableGatewayFactory` injects the database adapter and a `HydratingResultSet` 
+instance with combines the `CountryEntity` and the `CountryHydrator`. 
 
 More interesting is the `CustomerTableGateway` class from the 
 `/module/CustomerDomain/src/CustomerDomain/Model/TableGateway/CustomerTableGateway.php` file which also 
@@ -501,6 +550,8 @@ to convert it into an `CountryEntity` instance.
      */
     class CustomerTableGateway extends AbstractTableGateway
     {
+        [...]
+        
         /**
          * Add join tables
          *
@@ -663,9 +714,222 @@ The repository classes should be used within your controllers as a gateway to th
 You should never access the table gateway instances directly. The repositories can also be used 
 within a view helper to read some data (but never ever to persist data).
 
-**Please note:** You can easily extend all the generated classes but you must be aware that you
-currently cannot rerun the class generation without the loss of your extensions. A better solution
-would be that you do not extend the classes themselves but create new classes which extend the 
-generated classes. 
+## Generated input filter classes and factories
+
+The `/module/CustomerDomain/src/CustomerDomain/Model/InputFilter/CountryInputFilter.php` file 
+contains the `CountryInputFilter` class, which extends the `InputFilter` class from the 
+Zend Framework. Some filters and validators for the generated Input objects have been added. 
+Please check them carefully and add or delete any of the generated filters and validators to fit
+your needs. 
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace CustomerDomain\Model\InputFilter;
+    
+    use Zend\InputFilter\InputFilter;
+    
+    /**
+     * CountryInputFilter
+     *
+     * Provides the CountryInputFilter input filter for the CustomerDomain Module
+     *
+     * @package CustomerDomain\Model\InputFilter
+     */
+    class CountryInputFilter extends InputFilter
+    {
+        /**
+         * Initialize the CountryInputFilter for module CustomerDomain
+         *
+         * Please add any filter and validator you need for each input element
+         */
+        public function init()
+        {
+            $this->add(
+                array(
+                    'name' => 'code',
+                    'required' => false,
+                    'filters' => array(
+                        array(
+                            'name' => 'StringTrim',
+                        ),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                 'min' => 2,
+                                 'max' => 2,
+                                 'message' => 'country_message_stringlength_country_code',
+                            ),
+                        ),
+                    ),
+                )
+            );
+    
+            $this->add(
+                array(
+                    'name' => 'name',
+                    'required' => true,
+                    'filters' => array(
+                        array(
+                            'name' => 'StringTrim',
+                        ),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                 'max' => 64,
+                                 'message' => 'country_message_stringlength_country_name',
+                            ),
+                        ),
+                    ),
+                )
+            );
+        }
+    }
+
+Since the `CustomerEntity` has an dependency on the 'CountryEntity' the corresponding 
+`CustomerInputFilter` needs the country options for input validation. The file
+`/module/CustomerDomain/src/CustomerDomain/Model/InputFilter/CustomerInputFilter.php` uses the
+country options together with an `InArray` validator. The following listing is reduced to the 
+essential. 
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace CustomerDomain\Model\InputFilter;
+    
+    use Zend\InputFilter\InputFilter;
+    
+    /**
+     * CustomerInputFilter
+     *
+     * Provides the CustomerInputFilter input filter for the CustomerDomain Module
+     *
+     * @package CustomerDomain\Model\InputFilter
+     */
+    class CustomerInputFilter extends InputFilter
+    {
+        /**
+         * country options
+         *
+         * @var array
+         */
+        private $countryOptions = null;
+    
+        /**
+         * Set country options
+         *
+         * @param array $countryOptions
+         */
+        public function setCountryOptions(array $countryOptions)
+        {
+            $this->countryOptions = $countryOptions;
+        }
+    
+        /**
+         * Initialize the CustomerInputFilter for module CustomerDomain
+         *
+         * Please add any filter and validator you need for each input element
+         */
+        public function init()
+        {
+            [...]
+    
+            $this->add(
+                array(
+                    'name' => 'country',
+                    'required' => false,
+                    'filters' => array(
+                        array(
+                            'name' => 'StringTrim',
+                        ),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                 'min' => 2,
+                                 'max' => 2,
+                                 'message' => 'customer_message_stringlength_customer_country',
+                            ),
+                        ),
+                        array(
+                            'name' => 'InArray',
+                            'options' => array(
+                                 'haystack' => $this->countryOptions,
+                                 'message' => 'customer_message_inarray_customer_country',
+                            ),
+                        ),
+                    ),
+                )
+            );
+        }
+    }
+
+The corresponding factory for the `CustomerInputFilter` in the file 
+`/module/CustomerDomain/src/CustomerDomain/Model/InputFilter/CustomerInputFilter.php` injects 
+the country options into the input filter instance.
+
+    <?php
+    /**
+     * ZF2 Application built by ZF2rapid
+     *
+     * @copyright (c) 2015 John Doe
+     * @license http://opensource.org/licenses/MIT The MIT License (MIT)
+     */
+    namespace CustomerDomain\Model\InputFilter;
+    
+    use CustomerDomain\Model\TableGateway\CountryTableGateway;
+    use Zend\ServiceManager\FactoryInterface;
+    use Zend\ServiceManager\ServiceLocatorAwareInterface;
+    use Zend\ServiceManager\ServiceLocatorInterface;
+    
+    /**
+     * CustomerInputFilterFactory
+     *
+     * Creates an instance of CustomerInputFilter
+     *
+     * @package CustomerDomain\Model\InputFilter
+     */
+    class CustomerInputFilterFactory implements FactoryInterface
+    {
+        /**
+         * Create service
+         *
+         * @param ServiceLocatorInterface $inputFilterManager
+         * @return CustomerInputFilter
+         */
+        public function createService(ServiceLocatorInterface $inputFilterManager)
+        {
+            /** @var ServiceLocatorAwareInterface $inputFilterManager */
+            $serviceLocator = $inputFilterManager->getServiceLocator();
+    
+            /** @var CountryTableGateway $countryTableGateway */
+            $countryTableGateway = $serviceLocator->get('CustomerDomain\Model\TableGateway\Country');
+    
+            $instance = new CustomerInputFilter();
+            $instance->setCountryOptions($countryTableGateway->getOptions());
+    
+            return $instance;
+        }
+    }
+
+## Please note:
+
+You can easily extend all the generated classes but you must be aware that you currently cannot 
+rerun the class generation without the loss of your extensions. A better solution would be that 
+you do not extend the classes themselves but create new classes which extend the generated 
+classes. 
 
 [Continue to create application](tutorial-crud-create-application.md)

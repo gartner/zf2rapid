@@ -64,6 +64,14 @@ class CreateModelStructure extends AbstractCreateStructureTask
             return 1;
         }
 
+        $result = $this->createDirectory(
+            $this->params->inputFilterDir, 'Input Filter'
+        );
+
+        if (!$result) {
+            return 1;
+        }
+
         return 0;
     }
 

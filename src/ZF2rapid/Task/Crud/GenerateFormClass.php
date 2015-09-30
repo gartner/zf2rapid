@@ -8,15 +8,15 @@
  */
 namespace ZF2rapid\Task\Crud;
 
-use ZF2rapid\Generator\Crud\IndexControllerClassGenerator;
+use ZF2rapid\Generator\Crud\FormClassGenerator;
 use ZF2rapid\Task\GenerateClass\AbstractGenerateClass;
 
 /**
- * Class GenerateIndexControllerClass
+ * Class GenerateFormClass
  *
  * @package ZF2rapid\Task\GenerateClass
  */
-class GenerateIndexControllerClass extends AbstractGenerateClass
+class GenerateFormClass extends AbstractGenerateClass
 {
     /**
      * Process the command
@@ -26,15 +26,17 @@ class GenerateIndexControllerClass extends AbstractGenerateClass
     public function processCommandTask()
     {
         $result = $this->generateClass(
-            $this->params->applicationControllerDir,
-            'IndexController',
-            'index controller',
-            new IndexControllerClassGenerator(
+            $this->params->applicationFormDir,
+            $this->params->paramModule . 'Form',
+            'form',
+            new FormClassGenerator(
                 $this->params->paramModule,
                 $this->params->paramEntityModule,
+                $this->params->loadedTables,
                 $this->params->config
             )
         );
+
 
         if (!$result) {
             return 1;

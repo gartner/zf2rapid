@@ -229,17 +229,17 @@ class InputFilterClassGenerator extends ClassGenerator
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
-        $indexAction = new MethodGenerator('init');
-        $indexAction->addFlag(MethodGenerator::FLAG_PUBLIC);
-        $indexAction->setDocBlock(
+        $initMethod = new MethodGenerator('init');
+        $initMethod->addFlag(MethodGenerator::FLAG_PUBLIC);
+        $initMethod->setDocBlock(
             new DocBlockGenerator(
                 'Initialize the ' . $className . ' for module ' . $moduleName,
                 'Please add any filter and validator you need for each input element'
             )
         );
-        $indexAction->setBody($body);
+        $initMethod->setBody($body);
 
-        $this->addMethodFromGenerator($indexAction);
+        $this->addMethodFromGenerator($initMethod);
     }
 
     /**

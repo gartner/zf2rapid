@@ -16,7 +16,7 @@ use ZF2rapid\Task\AbstractTask;
 /**
  * Class GenerateInputFilterFactory
  *
- * @package ZF2rapid\Task\GenerateFactory
+ * @package ZF2rapid\Task\Crud
  */
 class GenerateInputFilterFactory extends AbstractTask
 {

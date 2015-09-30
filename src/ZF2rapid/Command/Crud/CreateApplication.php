@@ -34,6 +34,8 @@ class CreateApplication extends AbstractCommand
             'ZF2rapid\Task\Crud\GenerateIndexControllerFactory',
             'ZF2rapid\Task\Crud\GenerateShowControllerClass',
             'ZF2rapid\Task\Crud\GenerateShowControllerFactory',
+            'ZF2rapid\Task\Crud\GenerateFormClass',
+            'ZF2rapid\Task\Crud\GenerateFormFactory',
             'ZF2rapid\Task\Crud\CreateApplicationConfig',
             'ZF2rapid\Task\Crud\GenerateIndexView',
             'ZF2rapid\Task\Crud\GenerateShowView',

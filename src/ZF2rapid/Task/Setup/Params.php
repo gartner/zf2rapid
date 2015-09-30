@@ -360,6 +360,9 @@ class Params extends AbstractTask
             $this->params->applicationControllerDir = $this->params->moduleSrcDir . DIRECTORY_SEPARATOR
                 . str_replace('\\', DIRECTORY_SEPARATOR, $this->params->config['namespaceController']);
 
+            $this->params->applicationFormDir = $this->params->moduleSrcDir . DIRECTORY_SEPARATOR
+                . str_replace('\\', DIRECTORY_SEPARATOR, $this->params->config['namespaceForm']);
+
             $this->params->applicationViewDir = $this->params->moduleViewDir . DIRECTORY_SEPARATOR
                 . $this->filterCamelCaseToDash($this->params->paramEntityModule);
 

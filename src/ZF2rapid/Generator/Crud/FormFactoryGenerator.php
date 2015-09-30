@@ -17,13 +17,14 @@ use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Db\Metadata\Object\ConstraintObject;
+use Zend\Filter\StaticFilter;
 
 /**
- * Class InputFilterFactoryGenerator
+ * Class FormFactoryGenerator
  *
  * @package ZF2rapid\Generator\Crud
  */
-class InputFilterFactoryGenerator extends ClassGenerator
+class FormFactoryGenerator extends ClassGenerator
 {
     /**
      * @var array
@@ -33,32 +34,28 @@ class InputFilterFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $loadedTable;
-
-    /**
-     * @var array
-     */
     protected $foreignKeys;
 
     /**
      * @param string $className
      * @param string $moduleName
-     * @param string $namespaceName
-     * @param string $tableName
-     * @param array  $loadedTable
+     * @param string $entityModule
+     * @param array  $loadedTables
      * @param array  $config
      */
     public function __construct(
-        $className, $moduleName, $namespaceName, $tableName, array $loadedTable = array(), array $config = array()
+        $className, $moduleName, $entityModule, array $loadedTables = array(), array $config = array()
     ) {
         // set config data
-        $this->config      = $config;
-        $this->loadedTable = $loadedTable;
+        $this->config = $config;
+
+        $tableName   = $this->filterCamelCaseToUnderscore($moduleName);
+        $loadedTable = $loadedTables[$tableName];
 
         $this->foreignKeys = array();
 
         /** @var ConstraintObject $foreignKey */
-        foreach ($this->loadedTable['foreignKeys'] as $foreignKey) {
+        foreach ($loadedTable['foreignKeys'] as $foreignKey) {
             foreach ($foreignKey->getColumns() as $column) {
                 $this->foreignKeys[$column] = $foreignKey;
             }
@@ -67,13 +64,13 @@ class InputFilterFactoryGenerator extends ClassGenerator
         // call parent constructor
         parent::__construct(
             $className . 'Factory',
-            $moduleName . '\\' . $namespaceName
+            $moduleName . '\\' . $this->config['namespaceForm']
         );
 
         // add namespaces for foreign key tables
         foreach ($this->foreignKeys as $foreignKey) {
             $this->addUse(
-                $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\'
+                $entityModule . '\\' . $this->config['namespaceTableGateway'] . '\\'
                 . ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway'
             );
         }
@@ -85,7 +82,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
         $this->setImplementedInterfaces(array('FactoryInterface'));
 
         // add methods
-        $this->addCreateServiceMethod($className, $moduleName);
+        $this->addCreateServiceMethod($className, $entityModule);
         $this->addClassDocBlock($className);
     }
 
@@ -114,11 +111,11 @@ class InputFilterFactoryGenerator extends ClassGenerator
      * Generate the create service method
      *
      * @param string $className
-     * @param string $moduleName
+     * @param string $entityModule
      */
-    protected function addCreateServiceMethod($className, $moduleName)
+    protected function addCreateServiceMethod($className, $entityModule)
     {
-        $managerName = 'inputFilterManager';
+        $managerName = 'formElementManager';
 
         // set action body
         $body   = array();
@@ -129,7 +126,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
             $tableGatewayName    = ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $tableGatewayService = $moduleName . '\\Model\\TableGateway\\' . ucfirst(
+            $tableGatewayService = $entityModule . '\\Model\\TableGateway\\' . ucfirst(
                     $foreignKey->getReferencedTableName()
                 );
             $tableGatewayParam   = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
@@ -146,7 +143,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
             $tableGatewayParam = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
             $setterOption      = 'set' . ucfirst($foreignKey->getReferencedTableName()) . 'Options';
 
-            $body[] = '$instance->' . $setterOption . '(array_keys($' . $tableGatewayParam . '->getOptions()));';
+            $body[] = '$instance->' . $setterOption . '($' . $tableGatewayParam . '->getOptions());';
         }
 
         $body[] = '';
@@ -187,6 +184,21 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         // add method
         $this->addMethodFromGenerator($method);
+    }
+
+    /**
+     * Filter camel case to underscore
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function filterCamelCaseToUnderscore($text)
+    {
+        $text = StaticFilter::execute($text, 'Word\CamelCaseToUnderscore');
+        $text = StaticFilter::execute($text, 'StringToLower');
+
+        return $text;
     }
 
 }

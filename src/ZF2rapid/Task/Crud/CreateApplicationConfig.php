@@ -53,6 +53,9 @@ class CreateApplicationConfig extends AbstractTask
         // add controller config
         $configData = $this->addControllerConfig($configData);
 
+        // add form config
+        $configData = $this->addFormConfig($configData);
+
         // add routing config
         $configData = $this->addRoutingConfig($configData);
 
@@ -103,6 +106,34 @@ class CreateApplicationConfig extends AbstractTask
             // add class
             $configData['controllers']['factories'][$configKey] = $class;
         }
+
+        return $configData;
+    }
+
+    /**
+     * @param $configData
+     *
+     * @return mixed
+     */
+    protected function addFormConfig($configData)
+    {
+        // check for config key
+        if (!isset($configData['form_elements'])) {
+            $configData['form_elements'] = array();
+        }
+
+        // check for factories config key
+        if (!isset($configData['form_elements']['factories'])) {
+            $configData['form_elements']['factories'] = array();
+        }
+
+        // set class and namespace
+        $configKey = $this->params->paramModule . '\Form';
+        $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceForm'] . '\\'
+            . $this->params->paramModule . 'FormFactory';
+
+        // add class
+        $configData['form_elements']['factories'][$configKey] = $class;
 
         return $configData;
     }

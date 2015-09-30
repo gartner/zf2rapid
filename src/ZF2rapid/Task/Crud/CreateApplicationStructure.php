@@ -32,6 +32,14 @@ class CreateApplicationStructure extends AbstractCreateStructureTask
             return 1;
         }
 
+        $result = $this->createDirectory(
+            $this->params->applicationFormDir, 'Form'
+        );
+
+        if (!$result) {
+            return 1;
+        }
+
         // loop through controller
         foreach (array('index', 'show') as $controllerView) {
             $result = $this->createDirectory(

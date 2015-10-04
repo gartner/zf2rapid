@@ -130,7 +130,9 @@ class InputFilterClassGenerator extends ClassGenerator
 
         /** @var ColumnObject $column */
         foreach ($this->loadedTable['columns'] as $column) {
-            if (in_array($column->getName(), $primaryColumns)) {
+            if (in_array($column->getName(), $primaryColumns)
+                && in_array($column->getDataType(), array('tinyint', 'smallint', 'mediumint', 'int', 'bigint'))
+            ) {
                 $required = 'false';
             } elseif ($column->isNullable() === false) {
                 $required = 'true';
@@ -151,8 +153,8 @@ class InputFilterClassGenerator extends ClassGenerator
             $validators = array();
 
             if ($column->getDataType() == 'enum') {
-                $message = $column->getTableName() . '_message_inarray_' . $column->getTableName() . '_'
-                    . $column->getName();
+                $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
+                    . '_inarray';
                 $options = 'array(\'' . implode('\', \'', $column->getErrata('permitted_values')) . '\')';
 
                 $validators[] = '            array(';
@@ -164,8 +166,8 @@ class InputFilterClassGenerator extends ClassGenerator
                 $validators[] = '            ),';
 
             } elseif ($column->getDataType() == 'varchar') {
-                $message = $column->getTableName() . '_message_stringlength_' . $column->getTableName() . '_'
-                    . $column->getName();
+                $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
+                    . '_stringlength';
                 $max     = $column->getCharacterMaximumLength();
 
                 $validators[] = '            array(';
@@ -177,8 +179,8 @@ class InputFilterClassGenerator extends ClassGenerator
                 $validators[] = '            ),';
 
             } elseif ($column->getDataType() == 'char') {
-                $message = $column->getTableName() . '_message_stringlength_' . $column->getTableName() . '_'
-                    . $column->getName();
+                $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
+                    . '_stringlength';
                 $min     = $column->getCharacterMaximumLength();
                 $max     = $column->getCharacterMaximumLength();
 
@@ -196,13 +198,25 @@ class InputFilterClassGenerator extends ClassGenerator
                 $this->addOptionsProperty($column->getName(), $foreignKeys[$column->getName()]);
                 $this->addOptionsSetter($column->getName(), $foreignKeys[$column->getName()]);
 
-                $message = $column->getTableName() . '_message_inarray_' . $column->getTableName() . '_'
-                    . $column->getName();
+                $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
+                    . '_inarray';
 
                 $validators[] = '            array(';
                 $validators[] = '                \'name\' => \'InArray\',';
                 $validators[] = '                \'options\' => array(';
                 $validators[] = '                     \'haystack\' => $this->' . $column->getName() . 'Options,';
+                $validators[] = '                     \'message\' => \'' . $message . '\',';
+                $validators[] = '                ),';
+                $validators[] = '            ),';
+            }
+
+            if ($required) {
+                $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
+                    . '_notempty';
+
+                $validators[] = '            array(';
+                $validators[] = '                \'name\' => \'NotEmpty\',';
+                $validators[] = '                \'options\' => array(';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
                 $validators[] = '                ),';
                 $validators[] = '            ),';

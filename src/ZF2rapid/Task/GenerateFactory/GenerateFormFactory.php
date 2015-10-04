@@ -9,7 +9,7 @@
 namespace ZF2rapid\Task\GenerateFactory;
 
 /**
- * Class GenerateFormFactory
+ * Class GenerateDataFormFactory
  *
  * @package ZF2rapid\Task\GenerateFactory
  */

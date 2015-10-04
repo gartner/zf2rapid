@@ -48,7 +48,12 @@ class IndexActionViewGenerator extends AbstractActionViewGenerator
                 . $this->filterCamelCaseToUnderscore($property->getName()) . '\'); ?></th>';
         }
 
-        $body[] = '        <th>&nbsp;</th>';
+        $body[] = '        <th width="95">';
+        $body[] = '            <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
+            . '/create\'); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier . '_action_create\'); ?>">';
+        $body[] = '                <i class="fa fa-plus"></i>';
+        $body[] = '            </a>';
+        $body[] = '        </th>';
         $body[] = '    </tr>';
         $body[] = '    </thead>';
         $body[] = '    <tbody>';
@@ -64,9 +69,22 @@ class IndexActionViewGenerator extends AbstractActionViewGenerator
 
         $body[] = '            <td>';
         $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
-            . '/show\', array(\'id\' => $' . $entityParam . '->getIdentifier())); ?>">';
+            . '/show\', array(\'id\' => $' . $entityParam
+            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '_action_show\'); ?>">';
         $body[] = '                    <i class="fa fa-search"></i>';
-        $body[] = '                    <?php echo $this->translate(\'' . $moduleIdentifier . '_action_show\'); ?>';
+        $body[] = '                </a>';
+        $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
+            . '/update\', array(\'id\' => $' . $entityParam
+            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '_action_update\'); ?>">';
+        $body[] = '                    <i class="fa fa-pencil"></i>';
+        $body[] = '                </a>';
+        $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
+            . '/delete\', array(\'id\' => $' . $entityParam
+            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '_action_delete\'); ?>">';
+        $body[] = '                    <i class="fa fa-trash"></i>';
         $body[] = '                </a>';
         $body[] = '            </td>';
         $body[] = '        </tr>';

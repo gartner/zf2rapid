@@ -108,7 +108,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
 
         $managerName     = 'serviceLocator';
         $hydratorName    = ucfirst($tableName) . 'Hydrator';
-        $hydratorService = $moduleName . '\\Db\\' . ucfirst($tableName);
+        $hydratorService = $moduleName . '\\' . ucfirst($tableName);
         $entityName      = ucfirst($tableName) . 'Entity';
 
         // set action body
@@ -127,6 +127,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $body[] = '$instance = new ' . $className . '(';
         $body[] = '    \'' . $tableName . '\', $dbAdapter, null, $resultSet';
         $body[] = ');';
+        $body[] = '$instance->setHydrator($hydrator);';
 
         if ($primaryColumns[0] != 'id') {
             $body[] = '$instance->setPrimaryKey(\'' . $primaryColumns[0] . '\');';

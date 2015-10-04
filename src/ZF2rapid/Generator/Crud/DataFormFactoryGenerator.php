@@ -20,11 +20,11 @@ use Zend\Db\Metadata\Object\ConstraintObject;
 use Zend\Filter\StaticFilter;
 
 /**
- * Class FormFactoryGenerator
+ * Class DataFormFactoryGenerator
  *
  * @package ZF2rapid\Generator\Crud
  */
-class FormFactoryGenerator extends ClassGenerator
+class DataFormFactoryGenerator extends ClassGenerator
 {
     /**
      * @var array
@@ -67,6 +67,18 @@ class FormFactoryGenerator extends ClassGenerator
             $moduleName . '\\' . $this->config['namespaceForm']
         );
 
+        // add namespace for hydrator
+        $this->addUse(
+            $entityModule . '\\' . $this->config['namespaceHydrator'] . '\\'
+            . ucfirst($tableName) . 'Hydrator'
+        );
+
+        // add namespace for input filter
+        $this->addUse(
+            $entityModule . '\\' . $this->config['namespaceInputFilter'] . '\\'
+            . ucfirst($tableName) . 'InputFilter'
+        );
+
         // add namespaces for foreign key tables
         foreach ($this->foreignKeys as $foreignKey) {
             $this->addUse(
@@ -76,13 +88,15 @@ class FormFactoryGenerator extends ClassGenerator
         }
 
         // add used namespaces and extended classes
+        $this->addUse('Zend\InputFilter\InputFilterPluginManager');
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
+        $this->addUse('Zend\Stdlib\Hydrator\HydratorPluginManager');
         $this->setImplementedInterfaces(array('FactoryInterface'));
 
         // add methods
-        $this->addCreateServiceMethod($className, $entityModule);
+        $this->addCreateServiceMethod($className, $moduleName, $entityModule);
         $this->addClassDocBlock($className);
     }
 
@@ -111,16 +125,27 @@ class FormFactoryGenerator extends ClassGenerator
      * Generate the create service method
      *
      * @param string $className
+     * @param string $moduleName
      * @param string $entityModule
      */
-    protected function addCreateServiceMethod($className, $entityModule)
+    protected function addCreateServiceMethod($className, $moduleName, $entityModule)
     {
-        $managerName = 'formElementManager';
+        $managerName        = 'formElementManager';
+        $hydratorName       = ucfirst($moduleName) . 'Hydrator';
+        $hydratorService    = $entityModule . '\\' . ucfirst($moduleName);
+        $inputFilterName    = ucfirst($moduleName) . 'InputFilter';
+        $inputFilterService = $entityModule . '\\' . ucfirst($moduleName);
 
         // set action body
         $body   = array();
         $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
+        $body[] = '';
+        $body[] = '/** @var HydratorPluginManager $hydratorManager */';
+        $body[] = '$hydratorManager = $serviceLocator->get(\'HydratorManager\');';
+        $body[] = '';
+        $body[] = '/** @var InputFilterPluginManager $inputFilterManager */';
+        $body[] = '$inputFilterManager = $serviceLocator->get(\'InputFilterManager\');';
         $body[] = '';
 
         /** @var ConstraintObject $foreignKey */
@@ -136,6 +161,12 @@ class FormFactoryGenerator extends ClassGenerator
             $body[] = '';
         }
 
+        $body[] = '/** @var ' . $hydratorName . ' $hydrator */';
+        $body[] = '$hydrator  = $hydratorManager->get(\'' . $hydratorService . '\');';
+        $body[] = '';
+        $body[] = '/** @var ' . $inputFilterName . ' $inputFilter */';
+        $body[] = '$inputFilter  = $inputFilterManager->get(\'' . $inputFilterService . '\');';
+        $body[] = '';
         $body[] = '$instance = new ' . $className . '();';
 
         /** @var ConstraintObject $foreignKey */
@@ -146,6 +177,8 @@ class FormFactoryGenerator extends ClassGenerator
             $body[] = '$instance->' . $setterOption . '($' . $tableGatewayParam . '->getOptions());';
         }
 
+        $body[] = '$instance->setHydrator($hydrator);';
+        $body[] = '$instance->setInputFilter($inputFilter);';
         $body[] = '';
         $body[] = 'return $instance;';
 

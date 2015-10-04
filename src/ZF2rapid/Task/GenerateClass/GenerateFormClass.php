@@ -11,7 +11,7 @@ namespace ZF2rapid\Task\GenerateClass;
 use ZF2rapid\Generator\FormClassGenerator;
 
 /**
- * Class GenerateFormClass
+ * Class GenerateDataFormClass
  *
  * @package ZF2rapid\Task\GenerateClass
  */

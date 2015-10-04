@@ -47,9 +47,22 @@ class ControllerFactoryGenerator extends ClassGenerator
             $moduleName . '\\' . $this->config['namespaceController']
         );
 
-        // prepare some params
+        // prepare repository params
         $repositoryClass     = $moduleName . 'Repository';
         $repositoryNamespace = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $repositoryClass;
+
+        // prepare form params
+        if (in_array($controllerName, array('CreateController', 'UpdateController'))) {
+            $formClass     = $moduleName . 'DataForm';
+            $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
+
+            $this->addUse($formNamespace);
+        } elseif (in_array($controllerName, array('DeleteController'))) {
+            $formClass     = $moduleName . 'DeleteForm';
+            $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
+
+            $this->addUse($formNamespace);
+        }
 
         // add used namespaces and extended classes
         $this->addUse($repositoryNamespace);
@@ -93,21 +106,55 @@ class ControllerFactoryGenerator extends ClassGenerator
      */
     protected function addCreateServiceMethod($className, $moduleName, $entityModule)
     {
-        // prepare some params
+        // prepare repository params
         $repositoryClass   = $moduleName . 'Repository';
         $repositoryParam   = lcfirst($repositoryClass);
         $repositoryService = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $moduleName;
+
+        // prepare form params
+        if (in_array($className, array('CreateController', 'UpdateController'))) {
+            $formClass   = $moduleName . 'DataForm';
+            $formParam   = lcfirst($formClass);
+            $formService = $moduleName . '\\Data\\Form';
+        } elseif (in_array($className, array('DeleteController'))) {
+            $formClass   = $moduleName . 'DeleteForm';
+            $formParam   = lcfirst($formClass);
+            $formService = $moduleName . '\\Delete\\Form';
+        } else {
+            $formClass   = null;
+            $formParam   = null;
+            $formService = null;
+        }
 
         // set action body
         $body   = array();
         $body[] = '/** @var ServiceLocatorAwareInterface $controllerManager */';
         $body[] = '$serviceLocator = $controllerManager->getServiceLocator();';
         $body[] = '';
+
+        if ($formClass) {
+            $body[] = '/** @var ServiceLocatorInterface $formElementManager */';
+            $body[] = '$formElementManager = $serviceLocator->get(\'FormElementManager\');';
+            $body[] = '';
+        }
+
         $body[] = '/** @var ' . $repositoryClass . ' $' . $repositoryParam . ' */';
         $body[] = '$' . $repositoryParam . ' = $serviceLocator->get(\'' . $repositoryService . '\');';
         $body[] = '';
+
+        if ($formClass) {
+            $body[] = '/** @var ' . $formClass . ' $' . $formParam . ' */';
+            $body[] = '$' . $formParam . ' = $formElementManager->get(\'' . $formService . '\');';
+            $body[] = '';
+        }
+
         $body[] = '$instance = new ' . $className . '();';
         $body[] = '$instance->set' . $repositoryClass . '($' . $repositoryParam . ');';
+
+        if ($formClass) {
+            $body[] = '$instance->set' . $formClass . '($' . $formParam . ');';
+        }
+
         $body[] = '';
         $body[] = 'return $instance;';
 

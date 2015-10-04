@@ -32,8 +32,7 @@ class UpdateModelConfig extends AbstractUpdateServiceManagerConfig
         foreach ($this->params->tableConfig as $tableKey => $tableConfig) {
             $this->params->paramFactory = true;
 
-            $configKey = $this->params->paramModule . '\Db\\'
-                . $this->filterUnderscoreToCamelCase($tableKey);
+            $configKey = $this->params->paramModule . '\\' . $this->filterUnderscoreToCamelCase($tableKey);
 
             $result = $this->updateConfig(
                 'hydrators',

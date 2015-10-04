@@ -9,15 +9,14 @@
 namespace ZF2rapid\Generator\Crud;
 
 use Zend\Code\Generator\AbstractGenerator;
-use Zend\Code\Generator\BodyGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
 /**
- * Class ShowActionViewGenerator
+ * Class DeleteActionViewGenerator
  *
  * @package ZF2rapid\Generator\Crud
  */
-class ShowActionViewGenerator extends AbstractActionViewGenerator
+class DeleteActionViewGenerator extends AbstractActionViewGenerator
 {
     /**
      * Generate view content
@@ -31,7 +30,9 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         $moduleIdentifier = $this->filterCamelCaseToUnderscore($moduleName);
         $entityName       = $loadedEntity->getShortName();
         $entityParam      = lcfirst($entityName);
+        $formParam        = lcfirst($moduleName) . 'DeleteForm';
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
+        $deleteMessage    = $moduleRoute . '_message_' . $moduleRoute . '_deleting_possible';
 
         // set action body
         $body   = array();
@@ -40,23 +41,33 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '/** @var ' . $entityName . ' $' . $entityParam . ' */';
         $body[] = '$' . $entityParam . ' = $this->' . $entityParam . ';';
         $body[] = '';
-        $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_show\');';
+        $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_delete\');';
+        $body[] = '';
+        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
+            . '/delete\', array(\'id\' => $' . $entityParam . '->getIdentifier())));';
+        $body[] = '';
         $body[] = '?>';
-        $body[] = '<table class="table table-bordered">';
-        $body[] = '    <tbody>';
+        $body[] = '<div class="well">';
+        $body[] = '    <table class="table">';
+        $body[] = '        <tbody>';
 
         foreach ($loadedEntity->getProperties() as $property) {
             $methodName = 'get' . ucfirst($property->getName());
 
-            $body[] = '        <tr>';
-            $body[] = '            <th><?php echo $this->translate(\'' . $moduleIdentifier . '_label_'
+            $body[] = '            <tr>';
+            $body[] = '                <th class="col-sm-2 text-right"><?php echo $this->translate(\'' . $moduleIdentifier . '_label_'
                 . $this->filterCamelCaseToUnderscore($property->getName()) . '\'); ?></th>';
-            $body[] = '            <td><?php echo $' . $entityParam . '->' . $methodName . '() ?></td>';
-            $body[] = '        </tr>';
+            $body[] = '                <td class="col-sm-10"><?php echo $' . $entityParam . '->' . $methodName . '() ?></td>';
+            $body[] = '            </tr>';
         }
 
-        $body[] = '    </tbody>';
-        $body[] = '</table>';
+        $body[] = '            <tr>';
+        $body[] = '                <th class="col-sm-2 text-right">&nbsp;</th>';
+        $body[] = '                <td class="col-sm-10"><?php echo $this->form($this->' . $formParam . '); ?></td>';
+        $body[] = '            </tr>';
+        $body[] = '        </tbody>';
+        $body[] = '    </table>';
+        $body[] = '</div>';
         $body[] = '<p>';
         $body[] = '    <a class="btn btn-primary" href="<?php echo $this->url(\'' . $moduleRoute. '\'); ?>">';
         $body[] = '        <i class="fa fa-table"></i>';
@@ -69,5 +80,4 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         // add method
         $this->setContent($body);
     }
-
 }

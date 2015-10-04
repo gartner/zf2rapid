@@ -25,7 +25,7 @@ use ZF2rapid\Generator\ClassGeneratorInterface;
  *
  * @package ZF2rapid\Generator\Crud
  */
-class FormClassGenerator extends ClassGenerator implements ClassGeneratorInterface
+class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInterface
 {
     /**
      * @var string
@@ -141,7 +141,9 @@ class FormClassGenerator extends ClassGenerator implements ClassGeneratorInterfa
 
         /** @var ColumnObject $column */
         foreach ($loadedTable['columns'] as $column) {
-            if (in_array($column->getName(), $primaryColumns)) {
+            if (in_array($column->getName(), $primaryColumns)
+                && in_array($column->getDataType(), array('tinyint', 'smallint', 'mediumint', 'int', 'bigint'))
+            ) {
                 continue;
             }
 
@@ -160,7 +162,7 @@ class FormClassGenerator extends ClassGenerator implements ClassGeneratorInterfa
             }
 
             $options   = array();
-            $options[] = '            \'ļabel\' => \'' . $column->getTableName() . '_label_' . $column->getName()
+            $options[] = '            \'label\' => \'' . $column->getTableName() . '_label_' . $column->getName()
                 . '\',';
 
             if (isset($foreignKeys[$column->getName()])) {
@@ -184,7 +186,17 @@ class FormClassGenerator extends ClassGenerator implements ClassGeneratorInterfa
             }
 
             $attributes   = array();
-            $attributes[] = '            \'class\' => \'col-xs-6\',';
+            $attributes[] = '            \'class\' => \'form-control\',';
+
+            if (isset($foreignKeys[$column->getName()])) {
+                if ($column->getColumnDefault()) {
+                    $attributes[] = '            \'value\' => \'' . $column->getColumnDefault() . '\',';
+                }
+            } elseif ($column->getDataType() == 'enum') {
+                if ($column->getColumnDefault()) {
+                    $attributes[] = '            \'value\' => \'' . $column->getColumnDefault() . '\',';
+                }
+            }
 
             $body[] = '$this->add(';
             $body[] = '    array(';
@@ -204,6 +216,21 @@ class FormClassGenerator extends ClassGenerator implements ClassGeneratorInterfa
             $body[] = ');';
             $body[] = '';
         }
+
+        $body[] = '$this->add(';
+        $body[] = '    array(';
+        $body[] = '        \'name\' => \'save_' . $tableName . '\',';
+        $body[] = '        \'type\' => \'Submit\',';
+        $body[] = '        \'options\' => array(';
+        $body[] = '        ),';
+        $body[] = '        \'attributes\' => array(';
+        $body[] = '            \'value\' => \'' . $tableName . '_action_save\',';
+        $body[] = '            \'id\' => \'save_' . $tableName . '\',';
+        $body[] = '            \'class\' => \'btn btn-success\',';
+        $body[] = '        ),';
+        $body[] = '    )';
+        $body[] = ');';
+        $body[] = '';
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 

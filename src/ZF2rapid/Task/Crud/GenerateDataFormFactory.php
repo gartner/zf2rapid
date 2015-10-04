@@ -10,15 +10,15 @@ namespace ZF2rapid\Task\Crud;
 
 use Zend\Console\ColorInterface as Color;
 use ZF2rapid\Generator\ClassFileGenerator;
-use ZF2rapid\Generator\Crud\ShowActionViewGenerator;
+use ZF2rapid\Generator\Crud\DataFormFactoryGenerator;
 use ZF2rapid\Task\AbstractTask;
 
 /**
- * Class GenerateShowView
+ * Class GenerateDataFormFactory
  *
  * @package ZF2rapid\Task\Crud
  */
-class GenerateShowView extends AbstractTask
+class GenerateDataFormFactory extends AbstractTask
 {
     /**
      * Process the command
@@ -29,28 +29,26 @@ class GenerateShowView extends AbstractTask
     {
         // output message
         $this->console->writeTaskLine(
-            'Writing show action view script...'
+            'task_generate_factory_writing',
+            array(
+                'form'
+            )
         );
 
-        // set controller view
-        $view = 'show';
+        // set factory file
+        $factoryFile = $this->params->applicationFormDir . '/' . $this->params->paramModule . 'DataFormFactory.php';
 
-        // set action file
-        $actionFile = $this->params->moduleViewDir . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR . 'index.phtml';
-
-        // check if controller file exists
-        if (file_exists($actionFile)) {
+        // check if factory file exists
+        if (file_exists($factoryFile)) {
             $this->console->writeFailLine(
-                'task_generate_action_view_exists',
+                'task_generate_factory_exists',
                 array(
+                    'form',
                     $this->console->colorize(
-                        $actionFile, Color::GREEN
+                        $this->params->paramModule . 'Form', Color::GREEN
                     ),
                     $this->console->colorize(
-                        'Show', Color::GREEN
-                    ),
-                    $this->console->colorize(
-                        $this->params->paramEntityModule, Color::GREEN
+                        $this->params->paramModule, Color::GREEN
                     )
                 )
             );
@@ -59,18 +57,21 @@ class GenerateShowView extends AbstractTask
         }
 
         // create class
-        $view = new ShowActionViewGenerator(
+        $class = new DataFormFactoryGenerator(
+            $this->params->paramModule . 'DataForm',
             $this->params->paramModule,
-            $this->params->loadedEntity
+            $this->params->paramEntityModule,
+            $this->params->loadedTables,
+            $this->params->config
         );
 
         // create file
         $file = new ClassFileGenerator(
-            $view->generate(), $this->params->config
+            $class->generate(), $this->params->config
         );
 
         // write file
-        file_put_contents($actionFile, '<?php' . "\n" . $file->generate());
+        file_put_contents($factoryFile, $file->generate());
 
         return 0;
     }

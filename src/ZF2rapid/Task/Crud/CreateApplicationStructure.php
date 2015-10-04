@@ -41,7 +41,7 @@ class CreateApplicationStructure extends AbstractCreateStructureTask
         }
 
         // loop through controller
-        foreach (array('index', 'show') as $controllerView) {
+        foreach (array('index', 'show', 'create', 'update', 'delete') as $controllerView) {
             $result = $this->createDirectory(
                 $this->params->moduleViewDir . DIRECTORY_SEPARATOR . $controllerView, 'Controller view'
             );

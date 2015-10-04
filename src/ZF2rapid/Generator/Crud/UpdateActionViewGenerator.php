@@ -9,15 +9,14 @@
 namespace ZF2rapid\Generator\Crud;
 
 use Zend\Code\Generator\AbstractGenerator;
-use Zend\Code\Generator\BodyGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
 /**
- * Class ShowActionViewGenerator
+ * Class UpdateActionViewGenerator
  *
  * @package ZF2rapid\Generator\Crud
  */
-class ShowActionViewGenerator extends AbstractActionViewGenerator
+class UpdateActionViewGenerator extends AbstractActionViewGenerator
 {
     /**
      * Generate view content
@@ -31,6 +30,7 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         $moduleIdentifier = $this->filterCamelCaseToUnderscore($moduleName);
         $entityName       = $loadedEntity->getShortName();
         $entityParam      = lcfirst($entityName);
+        $formParam        = lcfirst($moduleName) . 'DataForm';
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
@@ -40,23 +40,13 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '/** @var ' . $entityName . ' $' . $entityParam . ' */';
         $body[] = '$' . $entityParam . ' = $this->' . $entityParam . ';';
         $body[] = '';
-        $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_show\');';
+        $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_update\');';
+        $body[] = '';
+        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
+            . '/update\', array(\'id\' => $' . $entityParam . '->getIdentifier())));';
+        $body[] = '';
+        $body[] = 'echo $this->bootstrapForm($this->' . $formParam . ');';
         $body[] = '?>';
-        $body[] = '<table class="table table-bordered">';
-        $body[] = '    <tbody>';
-
-        foreach ($loadedEntity->getProperties() as $property) {
-            $methodName = 'get' . ucfirst($property->getName());
-
-            $body[] = '        <tr>';
-            $body[] = '            <th><?php echo $this->translate(\'' . $moduleIdentifier . '_label_'
-                . $this->filterCamelCaseToUnderscore($property->getName()) . '\'); ?></th>';
-            $body[] = '            <td><?php echo $' . $entityParam . '->' . $methodName . '() ?></td>';
-            $body[] = '        </tr>';
-        }
-
-        $body[] = '    </tbody>';
-        $body[] = '</table>';
         $body[] = '<p>';
         $body[] = '    <a class="btn btn-primary" href="<?php echo $this->url(\'' . $moduleRoute. '\'); ?>">';
         $body[] = '        <i class="fa fa-table"></i>';
@@ -69,5 +59,4 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         // add method
         $this->setContent($body);
     }
-
 }

@@ -97,7 +97,7 @@ class CreateApplicationConfig extends AbstractTask
         }
 
         // generate config for all needed controllers
-        foreach (array('Index', 'Show') as $controllerName) {
+        foreach (array('Index', 'Show', 'Create', 'Update', 'Delete') as $controllerName) {
             // set class and namespace
             $configKey = $this->params->paramModule . '\\' . $controllerName;
             $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceController'] . '\\'
@@ -122,18 +122,31 @@ class CreateApplicationConfig extends AbstractTask
             $configData['form_elements'] = array();
         }
 
+        // check for invokables config key
+        if (!isset($configData['form_elements']['invokables'])) {
+            $configData['form_elements']['invokables'] = array();
+        }
+
         // check for factories config key
         if (!isset($configData['form_elements']['factories'])) {
             $configData['form_elements']['factories'] = array();
         }
 
         // set class and namespace
-        $configKey = $this->params->paramModule . '\Form';
+        $configKey = $this->params->paramModule . '\Data\Form';
         $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceForm'] . '\\'
-            . $this->params->paramModule . 'FormFactory';
+            . $this->params->paramModule . 'DataFormFactory';
 
         // add class
         $configData['form_elements']['factories'][$configKey] = $class;
+
+        // set class and namespace
+        $configKey = $this->params->paramModule . '\Delete\Form';
+        $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceForm'] . '\\'
+            . $this->params->paramModule . 'DeleteForm';
+
+        // add class
+        $configData['form_elements']['invokables'][$configKey] = $class;
 
         return $configData;
     }
@@ -150,7 +163,7 @@ class CreateApplicationConfig extends AbstractTask
 
         // loop through loaded controller actions
         foreach (
-            array('Show') as $controllerName
+            array('Show', 'Create', 'Update', 'Delete') as $controllerName
         ) {
             $controllerKey = $this->filterCamelCaseToDash(
                 str_replace(
@@ -158,16 +171,24 @@ class CreateApplicationConfig extends AbstractTask
                 )
             );
 
+            if ($controllerName == 'Create') {
+                $route = '/' . $controllerKey;
+                $constraints = array();
+            } else {
+                $route = '/' . $controllerKey . '[/:id]';
+                $constraints = array(
+                    'id' => '[a-z0-9-]*',
+                );
+            }
+
             $childRoutes[$controllerKey] = array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'       => '/' . $controllerKey . '[/:id]',
+                    'route'       => $route,
                     'defaults'    => array(
                         'controller' => $controllerName,
                     ),
-                    'constraints' => array(
-                        'id' => '[a-z0-9-]*',
-                    ),
+                    'constraints' => $constraints,
                 ),
             );
         }
@@ -260,6 +281,21 @@ class CreateApplicationConfig extends AbstractTask
                 'show' => array(
                     'type'    => 'mvc',
                     'route'   => $moduleKey . '/show',
+                    'visible' => false,
+                ),
+                'create' => array(
+                    'type'    => 'mvc',
+                    'route'   => $moduleKey . '/create',
+                    'visible' => false,
+                ),
+                'update' => array(
+                    'type'    => 'mvc',
+                    'route'   => $moduleKey . '/update',
+                    'visible' => false,
+                ),
+                'delete' => array(
+                    'type'    => 'mvc',
+                    'route'   => $moduleKey . '/delete',
                     'visible' => false,
                 ),
             ),

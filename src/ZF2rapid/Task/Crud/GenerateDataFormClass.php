@@ -8,15 +8,15 @@
  */
 namespace ZF2rapid\Task\Crud;
 
-use ZF2rapid\Generator\Crud\ShowControllerClassGenerator;
+use ZF2rapid\Generator\Crud\DataFormClassGenerator;
 use ZF2rapid\Task\GenerateClass\AbstractGenerateClass;
 
 /**
- * Class GenerateShowControllerClass
+ * Class GenerateDataFormClass
  *
  * @package ZF2rapid\Task\GenerateClass
  */
-class GenerateShowControllerClass extends AbstractGenerateClass
+class GenerateDataFormClass extends AbstractGenerateClass
 {
     /**
      * Process the command
@@ -26,12 +26,13 @@ class GenerateShowControllerClass extends AbstractGenerateClass
     public function processCommandTask()
     {
         $result = $this->generateClass(
-            $this->params->applicationControllerDir,
-            'ShowController',
-            'show controller',
-            new ShowControllerClassGenerator(
+            $this->params->applicationFormDir,
+            $this->params->paramModule . 'DataForm',
+            'form',
+            new DataFormClassGenerator(
                 $this->params->paramModule,
                 $this->params->paramEntityModule,
+                $this->params->loadedTables,
                 $this->params->config
             )
         );

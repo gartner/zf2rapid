@@ -73,15 +73,15 @@ details.
 
 ### Version 0.7.0
 
-* Add simple CRUD commands with DB connection (wip)
+* Add simple CRUD commands with DB connection (done)
 
 ### Version 0.8.0
 
-* Add module inspections (todo)
+* Write tests for ZF2rapid (wip)
 
 ### Version 0.9.0
 
-* Write tests for ZF2rapid (wip)
+* Add module inspections (todo)
 
 ### Version 1.0.0
 

@@ -153,12 +153,22 @@ class EntityClassGenerator extends ClassGenerator
                 switch ($tableColumn->getDataType()) {
                     case 'varchar':
                     case 'char':
+                    case 'tinytext':
                     case 'text':
+                    case 'mediumtext':
+                    case 'longtext':
                     case 'enum':
                     case 'set':
                     case 'datetime':
                     case 'timestamp':
                         $type = 'string';
+                        break;
+
+                    case 'decimal':
+                    case 'float':
+                    case 'double':
+                    case 'real':
+                        $type = 'float';
                         break;
 
                     default:

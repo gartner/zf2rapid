@@ -151,7 +151,7 @@ class DataFormFactoryGenerator extends ClassGenerator
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
             $tableGatewayName    = ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $tableGatewayService = $entityModule . '\\Model\\TableGateway\\' . ucfirst(
+            $tableGatewayService = $entityModule . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst(
                     $foreignKey->getReferencedTableName()
                 );
             $tableGatewayParam   = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';

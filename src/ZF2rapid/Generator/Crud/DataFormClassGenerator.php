@@ -156,6 +156,13 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
                         $type = 'select';
                         break;
 
+                    case 'tinytext':
+                    case 'text':
+                    case 'mediumtext':
+                    case 'longtext':
+                        $type = 'textarea';
+                        break;
+
                     default:
                         $type = 'text';
                 }
@@ -196,6 +203,23 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
                 if ($column->getColumnDefault()) {
                     $attributes[] = '            \'value\' => \'' . $column->getColumnDefault() . '\',';
                 }
+            }
+
+            switch ($column->getDataType()) {
+                case 'tinytext':
+                    $attributes[] = '            \'rows\' => \'3\',';
+                    break;
+
+                case 'text':
+                    $attributes[] = '            \'rows\' => \'10\',';
+                    break;
+
+                case 'mediumtext':
+                case 'longtext':
+                    $attributes[] = '            \'rows\' => \'15\',';
+                    break;
+
+                default:
             }
 
             $body[] = '$this->add(';

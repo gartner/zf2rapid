@@ -489,8 +489,8 @@ specify the `--workingPath=` of the Zend Framework 2 project.
     $ zf2rapid crud-create-model <module> <tables> [--workingPath=]
 
 Now you can create an application based on the created model entity class. This will 
-create controller and views, a translation file and module configuration for controllers,
-router, translator and navigation. You need to specify the `<module>` to create the 
+create controller, forms and views, a translation file and module configuration for controllers,
+forms, router, translator and navigation. You need to specify the `<module>` to create the 
 application in and the `<entity>` as the base entity to create the application for. 
 The format for the `<entity>` parameter is `ModuleName/EntityClassName` and this entity
 should exist. Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project.

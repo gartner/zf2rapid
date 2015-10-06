@@ -34,13 +34,13 @@ The following tasks are executed when creating new application:
 
  * Load entity from model module
  * Create directory structure for application
- * Create index controller class
- * Create index controller factory
- * Create show controller class
- * Create show controller factory
+ * Create controller classes
+ * Create controller factories
+ * Create data form class
+ * Create data form factory
+ * Create delete form class
+ * Create view scripts
  * Create application configuration
- * Create index view script
- * Create show view script
  * Create translation file
 
 ## Structure of module `Customer` after application creation
@@ -58,15 +58,31 @@ The generated structure of the `Customer` module should look like this:
          |  +--- Customer
          |       +--- Application                              <---- new directory
          |           +--- Controller                           <---- new directory
+         |           |  +--- CreateController.php              <---- new file
+         |           |  +--- CreateControllerFactory.php       <---- new file
+         |           |  +--- DeleteController.php              <---- new file
+         |           |  +--- DeleteControllerFactory.php       <---- new file
          |           |  +--- IndexController.php               <---- new file
          |           |  +--- IndexControllerFactory.php        <---- new file
          |           |  +--- ShowController.php                <---- new file
          |           |  +--- ShowControllerFactory.php         <---- new file
+         |           |  +--- UpdateController.php              <---- new file
+         |           |  +--- UpdateControllerFactory.php       <---- new file
+         |           +--- Form                                 <---- new directory
+         |           |  +--- CustomerDataForm.php              <---- new file
+         |           |  +--- CustomerDataFormFactory.php       <---- new file
+         |           |  +--- CustomerDeleteForm.php            <---- new file
          +--- view
          |  +--- customer
+         |     +--- create                                     <---- new directory
+         |     |  +--- index.phtml                             <---- new file
+         |     +--- delete                                     <---- new directory
+         |     |  +--- index.phtml                             <---- new file
          |     +--- index                                      <---- new directory
          |     |  +--- index.phtml                             <---- new file
          |     +--- show                                       <---- new directory
+         |     |  +--- index.phtml                             <---- new file
+         |     +--- update                                     <---- new directory
          |        +--- index.phtml                             <---- new file
          +--- autoload_classmap.php
          +--- Module.php
@@ -91,6 +107,17 @@ application should be look similar to this.
             'factories' => array(
                 'Customer\\Index' => 'Customer\\Application\\Controller\\IndexControllerFactory',
                 'Customer\\Show' => 'Customer\\Application\\Controller\\ShowControllerFactory',
+                'Customer\\Create' => 'Customer\\Application\\Controller\\CreateControllerFactory',
+                'Customer\\Update' => 'Customer\\Application\\Controller\\UpdateControllerFactory',
+                'Customer\\Delete' => 'Customer\\Application\\Controller\\DeleteControllerFactory',
+            ),
+        ),
+        'form_elements' => array(
+            'invokables' => array(
+                'Customer\\Delete\\Form' => 'Customer\\Application\\Form\\CustomerDeleteForm',
+            ),
+            'factories' => array(
+                'Customer\\Data\\Form' => 'Customer\\Application\\Form\\CustomerDataFormFactory',
             ),
         ),
         'router' => array(
@@ -113,6 +140,42 @@ application should be look similar to this.
                                 'route' => '/show[/:id]',
                                 'defaults' => array(
                                     'controller' => 'Show',
+                                ),
+                                'constraints' => array(
+                                    'id' => '[a-z0-9-]*',
+                                ),
+                            ),
+                        ),
+                        'create' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/create',
+                                'defaults' => array(
+                                    'controller' => 'Create',
+                                ),
+                                'constraints' => array(
+                                    
+                                ),
+                            ),
+                        ),
+                        'update' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/update[/:id]',
+                                'defaults' => array(
+                                    'controller' => 'Update',
+                                ),
+                                'constraints' => array(
+                                    'id' => '[a-z0-9-]*',
+                                ),
+                            ),
+                        ),
+                        'delete' => array(
+                            'type' => 'segment',
+                            'options' => array(
+                                'route' => '/delete[/:id]',
+                                'defaults' => array(
+                                    'controller' => 'Delete',
                                 ),
                                 'constraints' => array(
                                     'id' => '[a-z0-9-]*',
@@ -148,6 +211,21 @@ application should be look similar to this.
                             'route' => 'customer/show',
                             'visible' => false,
                         ),
+                        'create' => array(
+                            'type' => 'mvc',
+                            'route' => 'customer/create',
+                            'visible' => false,
+                        ),
+                        'update' => array(
+                            'type' => 'mvc',
+                            'route' => 'customer/update',
+                            'visible' => false,
+                        ),
+                        'delete' => array(
+                            'type' => 'mvc',
+                            'route' => 'customer/delete',
+                            'visible' => false,
+                        ),
                     ),
                 ),
             ),
@@ -168,13 +246,22 @@ In the `/module/Customer/language/en_US.php` file you will find a translation fi
      */
     
     return array(
-        'customer_message_customer_not_found' => 'No Customer found.',
         'customer_title_index' => 'Customer overview',
         'customer_title_show' => 'Customer view',
+        'customer_title_create' => 'Customer create',
+        'customer_title_update' => 'Customer update',
+        'customer_title_delete' => 'Customer delete',
         'customer_navigation_index' => 'Customer',
         'customer_navigation_show' => 'Customer view',
+        'customer_navigation_create' => 'Customer create',
+        'customer_navigation_update' => 'Customer update',
+        'customer_navigation_delete' => 'Customer delete',
         'customer_action_index' => 'Customer overview',
         'customer_action_show' => 'Show Customer',
+        'customer_action_save' => 'Save Customer',
+        'customer_action_create' => 'Create Customer',
+        'customer_action_update' => 'Update Customer',
+        'customer_action_delete' => 'Delete Customer',
         'customer_label_id' => 'Id',
         'customer_label_created' => 'Created',
         'customer_label_changed' => 'Changed',
@@ -185,6 +272,33 @@ In the `/module/Customer/language/en_US.php` file you will find a translation fi
         'customer_label_zip' => 'Zip',
         'customer_label_city' => 'City',
         'customer_label_country' => 'Country',
+        'customer_option_status_new' => 'new',
+        'customer_option_status_approved' => 'approved',
+        'customer_option_status_blocked' => 'blocked',
+        'customer_message_customer_not_found' => 'No Customer found.',
+        'customer_message_customer_data_invalid' => 'Customer data invalid. Please check your input.',
+        'customer_message_customer_saving_success' => 'Customer was saved.',
+        'customer_message_customer_saving_failed' => 'Customer could not be saved.',
+        'customer_message_customer_deleting_possible' => 'You can delete the Customer now.',
+        'customer_message_customer_deleting_success' => 'Customer was deleted.',
+        'customer_message_customer_deleting_failed' => 'Customer could not be deleted.',
+        'customer_message_customer_id_notempty' => 'Id should not be empty!',
+        'customer_message_customer_created_notempty' => 'Created should not be empty!',
+        'customer_message_customer_changed_notempty' => 'Changed should not be empty!',
+        'customer_message_customer_status_inarray' => 'Invalid customer status!',
+        'customer_message_customer_status_notempty' => 'Status should not be empty!',
+        'customer_message_customer_first_name_stringlength' => 'Wrong length for customer first name!',
+        'customer_message_customer_first_name_notempty' => 'First name should not be empty!',
+        'customer_message_customer_last_name_stringlength' => 'Wrong length for customer last name!',
+        'customer_message_customer_last_name_notempty' => 'Last name should not be empty!',
+        'customer_message_customer_street_stringlength' => 'Wrong length for customer street!',
+        'customer_message_customer_street_notempty' => 'Street should not be empty!',
+        'customer_message_customer_zip_stringlength' => 'Wrong length for customer zip!',
+        'customer_message_customer_zip_notempty' => 'Zip should not be empty!',
+        'customer_message_customer_city_stringlength' => 'Wrong length for customer city!',
+        'customer_message_customer_city_notempty' => 'City should not be empty!',
+        'customer_message_customer_country_stringlength' => 'Wrong length for customer country!',
+        'customer_message_customer_country_notempty' => 'Country should not be empty!',
     );
 
 You should edit the file to add proper texts since all texts were auto-generated. If you need other 
@@ -345,6 +459,8 @@ just shows the `indexAction()` method of the `ShowController`.
     }
 
 The `ShowControllerFactory` looks very similar to the `IndexControllerFactory` shown above.
+
+HIER DOKU MIT ANDEREN CONTROLLERN FORTFÜHREN!
 
 ## Generated views
 

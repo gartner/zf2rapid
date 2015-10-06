@@ -44,20 +44,6 @@ To proceed this tutorial you can easily use the
 [MySQL database dump](tutorial-crud-database-structure.md)
 to create a database structure. 
 
-Afterwards you need to setup the database connection in your current project. 
-This should be done in the file `/config/autoload/development.php`, for example. 
-Please enter your database configuration.
-
-    return array(
-        'db' => array(
-            'driver'  => 'pdo',
-            'dsn'     => 'mysql:dbname=zf2rapid-tutorial;host=localhost;charset=utf8',
-            'user'    => 'zf2rapid',
-            'pass'    => 'zf2rapid',
-        ),
-        [...]
-    );
-
 To use the CRUD commands you need to setup the database connection in the 
 project you want to create the classes and views in. This should be done in the 
 file `/config/autoload/development.php`, for example. Please enter your own 
@@ -66,9 +52,9 @@ database configuration.
     return array(
         'db' => array(
             'driver'  => 'pdo',
-            'dsn'     => 'mysql:dbname=DATEBASE;host=localhost;charset=utf8',
-            'user'    => 'USER',
-            'pass'    => 'PASS',
+            'dsn'     => 'mysql:dbname=zf2rapid-tutorial;host=localhost;charset=utf8',
+            'user'    => 'zf2rapid',
+            'pass'    => 'zf2rapid',
         ),
         [...]
     );
@@ -144,6 +130,11 @@ The generated structure of the `CustomerDomain` module should look like this:
          |           |  +--- CountryHydratorFactory.php        <---- new file
          |           |  +--- CustomerHydrator.php              <---- new file
          |           |  +--- CustomerHydratorFactory.php       <---- new file
+         |           +--- InputFilter                          <---- new directory
+         |           |  +--- CountryInputFilter.php            <---- new file
+         |           |  +--- CountryInputFilterFactory.php     <---- new file
+         |           |  +--- CustomerInputFilter.php           <---- new file
+         |           |  +--- CustomerInputFilterFactory.php    <---- new file
          |           +--- Repository                           <---- new directory
          |           |  +--- CountryRepository.php             <---- new file
          |           |  +--- CountryRepositoryFactory.php      <---- new file
@@ -176,8 +167,8 @@ model classes should be added.
         [...]
         'hydrators' => array(
             'factories' => array(
-                'CustomerDomain\\Db\\Customer' => 'CustomerDomain\\Model\\Hydrator\\CustomerHydratorFactory',
-                'CustomerDomain\\Db\\Country' => 'CustomerDomain\\Model\\Hydrator\\CountryHydratorFactory',
+                'CustomerDomain\\Customer' => 'CustomerDomain\\Model\\Hydrator\\CustomerHydratorFactory',
+                'CustomerDomain\\Country' => 'CustomerDomain\\Model\\Hydrator\\CountryHydratorFactory',
             ),
         ),
         'service_manager' => array(
@@ -186,6 +177,12 @@ model classes should be added.
                 'CustomerDomain\\Model\\Repository\\Customer' => 'CustomerDomain\\Model\\Repository\\CustomerRepositoryFactory',
                 'CustomerDomain\\Model\\TableGateway\\Country' => 'CustomerDomain\\Model\\TableGateway\\CountryTableGatewayFactory',
                 'CustomerDomain\\Model\\Repository\\Country' => 'CustomerDomain\\Model\\Repository\\CountryRepositoryFactory',
+            ),
+        ),
+        'input_filters' => array(
+            'factories' => array(
+                'CustomerDomain\\Customer' => 'CustomerDomain\\Model\\InputFilter\\CustomerInputFilterFactory',
+                'CustomerDomain\\Country' => 'CustomerDomain\\Model\\InputFilter\\CountryInputFilterFactory',
             ),
         ),
     );
@@ -619,7 +616,7 @@ and the needed `HydratingResultSet`.
             $dbAdapter = $serviceLocator->get('Zend\Db\Adapter\Adapter');
     
             /** @var CustomerHydrator $hydrator */
-            $hydrator  = $hydratorManager->get('CustomerDomain\Db\Customer');
+            $hydrator  = $hydratorManager->get('CustomerDomain\Customer');
             $entity    = new CustomerEntity();
             $resultSet = new HydratingResultSet($hydrator, $entity);
     

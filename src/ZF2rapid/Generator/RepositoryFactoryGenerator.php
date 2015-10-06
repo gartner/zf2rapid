@@ -95,7 +95,7 @@ class RepositoryFactoryGenerator extends ClassGenerator
     {
         $managerName      = 'serviceLocator';
         $tableGatewayName = ucfirst($tableName) . 'TableGateway';
-        $tableGatewayService = $moduleName . '\\Model\\TableGateway\\' . ucfirst($tableName);
+        $tableGatewayService = $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst($tableName);
 
         // set action body
         $body = array(

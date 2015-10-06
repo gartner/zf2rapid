@@ -129,7 +129,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
             $tableGatewayName    = ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $tableGatewayService = $moduleName . '\\Model\\TableGateway\\' . ucfirst(
+            $tableGatewayService = $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst(
                     $foreignKey->getReferencedTableName()
                 );
             $tableGatewayParam   = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';

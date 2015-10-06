@@ -128,11 +128,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $body[] = '    \'' . $tableName . '\', $dbAdapter, null, $resultSet';
         $body[] = ');';
         $body[] = '$instance->setHydrator($hydrator);';
-
-        if ($primaryColumns[0] != 'id') {
-            $body[] = '$instance->setPrimaryKey(\'' . $primaryColumns[0] . '\');';
-        }
-
+        $body[] = '$instance->setPrimaryKey(\'' . $tableName . '.' . $primaryColumns[0] . '\');';
         $body[] = '';
         $body[] = 'return $instance;';
 

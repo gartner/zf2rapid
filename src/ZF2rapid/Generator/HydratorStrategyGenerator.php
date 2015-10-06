@@ -171,16 +171,13 @@ class HydratorStrategyGenerator extends ClassGenerator
     {
         $refTableData = $this->loadedTables[$this->refTableName];
 
+        /** @var ColumnObject $firstColumn */
+        $firstColumn = reset($refTableData['columns']);
+
         // set action body
         $body   = array();
-        $body[] = 'if (is_string($value)) {';
-
-        /** @var ColumnObject $column */
-        foreach ($refTableData['columns'] as $column) {
-            $body[] = '    $' . $column->getName() . ' = $value;';
-        }
-
-        $body[] = '} else {';
+        $body[] = 'if (isset($data[\''
+            . $this->refTableName . '.' . $firstColumn->getName() . '\'])) {';
 
         /** @var ColumnObject $column */
         foreach ($refTableData['columns'] as $column) {
@@ -188,7 +185,15 @@ class HydratorStrategyGenerator extends ClassGenerator
                 . $this->refTableName . '.' . $column->getName() . '\'];';
         }
 
+        $body[] = '} else {';
+
+        /** @var ColumnObject $column */
+        foreach ($refTableData['columns'] as $column) {
+            $body[] = '    $' . $column->getName() . ' = $value;';
+        }
+
         $body[] = '}';
+        $body[] = '';
 
         $body[] = '$' . $this->refTableName . ' = new '
             . $this->entityClass . '();';

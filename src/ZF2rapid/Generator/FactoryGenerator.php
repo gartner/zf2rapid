@@ -99,7 +99,6 @@ class FactoryGenerator extends ClassGenerator
     {
         // set action body
         $body = [];
-        $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
         $body[] = '$instance = new ' . $className . '();';
@@ -140,6 +139,7 @@ class FactoryGenerator extends ClassGenerator
                             $managerName,
                             [
                                 'ServiceLocatorInterface',
+                                'ServiceLocatorAwareInterface',
                             ]
                         ),
                         new ReturnTag([$className]),

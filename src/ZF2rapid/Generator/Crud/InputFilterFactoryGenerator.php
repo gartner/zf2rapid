@@ -122,7 +122,6 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         // set action body
         $body   = [];
-        $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
 
@@ -177,6 +176,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
                             $managerName,
                             [
                                 'ServiceLocatorInterface',
+                                'ServiceLocatorAwareInterface',
                             ]
                         ),
                         new ReturnTag([$className]),

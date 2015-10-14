@@ -128,7 +128,6 @@ class ControllerFactoryGenerator extends ClassGenerator
 
         // set action body
         $body   = [];
-        $body[] = '/** @var ServiceLocatorAwareInterface $controllerManager */';
         $body[] = '$serviceLocator = $controllerManager->getServiceLocator();';
         $body[] = '';
 
@@ -183,6 +182,7 @@ class ControllerFactoryGenerator extends ClassGenerator
                             'controllerManager',
                             [
                                 'ServiceLocatorInterface',
+                                'ServiceLocatorAwareInterface',
                             ]
                         ),
                         new ReturnTag([$className]),

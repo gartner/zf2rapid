@@ -138,7 +138,6 @@ class DataFormFactoryGenerator extends ClassGenerator
 
         // set action body
         $body   = [];
-        $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
         $body[] = '/** @var HydratorPluginManager $hydratorManager */';
@@ -207,6 +206,7 @@ class DataFormFactoryGenerator extends ClassGenerator
                             $managerName,
                             [
                                 'ServiceLocatorInterface',
+                                'ServiceLocatorAwareInterface',
                             ]
                         ),
                         new ReturnTag([$className]),

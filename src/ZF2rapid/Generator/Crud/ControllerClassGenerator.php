@@ -42,6 +42,11 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
     protected $entityModule;
 
     /**
+     * @var string
+     */
+    protected $entityClass;
+
+    /**
      * @var array
      */
     protected $config = [];
@@ -50,14 +55,16 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      * @param null|string $controllerName
      * @param null|string $paramModule
      * @param null|string $entityModule
+     * @param null|string $entityClass
      * @param array       $config
      */
-    public function __construct($controllerName, $paramModule, $entityModule, array $config = [])
+    public function __construct($controllerName, $paramModule, $entityModule, $entityClass, array $config = [])
     {
         // set config data
         $this->controllerName = $controllerName;
         $this->paramModule    = $paramModule;
         $this->entityModule   = $entityModule;
+        $this->entityClass    = $entityClass;
         $this->config         = $config;
 
         // call parent constructor
@@ -79,18 +86,18 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
         );
 
         // prepare repository params
-        $repositoryClass     = $this->paramModule . 'Repository';
+        $repositoryClass     = str_replace('Entity', '', $this->entityClass) . 'Repository';
         $repositoryNamespace = $this->entityModule . '\\' . $this->config['namespaceRepository'] . '\\'
             . $repositoryClass;
 
         // prepare form params
         if (in_array($this->controllerName, ['Create', 'Update'])) {
-            $formClass     = $this->paramModule . 'DataForm';
+            $formClass     = str_replace('Entity', '', $this->entityClass) . 'DataForm';
             $formNamespace = $this->paramModule . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
         } elseif (in_array($this->controllerName, ['Delete'])) {
-            $formClass     = $this->paramModule . 'DeleteForm';
+            $formClass     = str_replace('Entity', '', $this->entityClass) . 'DeleteForm';
             $formNamespace = $this->paramModule . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
@@ -122,19 +129,19 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             case 'Create':
                 $this->addFormProperty($formClass);
                 $this->addFormSetter($formClass);
-                $this->addCreateControllerAction($repositoryClass);
+                $this->addCreateControllerAction($repositoryClass, $formClass);
                 break;
 
             case 'Update':
                 $this->addFormProperty($formClass);
                 $this->addFormSetter($formClass);
-                $this->addUpdateControllerAction($repositoryClass);
+                $this->addUpdateControllerAction($repositoryClass, $formClass);
                 break;
 
             case 'Delete':
                 $this->addFormProperty($formClass);
                 $this->addFormSetter($formClass);
-                $this->addDeleteControllerAction($repositoryClass);
+                $this->addDeleteControllerAction($repositoryClass, $formClass);
                 break;
         }
     }
@@ -194,7 +201,6 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      */
     protected function addRepositorySetter($repositoryClass)
     {
-        $repositoryClass = $this->paramModule . 'Repository';
         $repositoryParam = lcfirst($repositoryClass);
 
         $body = '$this->' . $repositoryParam . ' = $' . $repositoryParam . ';';
@@ -292,7 +298,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      */
     protected function addIndexControllerAction($repositoryClass)
     {
-        $listParam = lcfirst($this->paramModule) . 'List';
+        $listParam = lcfirst(str_replace('Entity', '', $this->entityClass)) . 'List';
 
         $body = [
             '$' . $listParam . ' = $this->' . lcfirst($repositoryClass) . '->getAllEntities();',
@@ -331,9 +337,11 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      */
     protected function addShowControllerAction($repositoryClass)
     {
-        $entityParam    = lcfirst($this->paramModule) . 'Entity';
-        $dashedParam    = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
-        $noFoundMessage = $dashedParam . '_message_' . $dashedParam . '_not_found';
+        $entityParam    = lcfirst($this->entityClass);
+        $dashedParam    = strtolower(StaticFilter::execute(str_replace('Entity', '', $this->entityClass), 'WordCamelCaseToDash'));
+        $underscoredModule     = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $dashedModule     = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
+        $noFoundMessage = $underscoredModule . '_message_' . $dashedParam . '_not_found';
 
         $body = [
             '$id = $this->params()->fromRoute(\'id\');',
@@ -341,7 +349,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             'if (!$id) {',
             '    $this->flashMessenger()->addErrorMessage(\'' . $noFoundMessage . '\');',
             '    ',
-            '    return $this->redirect()->toRoute(\'' . $dashedParam . '\');',
+            '    return $this->redirect()->toRoute(\'' . $dashedModule . '\');',
             '}',
             '',
             '$' . $entityParam . ' = $this->' . lcfirst($repositoryClass) . '->getEntityById($id);',
@@ -349,7 +357,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             'if (!$' . $entityParam . ') {',
             '    $this->flashMessenger()->addErrorMessage(\'' . $noFoundMessage . '\');',
             '    ',
-            '    return $this->redirect()->toRoute(\'' . $dashedParam . '\');',
+            '    return $this->redirect()->toRoute(\'' . $dashedModule . '\');',
             '}',
             '',
             '$viewModel = new ViewModel(',
@@ -383,21 +391,22 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      * Add indexAction() method for CreateController
      *
      * @param $repositoryClass
+     * @param $formClass
      */
-    protected function addCreateControllerAction($repositoryClass)
+    protected function addCreateControllerAction($repositoryClass, $formClass)
     {
         // prepare some params
-        $formParam        = lcfirst($this->paramModule) . 'DataForm';
-        $underscoredParam = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $formParam        = lcfirst($formClass);
+        $underscoredParam = strtolower(StaticFilter::execute(str_replace('Entity', '', $this->entityClass), 'WordCamelCaseToUnderscore'));
         $dashedParam      = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
-        $successMessage   = $dashedParam . '_message_' . $dashedParam . '_saving_success';
-        $failedMessage    = $dashedParam . '_message_' . $dashedParam . '_saving_failed';
-        $invalidMessage   = $dashedParam . '_message_' . $dashedParam . '_data_invalid';
+        $dashedModule     = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $successMessage   = $dashedModule . '_message_' . $underscoredParam . '_saving_success';
+        $failedMessage    = $dashedModule . '_message_' . $underscoredParam . '_saving_failed';
+        $invalidMessage   = $dashedModule . '_message_' . $underscoredParam . '_data_invalid';
 
         // prepare entity params
-        $entityClass     = $this->paramModule . 'Entity';
-        $entityNamespace = $this->entityModule . '\\' . $this->config['namespaceEntity'] . '\\' . $entityClass;
-        $entityParam     = lcfirst($entityClass);
+        $entityNamespace = $this->entityModule . '\\' . $this->config['namespaceEntity'] . '\\' . $this->entityClass;
+        $entityParam     = lcfirst($this->entityClass);
 
         $this->addUse($entityNamespace);
 
@@ -405,7 +414,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             '$' . $formParam . ' = $this->' . $formParam . ';',
             '',
             'if ($this->params()->fromPost(\'save_' . $underscoredParam . '\')) {',
-            '    $' . $entityParam . ' = new ' . $entityClass . '();',
+            '    $' . $entityParam . ' = new ' . $this->entityClass . '();',
             '    ',
             '    $' . $formParam . '->setData($this->params()->fromPost());',
             '    $' . $formParam . '->bind($' . $entityParam . ');',
@@ -456,22 +465,23 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      * Add indexAction() method for UpdateController
      *
      * @param $repositoryClass
+     * @param $formClass
      */
-    protected function addUpdateControllerAction($repositoryClass)
+    protected function addUpdateControllerAction($repositoryClass, $formClass)
     {
         // prepare some params
-        $formParam        = lcfirst($this->paramModule) . 'DataForm';
-        $underscoredParam = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $formParam        = lcfirst($formClass);
+        $underscoredParam = strtolower(StaticFilter::execute(str_replace('Entity', '', $this->entityClass), 'WordCamelCaseToUnderscore'));
         $dashedParam      = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
-        $noFoundMessage   = $dashedParam . '_message_' . $dashedParam . '_not_found';
-        $successMessage   = $dashedParam . '_message_' . $dashedParam . '_saving_success';
-        $failedMessage    = $dashedParam . '_message_' . $dashedParam . '_saving_failed';
-        $invalidMessage   = $dashedParam . '_message_' . $dashedParam . '_data_invalid';
+        $dashedModule     = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $noFoundMessage   = $dashedModule . '_message_' . $underscoredParam . '_not_found';
+        $successMessage   = $dashedModule . '_message_' . $underscoredParam . '_saving_success';
+        $failedMessage    = $dashedModule . '_message_' . $underscoredParam . '_saving_failed';
+        $invalidMessage   = $dashedModule . '_message_' . $underscoredParam . '_data_invalid';
 
         // prepare entity params
-        $entityClass     = $this->paramModule . 'Entity';
-        $entityNamespace = $this->entityModule . '\\' . $this->config['namespaceEntity'] . '\\' . $entityClass;
-        $entityParam     = lcfirst($entityClass);
+        $entityNamespace = $this->entityModule . '\\' . $this->config['namespaceEntity'] . '\\' . $this->entityClass;
+        $entityParam     = lcfirst($this->entityClass);
 
         $this->addUse($entityNamespace);
 
@@ -545,21 +555,22 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      * Add indexAction() method for DeleteController
      *
      * @param $repositoryClass
+     * @param $formClass
      */
-    protected function addDeleteControllerAction($repositoryClass)
+    protected function addDeleteControllerAction($repositoryClass, $formClass)
     {
         // prepare some params
-        $formParam        = lcfirst($this->paramModule) . 'DeleteForm';
-        $underscoredParam = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $formParam        = lcfirst($formClass);
+        $underscoredParam = strtolower(StaticFilter::execute(str_replace('Entity', '', $this->entityClass), 'WordCamelCaseToUnderscore'));
         $dashedParam      = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
-        $noFoundMessage   = $dashedParam . '_message_' . $dashedParam . '_not_found';
-        $deleteMessage    = $dashedParam . '_message_' . $dashedParam . '_deleting_possible';
-        $successMessage   = $dashedParam . '_message_' . $dashedParam . '_deleting_success';
-        $failedMessage    = $dashedParam . '_message_' . $dashedParam . '_deleting_failed';
+        $dashedModule     = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToUnderscore'));
+        $noFoundMessage   = $dashedModule . '_message_' . $underscoredParam . '_not_found';
+        $deleteMessage    = $dashedModule . '_message_' . $underscoredParam . '_deleting_possible';
+        $successMessage   = $dashedModule . '_message_' . $underscoredParam . '_deleting_success';
+        $failedMessage    = $dashedModule . '_message_' . $underscoredParam . '_deleting_failed';
 
         // prepare entity params
-        $entityClass     = $this->paramModule . 'Entity';
-        $entityParam     = lcfirst($entityClass);
+        $entityParam = lcfirst($this->entityClass);
 
         $body = [
             '$id = $this->params()->fromRoute(\'id\');',

@@ -27,11 +27,12 @@ class GenerateDeleteFormClass extends AbstractGenerateClass
     {
         $result = $this->generateClass(
             $this->params->applicationFormDir,
-            $this->params->paramModule . 'DeleteForm',
+            str_replace('Entity', '', $this->params->paramEntityClass) . 'DeleteForm',
             'form',
             new DeleteFormClassGenerator(
                 $this->params->paramModule,
                 $this->params->paramEntityModule,
+                $this->params->paramEntityClass,
                 $this->params->loadedTables,
                 $this->params->config
             )

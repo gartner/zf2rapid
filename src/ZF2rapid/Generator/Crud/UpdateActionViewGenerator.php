@@ -30,7 +30,7 @@ class UpdateActionViewGenerator extends AbstractActionViewGenerator
         $moduleIdentifier = $this->filterCamelCaseToUnderscore($moduleName);
         $entityName       = $loadedEntity->getShortName();
         $entityParam      = lcfirst($entityName);
-        $formParam        = lcfirst($moduleName) . 'DataForm';
+        $formParam        = lcfirst(str_replace('Entity', '', $loadedEntity->getShortName())) . 'DataForm';
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
@@ -42,7 +42,7 @@ class UpdateActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '';
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_update\');';
         $body[] = '';
-        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
+        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleRoute
             . '/update\', [\'id\' => $' . $entityParam . '->getIdentifier()]));';
         $body[] = '';
         $body[] = 'echo $this->bootstrapForm($this->' . $formParam . ');';

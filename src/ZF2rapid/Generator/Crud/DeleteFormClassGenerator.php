@@ -36,6 +36,11 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
     protected $entityModule;
 
     /**
+     * @var string
+     */
+    protected $entityClass;
+
+    /**
      * @var array
      */
     protected $config = [];
@@ -48,14 +53,16 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
     /**
      * @param null|string $paramModule
      * @param null|string $entityModule
+     * @param string      $entityClass
      * @param array       $loadedTables
      * @param array       $config
      */
-    public function __construct($paramModule, $entityModule, array $loadedTables = [], array $config = [])
+    public function __construct($paramModule, $entityModule, $entityClass, array $loadedTables = [], array $config = [])
     {
         // set config data
         $this->paramModule  = $paramModule;
         $this->entityModule = $entityModule;
+        $this->entityClass  = $entityClass;
         $this->loadedTables = $loadedTables;
         $this->config       = $config;
 
@@ -117,7 +124,7 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
      */
     protected function addInitMethod($className, $moduleName)
     {
-        $tableName = $this->filterCamelCaseToUnderscore($moduleName);
+        $tableName = $this->filterCamelCaseToUnderscore(str_replace('Entity', '', $this->entityClass));
 
         $body   = [];
         $body[] = '$this->setName(\'' . $moduleName . 'Form\');';

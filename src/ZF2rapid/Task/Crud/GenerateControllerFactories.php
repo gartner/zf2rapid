@@ -62,6 +62,7 @@ class GenerateControllerFactories extends AbstractTask
                 $controllerName . 'Controller',
                 $this->params->paramModule,
                 $this->params->paramEntityModule,
+                $this->params->paramEntityClass,
                 $this->params->config
             );
 

@@ -30,7 +30,7 @@ class DeleteActionViewGenerator extends AbstractActionViewGenerator
         $moduleIdentifier = $this->filterCamelCaseToUnderscore($moduleName);
         $entityName       = $loadedEntity->getShortName();
         $entityParam      = lcfirst($entityName);
-        $formParam        = lcfirst($moduleName) . 'DeleteForm';
+        $formParam        = lcfirst(str_replace('Entity', '', $loadedEntity->getShortName())) . 'DeleteForm';
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
         $deleteMessage    = $moduleRoute . '_message_' . $moduleRoute . '_deleting_possible';
 
@@ -43,7 +43,7 @@ class DeleteActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '';
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_delete\');';
         $body[] = '';
-        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
+        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleRoute
             . '/delete\', [\'id\' => $' . $entityParam . '->getIdentifier()]));';
         $body[] = '';
         $body[] = '?>';

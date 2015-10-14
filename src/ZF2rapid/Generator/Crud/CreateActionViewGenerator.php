@@ -28,14 +28,14 @@ class CreateActionViewGenerator extends AbstractActionViewGenerator
     {
         // prepare some params
         $moduleIdentifier = $this->filterCamelCaseToUnderscore($moduleName);
-        $formParam        = lcfirst($moduleName) . 'DataForm';
+        $formParam        = lcfirst(str_replace('Entity', '', $loadedEntity->getShortName())) . 'DataForm';
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
         $body   = [];
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_create\');';
         $body[] = '';
-        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
+        $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleRoute
             . '/create\'));';
         $body[] = '';
         $body[] = 'echo $this->bootstrapForm($this->' . $formParam . ');';

@@ -40,16 +40,17 @@ class DataFormFactoryGenerator extends ClassGenerator
      * @param string $className
      * @param string $moduleName
      * @param string $entityModule
+     * @param string $entityClass
      * @param array  $loadedTables
      * @param array  $config
      */
     public function __construct(
-        $className, $moduleName, $entityModule, array $loadedTables = [], array $config = []
+        $className, $moduleName, $entityModule, $entityClass, array $loadedTables = [], array $config = []
     ) {
         // set config data
         $this->config = $config;
 
-        $tableName   = $this->filterCamelCaseToUnderscore($moduleName);
+        $tableName   = $this->filterCamelCaseToUnderscore(str_replace('Entity', '', $entityClass));
         $loadedTable = $loadedTables[$tableName];
 
         $this->foreignKeys = [];
@@ -96,7 +97,7 @@ class DataFormFactoryGenerator extends ClassGenerator
         $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
-        $this->addCreateServiceMethod($className, $moduleName, $entityModule);
+        $this->addCreateServiceMethod($className, $moduleName, $entityModule, $entityClass);
         $this->addClassDocBlock($className);
     }
 
@@ -127,14 +128,16 @@ class DataFormFactoryGenerator extends ClassGenerator
      * @param string $className
      * @param string $moduleName
      * @param string $entityModule
+     * @param string $entityClass
      */
-    protected function addCreateServiceMethod($className, $moduleName, $entityModule)
+    protected function addCreateServiceMethod($className, $moduleName, $entityModule, $entityClass)
     {
         $managerName        = 'formElementManager';
-        $hydratorName       = ucfirst($moduleName) . 'Hydrator';
-        $hydratorService    = $entityModule . '\\' . ucfirst($moduleName);
-        $inputFilterName    = ucfirst($moduleName) . 'InputFilter';
-        $inputFilterService = $entityModule . '\\' . ucfirst($moduleName);
+        $entityPrefix       = str_replace('Entity', '', $entityClass);
+        $hydratorName       = ucfirst($entityPrefix) . 'Hydrator';
+        $hydratorService    = $entityModule . '\\' . ucfirst($entityPrefix);
+        $inputFilterName    = ucfirst($entityPrefix) . 'InputFilter';
+        $inputFilterService = $entityModule . '\\' . ucfirst($entityPrefix);
 
         // set action body
         $body   = [];

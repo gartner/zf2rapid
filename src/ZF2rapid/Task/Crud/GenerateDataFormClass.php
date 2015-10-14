@@ -27,11 +27,12 @@ class GenerateDataFormClass extends AbstractGenerateClass
     {
         $result = $this->generateClass(
             $this->params->applicationFormDir,
-            $this->params->paramModule . 'DataForm',
+            str_replace('Entity', '', $this->params->paramEntityClass) . 'DataForm',
             'form',
             new DataFormClassGenerator(
                 $this->params->paramModule,
                 $this->params->paramEntityModule,
+                $this->params->paramEntityClass,
                 $this->params->loadedTables,
                 $this->params->config
             )

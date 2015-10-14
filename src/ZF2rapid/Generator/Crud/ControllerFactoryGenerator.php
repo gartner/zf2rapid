@@ -33,10 +33,11 @@ class ControllerFactoryGenerator extends ClassGenerator
      * @param string $controllerName
      * @param string $moduleName
      * @param string $entityModule
+     * @param string $entityClass
      * @param array  $config
      */
     public function __construct(
-        $controllerName, $moduleName, $entityModule, array $config = []
+        $controllerName, $moduleName, $entityModule, $entityClass, array $config = []
     ) {
         // set config data
         $this->config = $config;
@@ -48,17 +49,17 @@ class ControllerFactoryGenerator extends ClassGenerator
         );
 
         // prepare repository params
-        $repositoryClass     = $moduleName . 'Repository';
+        $repositoryClass     = str_replace('Entity', '', $entityClass) . 'Repository';
         $repositoryNamespace = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $repositoryClass;
 
         // prepare form params
         if (in_array($controllerName, ['CreateController', 'UpdateController'])) {
-            $formClass     = $moduleName . 'DataForm';
+            $formClass     = str_replace('Entity', '', $entityClass) . 'DataForm';
             $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
         } elseif (in_array($controllerName, ['DeleteController'])) {
-            $formClass     = $moduleName . 'DeleteForm';
+            $formClass     = str_replace('Entity', '', $entityClass) . 'DeleteForm';
             $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
@@ -72,7 +73,7 @@ class ControllerFactoryGenerator extends ClassGenerator
         $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
-        $this->addCreateServiceMethod($controllerName, $moduleName, $entityModule);
+        $this->addCreateServiceMethod($controllerName, $moduleName, $entityModule, $entityClass);
         $this->addClassDocBlock($controllerName);
     }
 
@@ -103,21 +104,22 @@ class ControllerFactoryGenerator extends ClassGenerator
      * @param string $className
      * @param        $moduleName
      * @param string $entityModule
+     * @param        $entityClass
      */
-    protected function addCreateServiceMethod($className, $moduleName, $entityModule)
+    protected function addCreateServiceMethod($className, $moduleName, $entityModule, $entityClass)
     {
         // prepare repository params
-        $repositoryClass   = $moduleName . 'Repository';
+        $repositoryClass   = str_replace('Entity', '', $entityClass) . 'Repository';
         $repositoryParam   = lcfirst($repositoryClass);
-        $repositoryService = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $moduleName;
+        $repositoryService = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . str_replace('Entity', '', $entityClass);
 
         // prepare form params
         if (in_array($className, ['CreateController', 'UpdateController'])) {
-            $formClass   = $moduleName . 'DataForm';
+            $formClass   = str_replace('Entity', '', $entityClass) . 'DataForm';
             $formParam   = lcfirst($formClass);
             $formService = $moduleName . '\\Data\\Form';
         } elseif (in_array($className, ['DeleteController'])) {
-            $formClass   = $moduleName . 'DeleteForm';
+            $formClass   = str_replace('Entity', '', $entityClass) . 'DeleteForm';
             $formParam   = lcfirst($formClass);
             $formService = $moduleName . '\\Delete\\Form';
         } else {

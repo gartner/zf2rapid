@@ -34,6 +34,7 @@ class GenerateControllerClasses extends AbstractGenerateClass
                     $controllerName,
                     $this->params->paramModule,
                     $this->params->paramEntityModule,
+                    $this->params->paramEntityClass,
                     $this->params->config
                 )
             );

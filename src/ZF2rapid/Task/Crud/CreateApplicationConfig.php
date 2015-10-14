@@ -135,7 +135,7 @@ class CreateApplicationConfig extends AbstractTask
         // set class and namespace
         $configKey = $this->params->paramModule . '\Data\Form';
         $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceForm'] . '\\'
-            . $this->params->paramModule . 'DataFormFactory';
+            . str_replace('Entity', '', $this->params->paramEntityClass) . 'DataFormFactory';
 
         // add class
         $configData['form_elements']['factories'][$configKey] = $class;
@@ -143,7 +143,7 @@ class CreateApplicationConfig extends AbstractTask
         // set class and namespace
         $configKey = $this->params->paramModule . '\Delete\Form';
         $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceForm'] . '\\'
-            . $this->params->paramModule . 'DeleteForm';
+            . str_replace('Entity', '', $this->params->paramEntityClass) . 'DeleteForm';
 
         // add class
         $configData['form_elements']['invokables'][$configKey] = $class;
@@ -272,7 +272,7 @@ class CreateApplicationConfig extends AbstractTask
         $configData['navigation']['default'][$moduleKey] = [
             'type'          => 'mvc',
             'order'         => '200',
-            'label'         => $moduleKey . '_navigation_index',
+            'label'         => $this->filterCamelCaseToUnderscore($this->params->paramModule) . '_navigation_index',
             'route'         => $moduleKey,
             '__NAMESPACE__' => $this->params->paramModule,
             'controller'    => 'Index',

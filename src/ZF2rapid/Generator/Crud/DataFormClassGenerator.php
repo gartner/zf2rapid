@@ -38,6 +38,11 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
     protected $entityModule;
 
     /**
+     * @var string
+     */
+    protected $entityClass;
+
+    /**
      * @var array
      */
     protected $config = [];
@@ -53,11 +58,12 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      * @param array       $loadedTables
      * @param array       $config
      */
-    public function __construct($paramModule, $entityModule, array $loadedTables = [], array $config = [])
+    public function __construct($paramModule, $entityModule, $entityClass, array $loadedTables = [], array $config = [])
     {
         // set config data
         $this->paramModule  = $paramModule;
         $this->entityModule = $entityModule;
+        $this->entityClass  = $entityClass;
         $this->loadedTables = $loadedTables;
         $this->config       = $config;
 
@@ -119,8 +125,9 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      */
     protected function addInitMethod($className, $moduleName)
     {
-        $tableName   = $this->filterCamelCaseToUnderscore($moduleName);
+        $tableName   = $this->filterCamelCaseToUnderscore(str_replace('Entity', '', $this->entityClass));
         $loadedTable = $this->loadedTables[$tableName];
+        $labelPrefix = $this->filterCamelCaseToUnderscore($this->paramModule);
 
         /** @var ConstraintObject $primaryKey */
         $primaryKey     = $loadedTable['primaryKey'];
@@ -169,7 +176,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
             }
 
             $options   = [];
-            $options[] = '            \'label\' => \'' . $column->getTableName() . '_label_' . $column->getName()
+            $options[] = '            \'label\' => \'' . $labelPrefix . '_label_' . $column->getName()
                 . '\',';
 
             if (isset($foreignKeys[$column->getName()])) {
@@ -248,7 +255,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
         $body[] = '        \'options\' => [';
         $body[] = '        ],';
         $body[] = '        \'attributes\' => [';
-        $body[] = '            \'value\' => \'' . $tableName . '_action_save\',';
+        $body[] = '            \'value\' => \'' . $labelPrefix . '_action_save\',';
         $body[] = '            \'id\' => \'save_' . $tableName . '\',';
         $body[] = '            \'class\' => \'btn btn-success\',';
         $body[] = '        ],';

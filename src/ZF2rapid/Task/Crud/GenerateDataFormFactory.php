@@ -36,7 +36,7 @@ class GenerateDataFormFactory extends AbstractTask
         );
 
         // set factory file
-        $factoryFile = $this->params->applicationFormDir . '/' . $this->params->paramModule . 'DataFormFactory.php';
+        $factoryFile = $this->params->applicationFormDir . '/' . str_replace('Entity', '', $this->params->paramEntityClass) . 'DataFormFactory.php';
 
         // check if factory file exists
         if (file_exists($factoryFile)) {
@@ -58,9 +58,10 @@ class GenerateDataFormFactory extends AbstractTask
 
         // create class
         $class = new DataFormFactoryGenerator(
-            $this->params->paramModule . 'DataForm',
+            str_replace('Entity', '', $this->params->paramEntityClass) . 'DataForm',
             $this->params->paramModule,
             $this->params->paramEntityModule,
+            $this->params->paramEntityClass,
             $this->params->loadedTables,
             $this->params->config
         );

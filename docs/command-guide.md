@@ -123,25 +123,25 @@ When creating a new controller you need to specify the `<module>` and the
 2 project to create the new controller in. Optionally, you can disable the 
 creation of a factory for the new controller.
 
-    $ zf2rapid create-controller <module> <controller> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-controller <module> <controller> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing controller by specifying the `<module>` 
 and the `<controller>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project.
 
-    $ zf2rapid create-controller-factory <module> <controller> [--workingPath=] [--without-project]
+    $ zf2rapid create-controller-factory <module> <controller> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a controller by specifying the `<module>` 
 and the `<controller>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. The controller for this factory will not be deleted.
 
-    $ zf2rapid delete-controller-factory <module> <controller> [--workingPath=] [--without-project]
+    $ zf2rapid delete-controller-factory <module> <controller> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a controller by specifying the `<module>` and the `<controller>`. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project. Any 
 existing factory for this controller will also be deleted.  
 
-    $ zf2rapid delete-controller <module> <controller> [--workingPath=] [--without-project]
+    $ zf2rapid delete-controller <module> <controller> [--workingPath=] [--without-project] [--no-config]
 
 You can display all controllers of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -202,27 +202,27 @@ When creating a new controller plugin you need to specify the `<module>` and the
 Framework 2 project to create the new controller plugin in. Optionally, you can 
 disable the creation of a factory for the new controller plugin.
 
-    $ zf2rapid create-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing controller plugin by specifying 
 the `<module>` and the `<controllerPlugin>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project]
+    $ zf2rapid create-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a controller plugin by specifying the 
 `<module>` and the `<controllerPlugin>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The controller plugin for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project]
+    $ zf2rapid delete-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a controller plugin by specifying the `<module>` and the 
 `<controllerPlugin>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this controller plugin will also 
 be deleted.  
 
-    $ zf2rapid delete-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project]
+    $ zf2rapid delete-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]
 
 You can display all controller plugins of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -238,27 +238,27 @@ When creating a new view helper you need to specify the `<module>` and the
 Framework 2 project to create the new view helper in. Optionally, you can 
 disable the creation of a factory for the new view helper.
 
-    $ zf2rapid create-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing view helper by specifying 
 the `<module>` and the `<viewHelper>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project]
+    $ zf2rapid create-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a view helper by specifying the 
 `<module>` and the `<viewHelper>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The view helper for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project]
+    $ zf2rapid delete-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a view helper by specifying the `<module>` and the 
 `<viewHelper>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this view helper will also 
 be deleted.  
 
-    $ zf2rapid delete-view-helper <module> <viewHelper> [--workingPath=] [--without-project]
+    $ zf2rapid delete-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]
 
 You can display all view helpers of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -274,27 +274,27 @@ When creating a new filter you need to specify the `<module>` and the
 Framework 2 project to create the new filter in. Optionally, you can disable the 
 creation of a factory for the new filter.
 
-    $ zf2rapid create-filter <module> <filter> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-filter <module> <filter> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing filter by specifying 
 the `<module>` and the `<filter>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-filter-factory <module> <filter> [--workingPath=] [--without-project]
+    $ zf2rapid create-filter-factory <module> <filter> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a filter by specifying the 
 `<module>` and the `<filter>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The filter for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-filter-factory <module> <filter> [--workingPath=] [--without-project]
+    $ zf2rapid delete-filter-factory <module> <filter> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a filter by specifying the `<module>` and the 
 `<filter>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this filter will also 
 be deleted.  
 
-    $ zf2rapid delete-filter <module> <filter> [--workingPath=] [--without-project]
+    $ zf2rapid delete-filter <module> <filter> [--workingPath=] [--without-project] [--no-config]
 
 You can display all filters of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -310,27 +310,27 @@ When creating a new validator you need to specify the `<module>` and the
 Framework 2 project to create the new validator in. Optionally, you can disable 
 the creation of a factory for the new validator.
 
-    $ zf2rapid create-validator <module> <validator> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-validator <module> <validator> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing validator by specifying 
 the `<module>` and the `<validator>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-validator-factory <module> <validator> [--workingPath=] [--without-project]
+    $ zf2rapid create-validator-factory <module> <validator> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a validator by specifying the 
 `<module>` and the `<validator>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The validator for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-validator-factory <module> <validator> [--workingPath=] [--without-project]
+    $ zf2rapid delete-validator-factory <module> <validator> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a validator by specifying the `<module>` and the 
 `<validator>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this validator will also 
 be deleted.  
 
-    $ zf2rapid delete-validator <module> <validator> [--workingPath=] [--without-project]
+    $ zf2rapid delete-validator <module> <validator> [--workingPath=] [--without-project] [--no-config]
 
 You can display all validators of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -346,27 +346,27 @@ When creating a new input filter you need to specify the `<module>` and the
 Framework 2 project to create the new input filter in. Optionally, you can 
 disable the creation of a factory for the new input filter.
 
-    $ zf2rapid create-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing input filter by specifying 
 the `<module>` and the `<inputFilter>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project]
+    $ zf2rapid create-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a input filter by specifying the 
 `<module>` and the `<inputFilter>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The input filter for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project]
+    $ zf2rapid delete-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a input filter by specifying the `<module>` and the 
 `<inputFilter>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this input filter will also 
 be deleted.  
 
-    $ zf2rapid delete-input-filter <module> <inputFilter> [--workingPath=] [--without-project]
+    $ zf2rapid delete-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]
 
 You can display all input filters of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -382,27 +382,27 @@ When creating a new form you need to specify the `<module>` and the
 Framework 2 project to create the new form in. Optionally, you can disable the 
 creation of a factory for the new form.
 
-    $ zf2rapid create-form <module> <form> [--workingPath=] [--without-project] [--no-factory]
+    $ zf2rapid create-form <module> <form> [--workingPath=] [--without-project] [--no-factory] [--no-config]
 
 You can create a factory for an existing form by specifying 
 the `<module>` and the `<form>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-form-factory <module> <form> [--workingPath=] [--without-project]
+    $ zf2rapid create-form-factory <module> <form> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a form by specifying the 
 `<module>` and the `<form>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The form for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-form-factory <module> <form> [--workingPath=] [--without-project]
+    $ zf2rapid delete-form-factory <module> <form> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a form by specifying the `<module>` and the 
 `<form>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this form will also 
 be deleted.  
 
-    $ zf2rapid delete-form <module> <form> [--workingPath=] [--without-project]
+    $ zf2rapid delete-form <module> <form> [--workingPath=] [--without-project] [--no-config]
 
 You can display all forms of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 
@@ -419,27 +419,27 @@ Framework 2 project to create the new hydrator in. Optionally, you can specify a
 baseHydrator to extend which defaults to the ClassMethods hydrator. Optionally, 
 you can disable the creation of a factory for the new hydrator.
 
-    $ zf2rapid create-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--baseHydrator=] [--no-factory]
+    $ zf2rapid create-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--baseHydrator=] [--no-factory] [--no-config]
 
 You can create a factory for an existing hydrator by specifying 
 the `<module>` and the `<hydrator>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project.
 
-    $ zf2rapid create-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project]
+    $ zf2rapid create-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project] [--no-config]
 
 You can delete an existing factory for a hydrator by specifying the 
 `<module>` and the `<hydrator>`. Optionally, you can specify the 
 `--workingPath=` of the Zend Framework 2 project. The hydrator for this 
 factory will not be deleted.
 
-    $ zf2rapid delete-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project]
+    $ zf2rapid delete-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project] [--no-config]
 
 You can delete a hydrator by specifying the `<module>` and the 
 `<hydrator>`. Optionally, you can specify the `--workingPath=` of the Zend 
 Framework 2 project. Any existing factory for this hydrator will also 
 be deleted.  
 
-    $ zf2rapid delete-hydrator <module> <hydrator> [--workingPath=] [--without-project]
+    $ zf2rapid delete-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--no-config]
 
 You can display all hydrators of the current Zend Framework 2 project. 
 Optionally, you can specify the `--workingPath=` of the Zend Framework 2 project to 

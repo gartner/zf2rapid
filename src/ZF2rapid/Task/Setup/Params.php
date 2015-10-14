@@ -243,6 +243,12 @@ class Params extends AbstractTask
             $this->params->paramFactory = false;
         }
 
+        $this->params->paramWriteConfig = true;
+
+        if ($this->route->getMatchedParam('no-config')) {
+            $this->params->paramWriteConfig = false;
+        }
+
         $this->params->paramActivation = true;
 
         if ($this->route->getMatchedParam('no-activation')) {

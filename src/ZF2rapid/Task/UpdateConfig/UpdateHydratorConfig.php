@@ -22,6 +22,11 @@ class UpdateHydratorConfig extends AbstractUpdateServiceManagerConfig
      */
     public function processCommandTask()
     {
+        // check for config
+        if (!$this->params->paramWriteConfig) {
+            return 0;
+        }
+
         // output message
         $this->console->writeTaskLine(
             'Writing hydrator configuration...'

@@ -45,7 +45,6 @@ return [
         ],
         'defaults'             => [
             'workingPath' => '.',
-            'no-factory'  => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -56,7 +55,7 @@ return [
     ],
     [
         'name'                 => 'create-controller',
-        'route'                => 'create-controller <module> <controller> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-controller <module> <controller> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_controller_description',
         'short_description'    => 'route_create_controller_short_description',
         'options_descriptions' => [
@@ -65,10 +64,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_controller_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -78,7 +79,7 @@ return [
     ],
     [
         'name'                 => 'create-controller-factory',
-        'route'                => 'create-controller-factory <module> <controller> [--workingPath=] [--without-project]',
+        'route'                => 'create-controller-factory <module> <controller> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_controller_factory_description',
         'short_description'    => 'route_create_controller_factory_short_description',
         'options_descriptions' => [
@@ -86,10 +87,12 @@ return [
             '<controller>'      => 'route_create_controller_factory_option_controller',
             '--without-project' => 'route_param_without_project',
             '--workingPath='    => 'route_param_working_path',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -99,7 +102,7 @@ return [
     ],
     [
         'name'                 => 'create-controller-plugin',
-        'route'                => 'create-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_controller_plugin_description',
         'short_description'    => 'route_create_controller_plugin_short_description',
         'options_descriptions' => [
@@ -108,10 +111,12 @@ return [
             '--workingPath='     => 'route_param_working_path',
             '--without-project'  => 'route_param_without_project',
             '--no-factory'       => 'route_create_controller_plugin_option_factory',
+            '--no-config'        => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'           => new NormalizeParamFilter(),
@@ -121,7 +126,7 @@ return [
     ],
     [
         'name'                 => 'create-controller-plugin-factory',
-        'route'                => 'create-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project]',
+        'route'                => 'create-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_controller_plugin_factory_description',
         'short_description'    => 'route_create_controller_plugin_factory_short_description',
         'options_descriptions' => [
@@ -129,10 +134,12 @@ return [
             '<controllerPlugin>' => 'route_create_controller_plugin_factory_option_plugin',
             '--workingPath='     => 'route_param_working_path',
             '--without-project'  => 'route_param_without_project',
+            '--no-config'        => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'           => new NormalizeParamFilter(),
@@ -142,7 +149,7 @@ return [
     ],
     [
         'name'                 => 'create-filter',
-        'route'                => 'create-filter <module> <filter> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-filter <module> <filter> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_filter_description',
         'short_description'    => 'route_create_filter_short_description',
         'options_descriptions' => [
@@ -151,10 +158,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_filter_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -164,7 +173,7 @@ return [
     ],
     [
         'name'                 => 'create-filter-factory',
-        'route'                => 'create-filter-factory <module> <filter> [--workingPath=] [--without-project]',
+        'route'                => 'create-filter-factory <module> <filter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_filter_factory_description',
         'short_description'    => 'route_create_filter_factory_short_description',
         'options_descriptions' => [
@@ -172,10 +181,12 @@ return [
             '<filter>'          => 'route_create_filter_factory_option_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -185,7 +196,7 @@ return [
     ],
     [
         'name'                 => 'create-form',
-        'route'                => 'create-form <module> <form> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-form <module> <form> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_form_description',
         'short_description'    => 'route_create_form_short_description',
         'options_descriptions' => [
@@ -194,10 +205,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_form_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -207,7 +220,7 @@ return [
     ],
     [
         'name'                 => 'create-form-factory',
-        'route'                => 'create-form-factory <module> <form> [--workingPath=] [--without-project]',
+        'route'                => 'create-form-factory <module> <form> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_form_factory_description',
         'short_description'    => 'route_create_form_factory_short_description',
         'options_descriptions' => [
@@ -215,10 +228,12 @@ return [
             '<form>'            => 'route_create_form_factory_option_form',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -228,7 +243,7 @@ return [
     ],
     [
         'name'                 => 'create-hydrator',
-        'route'                => 'create-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--baseHydrator=] [--no-factory]',
+        'route'                => 'create-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--baseHydrator=] [--no-factory] [--no-config]',
         'description'          => 'route_create_hydrator_description',
         'short_description'    => 'route_create_hydrator_short_description',
         'options_descriptions' => [
@@ -238,11 +253,13 @@ return [
             '--without-project' => 'route_param_without_project',
             '--baseHydrator'    => 'route_create_hydrator_option_base_hydrator',
             '--no-factory'      => 'route_create_hydrator_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'  => '.',
             'factory'      => false,
             'baseHydrator' => 'ClassMethods',
+            'no-config'    => false,
         ],
         'filters'              => [
             'module'       => new NormalizeParamFilter(),
@@ -253,7 +270,7 @@ return [
     ],
     [
         'name'                 => 'create-hydrator-factory',
-        'route'                => 'create-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project]',
+        'route'                => 'create-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_hydrator_factory_description',
         'short_description'    => 'route_create_hydrator_factory_short_description',
         'options_descriptions' => [
@@ -261,10 +278,12 @@ return [
             '<hydrator>'        => 'route_create_hydrator_factory_option_hydrator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'   => new NormalizeParamFilter(),
@@ -274,7 +293,7 @@ return [
     ],
     [
         'name'                 => 'create-input-filter',
-        'route'                => 'create-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_input_filter_description',
         'short_description'    => 'route_create_input_filter_short_description',
         'options_descriptions' => [
@@ -283,10 +302,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_input_filter_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'      => new NormalizeParamFilter(),
@@ -296,7 +317,7 @@ return [
     ],
     [
         'name'                 => 'create-input-filter-factory',
-        'route'                => 'create-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project]',
+        'route'                => 'create-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_input_filter_factory_description',
         'short_description'    => 'route_create_input_filter_factory_short_description',
         'options_descriptions' => [
@@ -304,10 +325,12 @@ return [
             '<inputFilter>'     => 'route_create_input_filter_factory_option_input_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'      => new NormalizeParamFilter(),
@@ -372,7 +395,7 @@ return [
     ],
     [
         'name'                 => 'create-validator',
-        'route'                => 'create-validator <module> <validator> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-validator <module> <validator> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_validator_description',
         'short_description'    => 'route_create_validator_short_description',
         'options_descriptions' => [
@@ -381,10 +404,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_validator_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'    => new NormalizeParamFilter(),
@@ -394,7 +419,7 @@ return [
     ],
     [
         'name'                 => 'create-validator-factory',
-        'route'                => 'create-validator-factory <module> <validator> [--workingPath=] [--without-project]',
+        'route'                => 'create-validator-factory <module> <validator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_validator_factory_description',
         'short_description'    => 'route_create_validator_factory_short_description',
         'options_descriptions' => [
@@ -402,10 +427,12 @@ return [
             '<validator>'       => 'route_create_validator_factory_option_validator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'    => new NormalizeParamFilter(),
@@ -415,7 +442,7 @@ return [
     ],
     [
         'name'                 => 'create-view-helper',
-        'route'                => 'create-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-factory]',
+        'route'                => 'create-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-factory] [--no-config]',
         'description'          => 'route_create_view_helper_description',
         'short_description'    => 'route_create_view_helper_short_description',
         'options_descriptions' => [
@@ -424,10 +451,12 @@ return [
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
             '--no-factory'      => 'route_create_view_helper_option_factory',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'no-factory'  => false,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -437,7 +466,7 @@ return [
     ],
     [
         'name'                 => 'create-view-helper-factory',
-        'route'                => 'create-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project]',
+        'route'                => 'create-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_create_view_helper_factory_description',
         'short_description'    => 'route_create_view_helper_factory_short_description',
         'options_descriptions' => [
@@ -445,10 +474,12 @@ return [
             '<viewHelper>'      => 'route_create_view_helper_factory_option_view_helper',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath' => '.',
             'factory'     => true,
+            'no-config'   => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -566,7 +597,7 @@ return [
     ],
     [
         'name'                 => 'delete-controller',
-        'route'                => 'delete-controller <module> <controller> [--workingPath=] [--without-project]',
+        'route'                => 'delete-controller <module> <controller> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_controller_description',
         'short_description'    => 'route_delete_controller_short_description',
         'options_descriptions' => [
@@ -574,10 +605,12 @@ return [
             '<controller>'      => 'route_delete_controller_option_controller',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -587,7 +620,7 @@ return [
     ],
     [
         'name'                 => 'delete-controller-factory',
-        'route'                => 'delete-controller-factory <module> <controller> [--workingPath=] [--without-project]',
+        'route'                => 'delete-controller-factory <module> <controller> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_controller_factory_description',
         'short_description'    => 'route_delete_controller_factory_short_description',
         'options_descriptions' => [
@@ -595,10 +628,12 @@ return [
             '<controller>'      => 'route_delete_controller_factory_option_controller',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -608,7 +643,7 @@ return [
     ],
     [
         'name'                 => 'delete-controller-plugin',
-        'route'                => 'delete-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project]',
+        'route'                => 'delete-controller-plugin <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_controller_plugin_description',
         'short_description'    => 'route_delete_controller_plugin_short_description',
         'options_descriptions' => [
@@ -616,10 +651,12 @@ return [
             '<controllerPlugin>' => 'route_delete_controller_plugin_option_plugin',
             '--workingPath='     => 'route_param_working_path',
             '--without-project'  => 'route_param_without_project',
+            '--no-config'        => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'           => new NormalizeParamFilter(),
@@ -629,7 +666,7 @@ return [
     ],
     [
         'name'                 => 'delete-controller-plugin-factory',
-        'route'                => 'delete-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project]',
+        'route'                => 'delete-controller-plugin-factory <module> <controllerPlugin> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_controller_plugin_factory_description',
         'short_description'    => 'route_delete_controller_plugin_factory_short_description',
         'options_descriptions' => [
@@ -637,10 +674,12 @@ return [
             '<controllerPlugin>' => 'route_delete_controller_plugin_factory_option_plugin',
             '--workingPath='     => 'route_param_working_path',
             '--without-project'  => 'route_param_without_project',
+            '--no-config'        => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'           => new NormalizeParamFilter(),
@@ -650,7 +689,7 @@ return [
     ],
     [
         'name'                 => 'delete-filter',
-        'route'                => 'delete-filter <module> <filter> [--workingPath=] [--without-project]',
+        'route'                => 'delete-filter <module> <filter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_filter_description',
         'short_description'    => 'route_delete_filter_short_description',
         'options_descriptions' => [
@@ -658,10 +697,12 @@ return [
             '<filter>'          => 'route_delete_filter_option_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -671,7 +712,7 @@ return [
     ],
     [
         'name'                 => 'delete-filter-factory',
-        'route'                => 'delete-filter-factory <module> <filter> [--workingPath=] [--without-project]',
+        'route'                => 'delete-filter-factory <module> <filter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_filter_factory_description',
         'short_description'    => 'route_delete_filter_factory_short_description',
         'options_descriptions' => [
@@ -679,10 +720,12 @@ return [
             '<filter>'          => 'route_delete_filter_factory_option_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -692,7 +735,7 @@ return [
     ],
     [
         'name'                 => 'delete-form',
-        'route'                => 'delete-form <module> <form> [--workingPath=] [--without-project]',
+        'route'                => 'delete-form <module> <form> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_form_description',
         'short_description'    => 'route_delete_form_short_description',
         'options_descriptions' => [
@@ -700,10 +743,12 @@ return [
             '<form>'            => 'route_delete_form_option_form',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -713,7 +758,7 @@ return [
     ],
     [
         'name'                 => 'delete-form-factory',
-        'route'                => 'delete-form-factory <module> <form> [--workingPath=] [--without-project]',
+        'route'                => 'delete-form-factory <module> <form> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_form_factory_description',
         'short_description'    => 'route_delete_form_factory_short_description',
         'options_descriptions' => [
@@ -721,10 +766,12 @@ return [
             '<form>'            => 'route_delete_form_factory_option_form',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module' => new NormalizeParamFilter(),
@@ -734,7 +781,7 @@ return [
     ],
     [
         'name'                 => 'delete-hydrator',
-        'route'                => 'delete-hydrator <module> <hydrator> [--workingPath=] [--without-project]',
+        'route'                => 'delete-hydrator <module> <hydrator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_hydrator_description',
         'short_description'    => 'route_delete_hydrator_short_description',
         'options_descriptions' => [
@@ -742,10 +789,12 @@ return [
             '<hydrator>'        => 'route_delete_hydrator_option_hydrator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'   => new NormalizeParamFilter(),
@@ -755,7 +804,7 @@ return [
     ],
     [
         'name'                 => 'delete-hydrator-factory',
-        'route'                => 'delete-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project]',
+        'route'                => 'delete-hydrator-factory <module> <hydrator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_hydrator_factory_description',
         'short_description'    => 'route_delete_hydrator_factory_short_description',
         'options_descriptions' => [
@@ -763,10 +812,12 @@ return [
             '<hydrator>'        => 'route_delete_hydrator_factory_option_hydrator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'   => new NormalizeParamFilter(),
@@ -776,7 +827,7 @@ return [
     ],
     [
         'name'                 => 'delete-input-filter',
-        'route'                => 'delete-input-filter <module> <inputFilter> [--workingPath=] [--without-project]',
+        'route'                => 'delete-input-filter <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_input_filter_description',
         'short_description'    => 'route_delete_input_filter_short_description',
         'options_descriptions' => [
@@ -784,10 +835,12 @@ return [
             '<inputFilter>'     => 'route_delete_input_filter_option_input_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'      => new NormalizeParamFilter(),
@@ -797,7 +850,7 @@ return [
     ],
     [
         'name'                 => 'delete-input-filter-factory',
-        'route'                => 'delete-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project]',
+        'route'                => 'delete-input-filter-factory <module> <inputFilter> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_input_filter_factory_description',
         'short_description'    => 'route_delete_input_filter_factory_short_description',
         'options_descriptions' => [
@@ -805,10 +858,12 @@ return [
             '<inputFilter>'     => 'route_delete_input_filter_factory_option_input_filter',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'      => new NormalizeParamFilter(),
@@ -840,7 +895,7 @@ return [
     ],
     [
         'name'                 => 'delete-validator',
-        'route'                => 'delete-validator <module> <validator> [--workingPath=] [--without-project]',
+        'route'                => 'delete-validator <module> <validator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_validator_description',
         'short_description'    => 'route_delete_validator_short_description',
         'options_descriptions' => [
@@ -848,10 +903,12 @@ return [
             '<validator>'       => 'route_delete_validator_option_validator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'    => new NormalizeParamFilter(),
@@ -861,7 +918,7 @@ return [
     ],
     [
         'name'                 => 'delete-validator-factory',
-        'route'                => 'delete-validator-factory <module> <validator> [--workingPath=] [--without-project]',
+        'route'                => 'delete-validator-factory <module> <validator> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_validator_factory_description',
         'short_description'    => 'route_delete_validator_factory_short_description',
         'options_descriptions' => [
@@ -869,10 +926,12 @@ return [
             '<validator>'       => 'route_delete_validator_factory_option_validator',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'    => new NormalizeParamFilter(),
@@ -882,7 +941,7 @@ return [
     ],
     [
         'name'                 => 'delete-view-helper',
-        'route'                => 'delete-view-helper <module> <viewHelper> [--workingPath=] [--without-project]',
+        'route'                => 'delete-view-helper <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_view_helper_description',
         'short_description'    => 'route_delete_view_helper_short_description',
         'options_descriptions' => [
@@ -890,10 +949,12 @@ return [
             '<viewHelper>'      => 'route_delete_view_helper_option_view_helper',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),
@@ -903,7 +964,7 @@ return [
     ],
     [
         'name'                 => 'delete-view-helper-factory',
-        'route'                => 'delete-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project]',
+        'route'                => 'delete-view-helper-factory <module> <viewHelper> [--workingPath=] [--without-project] [--no-config]',
         'description'          => 'route_delete_view_helper_factory_description',
         'short_description'    => 'route_delete_view_helper_factory_short_description',
         'options_descriptions' => [
@@ -911,10 +972,12 @@ return [
             '<viewHelper>'      => 'route_delete_view_helper_factory_option_view_helper',
             '--workingPath='    => 'route_param_working_path',
             '--without-project' => 'route_param_without_project',
+            '--no-config'       => 'route_param_no_config',
         ],
         'defaults'             => [
             'workingPath'   => '.',
             'removeFactory' => true,
+            'no-config'     => false,
         ],
         'filters'              => [
             'module'     => new NormalizeParamFilter(),

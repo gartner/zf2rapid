@@ -32,6 +32,9 @@ class ConfigFileGenerator extends AbstractFileGenerator
         // call parent constructor
         parent::__construct();
 
+        // convert to short array syntax
+        $fileBody = str_replace(array('array(', ')'), array('[', ']'), $fileBody);
+
         // set file body
         $this->setBody('return ' . $fileBody . ';');
 

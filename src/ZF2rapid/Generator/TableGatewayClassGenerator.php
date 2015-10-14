@@ -29,7 +29,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
      * @param array  $loadedTables
      */
     public function __construct(
-        array $config = array(), $tableName, array $loadedTables = array()
+        array $config = [], $tableName, array $loadedTables = []
     ) {
         // set config data
         $this->config       = $config;
@@ -99,9 +99,9 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
                     $this->getName(),
                     'Provides the ' . $className . ' table gateway for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -121,12 +121,12 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
         /** @var ConstraintObject $primaryKey */
         $primaryKey = $this->loadedTables[$this->tableName]['primaryKey'];
 
-        $body = array();
-        $body[] = '$options = array();';
+        $body = [];
+        $body[] = '$options = [];';
         $body[] = '';
         $body[] = '/** @var ' . $entityClass . ' $entity */';
         $body[] = 'foreach ($this->fetchAllEntities() as $entity) {';
-        $body[] = '    $columns = array(';
+        $body[] = '    $columns = [';
 
         foreach ($this->loadedTables[$this->tableName]['columns'] as $columnName => $columnType) {
             if (in_array($columnName, $primaryKey->getColumns())) {
@@ -138,7 +138,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
             $body[] = '        $entity->' . $getMethod . '(),';
         }
 
-        $body[] = '    );';
+        $body[] = '    ];';
         $body[] = '';
         $body[] = '    $options[$entity->getIdentifier()] = implode(\' \', $columns);';
         $body[] = '}';
@@ -157,12 +157,12 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
             new DocBlockGenerator(
                 'Get option list',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'return',
                         'description' => 'array',
-                    ),
-                )
+                    ],
+                ]
             )
         );
 
@@ -186,7 +186,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
             return true;
         }
 
-        $body = array();
+        $body = [];
 
         /** @var ConstraintObject $foreignKey */
         foreach ($foreignKeys as $foreignKey) {
@@ -199,7 +199,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
             $body[] = '    \'' . $this->tableName . '.'
                 . $foreignKey->getColumns()[0] . ' = ' . $refTableName . '.'
                 . $foreignKey->getReferencedColumns()[0] . '\',';
-            $body[] = '    array(';
+            $body[] = '    [';
 
             
             /** @var ColumnObject $column */
@@ -208,7 +208,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
                     ) . '\' => \'' . $column->getName() . '\',';
             }
 
-            $body[] = '    )';
+            $body[] = '    ]';
             $body[] = ');';
             $body[] = '';
         }
@@ -229,16 +229,16 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
             new DocBlockGenerator(
                 'Add join tables',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => 'Select $select',
-                    ),
-                    array(
+                    ],
+                    [
                         'name'        => 'return',
                         'description' => 'ResultSetInterface',
-                    ),
-                )
+                    ],
+                ]
             )
         );
 

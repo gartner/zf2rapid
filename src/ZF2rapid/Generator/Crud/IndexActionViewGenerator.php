@@ -34,7 +34,7 @@ class IndexActionViewGenerator extends AbstractActionViewGenerator
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = 'use ' . $loadedEntity->getName() . ';';
         $body[] = '';
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_index\');';
@@ -69,20 +69,20 @@ class IndexActionViewGenerator extends AbstractActionViewGenerator
 
         $body[] = '            <td>';
         $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
-            . '/show\', array(\'id\' => $' . $entityParam
-            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '/show\', [\'id\' => $' . $entityParam
+            . '->getIdentifier()]); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
             . '_action_show\'); ?>">';
         $body[] = '                    <i class="fa fa-search"></i>';
         $body[] = '                </a>';
         $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
-            . '/update\', array(\'id\' => $' . $entityParam
-            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '/update\', [\'id\' => $' . $entityParam
+            . '->getIdentifier()]); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
             . '_action_update\'); ?>">';
         $body[] = '                    <i class="fa fa-pencil"></i>';
         $body[] = '                </a>';
         $body[] = '                <a class="btn btn-default btn-xs" href="<?php echo $this->url(\'' . $moduleRoute
-            . '/delete\', array(\'id\' => $' . $entityParam
-            . '->getIdentifier())); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
+            . '/delete\', [\'id\' => $' . $entityParam
+            . '->getIdentifier()]); ?>" title="<?php echo $this->translate(\'' . $moduleIdentifier
             . '_action_delete\'); ?>">';
         $body[] = '                    <i class="fa fa-trash"></i>';
         $body[] = '                </a>';

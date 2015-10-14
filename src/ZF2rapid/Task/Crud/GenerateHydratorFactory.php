@@ -28,7 +28,7 @@ class GenerateHydratorFactory extends AbstractGenerateFactory
             if (isset($this->params->currentHydratorStrategies[$tableKey])) {
                 $hydratorStrategies = $this->params->currentHydratorStrategies[$tableKey];
             } else {
-                $hydratorStrategies = array();
+                $hydratorStrategies = [];
             }
 
             $result = $this->generateFactory(

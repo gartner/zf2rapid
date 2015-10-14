@@ -38,7 +38,7 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var array
@@ -51,7 +51,7 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
      * @param array       $loadedTables
      * @param array       $config
      */
-    public function __construct($paramModule, $entityModule, array $loadedTables = array(), array $config = array())
+    public function __construct($paramModule, $entityModule, array $loadedTables = [], array $config = [])
     {
         // set config data
         $this->paramModule  = $paramModule;
@@ -101,9 +101,9 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
                     $this->getName(),
                     'Provides the ' . $className . ' form for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -119,22 +119,22 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
     {
         $tableName = $this->filterCamelCaseToUnderscore($moduleName);
 
-        $body   = array();
+        $body   = [];
         $body[] = '$this->setName(\'' . $moduleName . 'Form\');';
         $body[] = '';
 
         $body[] = '$this->add(';
-        $body[] = '    array(';
+        $body[] = '    [';
         $body[] = '        \'name\' => \'delete_' . $tableName . '\',';
         $body[] = '        \'type\' => \'Submit\',';
-        $body[] = '        \'options\' => array(';
-        $body[] = '        ),';
-        $body[] = '        \'attributes\' => array(';
+        $body[] = '        \'options\' => [';
+        $body[] = '        ],';
+        $body[] = '        \'attributes\' => [';
         $body[] = '            \'value\' => \'' . $tableName . '_action_delete\',';
         $body[] = '            \'id\' => \'save_' . $tableName . '\',';
         $body[] = '            \'class\' => \'btn btn-success\',';
-        $body[] = '        ),';
-        $body[] = '    )';
+        $body[] = '        ],';
+        $body[] = '    ]';
         $body[] = ');';
         $body[] = '';
 
@@ -164,12 +164,12 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => 'array',
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -194,12 +194,12 @@ class DeleteFormClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Set ' . $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => 'array $' . $columnName . 'Options',
-                    )
-                )
+                    ]
+                ]
             )
         );
 

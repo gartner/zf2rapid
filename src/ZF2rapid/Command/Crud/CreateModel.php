@@ -21,7 +21,7 @@ class CreateModel extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -41,7 +41,7 @@ class CreateModel extends AbstractCommand
             'ZF2rapid\Task\Crud\GenerateInputFilterClass',
             'ZF2rapid\Task\Crud\GenerateInputFilterFactory',
             'ZF2rapid\Task\Crud\UpdateModelConfig',
-        );
+        ];
 
     /**
      * Start the command

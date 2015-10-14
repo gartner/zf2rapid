@@ -25,7 +25,7 @@ class GenerateControllerClasses extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        foreach (array('Index', 'Show', 'Create', 'Update', 'Delete') as $controllerName) {
+        foreach (['Index', 'Show', 'Create', 'Update', 'Delete'] as $controllerName) {
             $result = $this->generateClass(
                 $this->params->applicationControllerDir,
                 $controllerName . 'Controller',

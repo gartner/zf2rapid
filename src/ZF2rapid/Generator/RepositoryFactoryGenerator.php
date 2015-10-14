@@ -27,7 +27,7 @@ class RepositoryFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param string $className
@@ -38,7 +38,7 @@ class RepositoryFactoryGenerator extends ClassGenerator
      */
     public function __construct(
         $className, $moduleName, $namespaceName, $tableName,
-        array $config = array()
+        array $config = []
     ) {
         // set config data
         $this->config = $config;
@@ -56,7 +56,7 @@ class RepositoryFactoryGenerator extends ClassGenerator
         );
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($className, $moduleName, $tableName);
@@ -76,9 +76,9 @@ class RepositoryFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -98,14 +98,14 @@ class RepositoryFactoryGenerator extends ClassGenerator
         $tableGatewayService = $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst($tableName);
 
         // set action body
-        $body = array(
+        $body = [
             '/** @var ' . $tableGatewayName . ' $tableGateway */',
             '$tableGateway = $serviceLocator->get(\'' . $tableGatewayService . '\');',
             '',
             '$instance = new ' . $className . '($tableGateway);',
             '',
             'return $instance;',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -113,11 +113,11 @@ class RepositoryFactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     $managerName, 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -126,15 +126,15 @@ class RepositoryFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             $managerName,
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

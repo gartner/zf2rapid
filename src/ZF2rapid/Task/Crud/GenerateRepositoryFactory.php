@@ -31,9 +31,9 @@ class GenerateRepositoryFactory extends AbstractTask
             // output message
             $this->console->writeTaskLine(
                 'task_generate_factory_writing',
-                array(
+                [
                     'repository'
-                )
+                ]
             );
 
             // set factory file
@@ -45,7 +45,7 @@ class GenerateRepositoryFactory extends AbstractTask
             if (file_exists($factoryFile)) {
                 $this->console->writeFailLine(
                     'task_generate_factory_exists',
-                    array(
+                    [
                         'repository',
                         $this->console->colorize(
                             $tableConfig['repositoryClass'], Color::GREEN
@@ -53,7 +53,7 @@ class GenerateRepositoryFactory extends AbstractTask
                         $this->console->colorize(
                             $this->params->paramModule, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

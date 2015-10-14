@@ -41,11 +41,11 @@ class ProjectPathEmpty extends AbstractTask
                 // stop with error
                 $this->console->writeFailLine(
                     'task_check_working_path_not_empty',
-                    array(
+                    [
                         $this->console->colorize(
                             $this->params->workingPath, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;
@@ -56,11 +56,11 @@ class ProjectPathEmpty extends AbstractTask
 
             $this->console->writeTaskLine(
                 'task_check_working_path_created',
-                array(
+                [
                     $this->console->colorize(
                         realpath($this->params->workingPath), Color::GREEN
                     )
-                )
+                ]
             );
         }
 

@@ -22,7 +22,7 @@ class CreateRouting extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -32,7 +32,7 @@ class CreateRouting extends AbstractCommand
             'ZF2rapid\Task\Fetch\LoadControllers',
             'ZF2rapid\Task\Fetch\LoadActions',
             'ZF2rapid\Task\Module\CreateModuleRouting',
-        );
+        ];
 
     /**
      * Start the command
@@ -50,11 +50,11 @@ class CreateRouting extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_routing_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

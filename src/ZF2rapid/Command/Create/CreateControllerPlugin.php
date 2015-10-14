@@ -22,7 +22,7 @@ class CreateControllerPlugin extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -32,7 +32,7 @@ class CreateControllerPlugin extends AbstractCommand
             'ZF2rapid\Task\GenerateClass\GenerateControllerPluginClass',
             'ZF2rapid\Task\GenerateFactory\GenerateControllerPluginFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateControllerPluginConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -50,14 +50,14 @@ class CreateControllerPlugin extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_controller_plugin_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramControllerPlugin, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

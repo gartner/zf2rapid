@@ -22,7 +22,7 @@ class CreateProject extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\Params',
             'ZF2rapid\Task\Check\ProjectPathMandatory',
@@ -34,7 +34,7 @@ class CreateProject extends AbstractCommand
             'ZF2rapid\Task\Install\RunComposer',
             'ZF2rapid\Task\Install\DownloadGenerators',
             'ZF2rapid\Task\Install\PrepareProject',
-        );
+        ];
 
     /**
      * Start the command
@@ -54,11 +54,11 @@ class CreateProject extends AbstractCommand
 
         $this->console->writeTodoLine(
             'command_create_project_working_dir',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

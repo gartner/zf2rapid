@@ -30,7 +30,7 @@ class EntityClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var
@@ -42,7 +42,7 @@ class EntityClassGenerator extends ClassGenerator
      * @param array $tableData
      */
     public function __construct(
-        array $config = array(), array $tableData = array()
+        array $config = [], array $tableData = []
     ) {
         // set config data
         $this->config    = $config;
@@ -121,9 +121,9 @@ class EntityClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' entity for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -134,7 +134,7 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function fetchTableColumns()
     {
-        $foreignKeys = array();
+        $foreignKeys = [];
 
         /** @var ConstraintObject $tableConstraint */
         foreach ($this->tableData['foreignKeys'] as $tableConstraint) {
@@ -142,7 +142,7 @@ class EntityClassGenerator extends ClassGenerator
                 = $tableConstraint->getReferencedTableName();
         }
 
-        $columns = array();
+        $columns = [];
 
         /** @var $tableColumn ColumnObject */
         foreach ($this->tableData['columns'] as $tableColumn) {
@@ -213,13 +213,13 @@ class EntityClassGenerator extends ClassGenerator
 
             $getMethodName = 'get' . ucfirst($primaryColumns[0]);
 
-            $body = array(
+            $body = [
                 'return $this->' . $getMethodName . '();',
-            );
+            ];
         } else {
             $columnType = 'array';
 
-            $methodCalls = array();
+            $methodCalls = [];
 
             foreach ($primaryColumns as $primaryColumn) {
                 $getMethodName = 'get' . ucfirst($primaryColumn);
@@ -227,11 +227,11 @@ class EntityClassGenerator extends ClassGenerator
                 $methodCalls[] = '$this->' . $getMethodName . '()';
             }
 
-            $body = array(
-                'return array(',
+            $body = [
+                'return [',
                 '    ' . implode(', ', $methodCalls),
-                ');',
-            );
+                '];',
+            ];
         }
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
@@ -242,12 +242,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Get the primary identifier',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'return',
                         'description' => $columnType,
-                    )
-                )
+                    ]
+                ]
             )
         );
         $getMethod->setBody($body);
@@ -269,12 +269,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 $columnName . ' property',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => $columnType,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -289,7 +289,7 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function generateSetMethod($columnName, $columnType)
     {
-        if (in_array($columnType, array('string', 'integer'))) {
+        if (in_array($columnType, ['string', 'integer'])) {
             $body = '$this->' . $columnName . ' = (' . $columnType . ') $'
                 . $columnName . ';';
 
@@ -309,12 +309,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Set ' . $columnName,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => $columnType . ' $' . $columnName,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -339,12 +339,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Get ' . $columnName,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'return',
                         'description' => $columnType,
-                    )
-                )
+                    ]
+                ]
             )
         );
         $getMethod->setBody('return $this->' . $columnName . ';');
@@ -360,8 +360,8 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function generateMagicToStringMethod(array $primaryColumns, array $tableColumns)
     {
-        $body = array();
-        $body[] = '$columns = array(';
+        $body = [];
+        $body[] = '$columns = [';
 
         foreach ($tableColumns as $columnName => $columnType) {
             if (in_array($columnName, $primaryColumns)) {
@@ -373,7 +373,7 @@ class EntityClassGenerator extends ClassGenerator
             $body[] = '    $this->' . $getMethod . '(),';
         }
 
-        $body[] = ');';
+        $body[] = '];';
         $body[] = '';
         $body[] = 'return implode(\' \', $columns);';
 
@@ -385,12 +385,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Output entity',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'return',
                         'description' => 'string',
-                    )
-                )
+                    ]
+                ]
             )
         );
         $toStringMethod->setBody($body);
@@ -403,9 +403,9 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function generateNormalToStringMethod()
     {
-        $body = array(
+        $body = [
             'return $this->__toString();',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -415,12 +415,12 @@ class EntityClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Output entity',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'return',
                         'description' => 'string',
-                    )
-                )
+                    ]
+                ]
             )
         );
         $toStringMethod->setBody($body);

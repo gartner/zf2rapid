@@ -44,7 +44,7 @@ class ParamsTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -83,9 +83,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
     {
         $this->parameters->set('workingPath', '/path/to/module/dir');
 
-        $paramValueMap = array(
-            array('module', null, 'testModule')
-        );
+        $paramValueMap = [
+            ['module', null, 'testModule']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -129,9 +129,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testModulesParam()
     {
-        $paramValueMap = array(
-            array('modules', null, 'Application,Test')
-        );
+        $paramValueMap = [
+            ['modules', null, 'Application,Test']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -159,12 +159,12 @@ class ParamsTest extends PHPUnit_Framework_TestCase
             'moduleViewDir', '/path/to/module/dir/testModule/view'
         );
         $this->parameters->set(
-            'config', array('namespaceController' => 'Application\\Controller')
+            'config', ['namespaceController' => 'Application\\Controller']
         );
 
-        $paramValueMap = array(
-            array('controller', null, 'TestController')
-        );
+        $paramValueMap = [
+            ['controller', null, 'TestController']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -194,9 +194,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testControllersParam()
     {
-        $paramValueMap = array(
-            array('controllers', null, 'Test,Index')
-        );
+        $paramValueMap = [
+            ['controllers', null, 'Test,Index']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -217,9 +217,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testActionParam()
     {
-        $paramValueMap = array(
-            array('action', null, 'create')
-        );
+        $paramValueMap = [
+            ['action', null, 'create']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -245,14 +245,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceControllerPlugin' => 'Application\\Controller\\Plugin'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('controllerPlugin', null, 'PluginName')
-        );
+        $paramValueMap = [
+            ['controllerPlugin', null, 'PluginName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -283,14 +283,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceViewHelper' => 'View\\Helper'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('viewHelper', null, 'HelperName')
-        );
+        $paramValueMap = [
+            ['viewHelper', null, 'HelperName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -321,14 +321,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceFilter' => 'Model\\Filter'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('filter', null, 'FilterName')
-        );
+        $paramValueMap = [
+            ['filter', null, 'FilterName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -359,14 +359,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceValidator' => 'Model\\Validator'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('validator', null, 'ValidatorName')
-        );
+        $paramValueMap = [
+            ['validator', null, 'ValidatorName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -397,14 +397,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceInputFilter' => 'Model\\InputFilter'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('inputFilter', null, 'InputFilterName')
-        );
+        $paramValueMap = [
+            ['inputFilter', null, 'InputFilterName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -435,14 +435,14 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceForm' => 'Application\\Form'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('form', null, 'FormName')
-        );
+        $paramValueMap = [
+            ['form', null, 'FormName']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -473,15 +473,15 @@ class ParamsTest extends PHPUnit_Framework_TestCase
         );
         $this->parameters->set(
             'config',
-            array(
+            [
                 'namespaceHydrator' => 'Model\\Hydrator'
-            )
+            ]
         );
 
-        $paramValueMap = array(
-            array('hydrator', null, 'HydratorName'),
-            array('baseHydrator', null, 'BaseHydrator'),
-        );
+        $paramValueMap = [
+            ['hydrator', null, 'HydratorName'],
+            ['baseHydrator', null, 'BaseHydrator'],
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -511,9 +511,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testNoFactoryParamIsSet()
     {
-        $paramValueMap = array(
-            array('no-factory', null, true)
-        );
+        $paramValueMap = [
+            ['no-factory', null, true]
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -545,9 +545,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testStrictParam()
     {
-        $paramValueMap = array(
-            array('strict', null, true)
-        );
+        $paramValueMap = [
+            ['strict', null, true]
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -566,9 +566,9 @@ class ParamsTest extends PHPUnit_Framework_TestCase
      */
     public function testRemoveFactoryParam()
     {
-        $paramValueMap = array(
-            array('removeFactory', null, true)
-        );
+        $paramValueMap = [
+            ['removeFactory', null, true]
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)

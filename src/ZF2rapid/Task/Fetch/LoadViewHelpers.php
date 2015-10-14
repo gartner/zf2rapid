@@ -28,7 +28,7 @@ class LoadViewHelpers extends AbstractTask
     public function processCommandTask()
     {
         // initialize plugin list
-        $loadedViewHelpers = array();
+        $loadedViewHelpers = [];
 
         // loop through loaded modules and fetch view helpers for module
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
@@ -47,11 +47,11 @@ class LoadViewHelpers extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_fetch_load_view_helpers_not_found',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 1;
@@ -67,7 +67,7 @@ class LoadViewHelpers extends AbstractTask
     protected function loadViewHelpersForModule($moduleObject)
     {
         // initialize view helpers
-        $viewHelpers = array();
+        $viewHelpers = [];
 
         // check for configuration
         if (!method_exists($moduleObject, 'getConfig')) {
@@ -85,12 +85,12 @@ class LoadViewHelpers extends AbstractTask
         // loop through view helpers
         foreach ($moduleConfig['view_helpers'] as $type => $loadedPlugins) {
             // skip if not invokable nor factory
-            if (!in_array($type, array('invokables', 'factories'))) {
+            if (!in_array($type, ['invokables', 'factories'])) {
                 continue;
             }
 
             // initialize view helper type
-            $viewHelpers[$type] = array();
+            $viewHelpers[$type] = [];
 
             // loop through view helper list
             foreach ($loadedPlugins as $viewHelperKey => $viewHelperClass) {

@@ -59,7 +59,7 @@ class ViewHelperExistsTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -116,7 +116,7 @@ class ViewHelperExistsTest extends PHPUnit_Framework_TestCase
     {
         $this->console->expects($this->once())->method('writeTaskLine')->with(
             $this->equalTo('task_check_checking_file'),
-            array('view helper')
+            ['view helper']
         );
 
         $this->console->expects($this->once())->method('writeFailLine')->with(
@@ -146,7 +146,7 @@ class ViewHelperExistsTest extends PHPUnit_Framework_TestCase
     {
         $this->console->expects($this->once())->method('writeTaskLine')->with(
             $this->equalTo('task_check_checking_file'),
-            array('view helper')
+            ['view helper']
         );
 
         $this->console->expects($this->never())->method('writeFailLine')->with(

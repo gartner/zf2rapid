@@ -34,7 +34,7 @@ abstract class AbstractGenerateFactory extends AbstractTask
      */
     protected function generateFactory(
         $factoryDir, $factoryName, $factoryText, $namespaceName, $managerName,
-        array $hydratorStrategies = array()
+        array $hydratorStrategies = []
     ) {
         if (!$this->params->paramFactory) {
             return true;
@@ -43,9 +43,9 @@ abstract class AbstractGenerateFactory extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_generate_factory_writing',
-            array(
+            [
                 $factoryText
-            )
+            ]
         );
 
         // set factory file
@@ -55,7 +55,7 @@ abstract class AbstractGenerateFactory extends AbstractTask
         if (file_exists($factoryFile)) {
             $this->console->writeFailLine(
                 'task_generate_factory_exists',
-                array(
+                [
                     $factoryText,
                     $this->console->colorize(
                         $factoryName, Color::GREEN
@@ -63,7 +63,7 @@ abstract class AbstractGenerateFactory extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return false;

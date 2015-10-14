@@ -34,7 +34,7 @@ class UpdateActionViewGenerator extends AbstractActionViewGenerator
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = 'use ' . $loadedEntity->getName() . ';';
         $body[] = '';
         $body[] = '/** @var ' . $entityName . ' $' . $entityParam . ' */';
@@ -43,7 +43,7 @@ class UpdateActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_update\');';
         $body[] = '';
         $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
-            . '/update\', array(\'id\' => $' . $entityParam . '->getIdentifier())));';
+            . '/update\', [\'id\' => $' . $entityParam . '->getIdentifier()]));';
         $body[] = '';
         $body[] = 'echo $this->bootstrapForm($this->' . $formParam . ');';
         $body[] = '?>';

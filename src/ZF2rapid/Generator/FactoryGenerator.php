@@ -27,7 +27,7 @@ class FactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var array
@@ -44,7 +44,7 @@ class FactoryGenerator extends ClassGenerator
      */
     public function __construct(
         $className, $moduleName, $namespaceName, $managerName,
-        array $config = array(), array $currentHydratorStrategies = array()
+        array $config = [], array $currentHydratorStrategies = []
     ) {
         // set config data
         $this->config             = $config;
@@ -60,7 +60,7 @@ class FactoryGenerator extends ClassGenerator
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($className, $moduleName, $managerName);
@@ -80,9 +80,9 @@ class FactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -98,7 +98,7 @@ class FactoryGenerator extends ClassGenerator
     protected function addCreateServiceMethod($className, $moduleName, $managerName)
     {
         // set action body
-        $body = array();
+        $body = [];
         $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
@@ -122,11 +122,11 @@ class FactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     $managerName, 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -135,15 +135,15 @@ class FactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             $managerName,
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

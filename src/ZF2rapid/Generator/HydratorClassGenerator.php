@@ -28,7 +28,7 @@ class HydratorClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var string
@@ -40,7 +40,7 @@ class HydratorClassGenerator extends ClassGenerator
      * @param string $baseHydrator
      */
     public function __construct(
-        array $config = array(), $baseHydrator = 'ClassMethods'
+        array $config = [], $baseHydrator = 'ClassMethods'
     ) {
         // set config data and base hydrator
         $this->config       = $config;
@@ -89,9 +89,9 @@ class HydratorClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' hydrator for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -103,10 +103,10 @@ class HydratorClassGenerator extends ClassGenerator
     protected function addExtractMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add extended hydrator logic here',
             'return parent::extract($object);',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -114,11 +114,11 @@ class HydratorClassGenerator extends ClassGenerator
         $method->setName('extract');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'object', 'object'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -127,15 +127,15 @@ class HydratorClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Extract values from an object',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'object',
-                            array(
+                            [
                                 'object',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array('array')),
-                    )
+                        new ReturnTag(['array']),
+                    ]
                 )
             );
         }
@@ -150,10 +150,10 @@ class HydratorClassGenerator extends ClassGenerator
     protected function addHydrateMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add extended hydrator logic here',
             'return parent::hydrate($data, $object);',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -161,14 +161,14 @@ class HydratorClassGenerator extends ClassGenerator
         $method->setName('hydrate');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'data', 'array'
                 ),
                 new ParameterGenerator(
                     'object', 'object'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -177,21 +177,21 @@ class HydratorClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Hydrate an object by populating data',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'data',
-                            array(
+                            [
                                 'array',
-                            )
+                            ]
                         ),
                         new ParamTag(
                             'object',
-                            array(
+                            [
                                 'object',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array('object')),
-                    )
+                        new ReturnTag(['object']),
+                    ]
                 )
             );
         }

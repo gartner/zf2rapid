@@ -32,7 +32,7 @@ class CreateActionViewGenerator extends AbstractActionViewGenerator
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_create\');';
         $body[] = '';
         $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier

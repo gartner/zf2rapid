@@ -26,7 +26,7 @@ class ConfigFile extends AbstractTask
      * @var array
      */
     protected $configFileDefaults
-        = array(
+        = [
             'configFileFormat'          => 'php',
             'flagAddDocBlocks'          => 'true',
             'fileDocBlockText'          => 'ZF2 Application built by ZF2rapid',
@@ -43,7 +43,7 @@ class ConfigFile extends AbstractTask
             'namespaceEntity'           => 'Entity',
             'namespaceTableGateway'     => 'TableGateway',
             'namespaceRepository'       => 'Repository',
-        );
+        ];
 
     /**
      * Process the command

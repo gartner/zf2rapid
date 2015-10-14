@@ -30,12 +30,12 @@ class ValidatorClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -86,9 +86,9 @@ class ValidatorClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' validator for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -100,7 +100,7 @@ class ValidatorClassGenerator extends ClassGenerator
     protected function addIsValidMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '$this->setValue((string) $value);',
             '',
             '// add validation code here',
@@ -112,7 +112,7 @@ class ValidatorClassGenerator extends ClassGenerator
             '}',
             '',
             'return true;',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -120,11 +120,11 @@ class ValidatorClassGenerator extends ClassGenerator
         $method->setName('isValid');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'value', 'mixed'
                 ),
-            )
+            ]
         );
 
 
@@ -134,15 +134,15 @@ class ValidatorClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Called when validator is executed',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'value',
-                            array(
+                            [
                                 'mixed',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array('mixed')),
-                    )
+                        new ReturnTag(['mixed']),
+                    ]
                 )
             );
         }
@@ -168,11 +168,11 @@ class ValidatorClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     '',
                     '',
-                    array(
+                    [
                         new GenericTag(
                             'const'
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -190,9 +190,9 @@ class ValidatorClassGenerator extends ClassGenerator
         $property = new PropertyGenerator();
         $property->setName('messageTemplates');
         $property->setDefaultValue(
-            array(
+            [
                 'invalid' . $className => 'Value "%value%" is not valid',
-            )
+            ]
         );
         $property->setVisibility(PropertyGenerator::FLAG_PROTECTED);
 
@@ -202,12 +202,12 @@ class ValidatorClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Validation failure message template definitions',
                     '',
-                    array(
+                    [
                         new GenericTag(
                             'var',
                             'array'
                         ),
-                    )
+                    ]
                 )
             );
         }

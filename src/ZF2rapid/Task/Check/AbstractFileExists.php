@@ -30,7 +30,7 @@ abstract class AbstractFileExists extends AbstractTask
     public function checkFileExists($fileDir, $fileClass, $fileText)
     {
         // output message
-        $this->console->writeTaskLine('task_check_checking_file', array($fileText));
+        $this->console->writeTaskLine('task_check_checking_file', [$fileText]);
 
         // set file
         $file = $fileDir . '/' . $fileClass . '.php';
@@ -39,13 +39,13 @@ abstract class AbstractFileExists extends AbstractTask
         if (!file_exists($file)) {
             $this->console->writeFailLine(
                 'task_check_file_exists_not_found',
-                array(
+                [
                     $fileText,
                     $this->console->colorize($fileClass, Color::GREEN),
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return false;

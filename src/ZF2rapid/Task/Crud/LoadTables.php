@@ -33,11 +33,11 @@ class LoadTables extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_crud_load_tables_name',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramTableName, Color::GREEN
                 ),
-            )
+            ]
         );
 
         /** @var Adapter $dbAdapter */
@@ -50,13 +50,13 @@ class LoadTables extends AbstractTask
         $database = $dbAdapter->getCurrentSchema();
 
         // init loaded tables
-        $loadedTables = array();
+        $loadedTables = [];
 
         /** @var TableObject $tableObject */
         foreach ($metaData->getTables() as $tableObject) {
-            $columns     = array();
-            $primaryKey  = array();
-            $foreignKeys = array();
+            $columns     = [];
+            $primaryKey  = [];
+            $foreignKeys = [];
 
             /** @var ColumnObject $columnObject */
             foreach ($tableObject->getColumns() as $columnObject) {
@@ -73,11 +73,11 @@ class LoadTables extends AbstractTask
                 }
             }
 
-            $loadedTables[$tableObject->getName()] = array(
+            $loadedTables[$tableObject->getName()] = [
                 'columns'     => $columns,
                 'primaryKey'  => $primaryKey,
                 'foreignKeys' => $foreignKeys,
-            );
+            ];
 
         }
 
@@ -90,35 +90,35 @@ class LoadTables extends AbstractTask
         if (count($missingTables) == 1) {
             $this->console->writeFailLine(
                 'task_crud_load_tables_not_exists_one',
-                array(
+                [
                     $this->console->colorize(
                         $missingTables[0], Color::GREEN
                     ),
                     $this->console->colorize(
                         $database, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
         } elseif (count($missingTables) > 1) {
             $this->console->writeFailLine(
                 'task_crud_load_tables_not_exists_more',
-                array(
+                [
                     $this->console->colorize(
                         implode(', ', $missingTables), Color::GREEN
                     ),
                     $this->console->colorize(
                         $database, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
         }
 
         // Ini needed tables
-        $neededTables = array();
+        $neededTables = [];
 
         // loop through table list
         foreach ($this->params->paramTableList as $tableName) {
@@ -139,28 +139,28 @@ class LoadTables extends AbstractTask
         if (count($missingTables) == 1) {
             $this->console->writeFailLine(
                 'task_crud_load_tables_needed_one',
-                array(
+                [
                     $this->console->colorize(
                         $missingTables[0], Color::GREEN
                     ),
                     $this->console->colorize(
                         $database, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
         } elseif (count($missingTables) > 1) {
             $this->console->writeFailLine(
                 'task_crud_load_tables_needed_more',
-                array(
+                [
                     $this->console->colorize(
                         implode(', ', $missingTables), Color::GREEN
                     ),
                     $this->console->colorize(
                         $database, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;

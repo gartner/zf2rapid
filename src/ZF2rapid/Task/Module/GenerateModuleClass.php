@@ -29,7 +29,7 @@ class GenerateModuleClass extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_module_generate_module_class_writing',
-            array(),
+            [],
             false
         );
 

@@ -31,11 +31,11 @@ class UnzipSkeletonApplication extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_install_unzip_skeleton_unzipping',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->skeletonName, Color::GREEN
                 )
-            )
+            ]
         );
 
         // initialize archive
@@ -48,11 +48,11 @@ class UnzipSkeletonApplication extends AbstractTask
                 // stop with error
                 $this->console->writeFailLine(
                     'task_install_unzip_skeleton_file_empty',
-                    array(
+                    [
                         $this->console->colorize(
                             $this->params->skeletonUrl, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;
@@ -69,11 +69,11 @@ class UnzipSkeletonApplication extends AbstractTask
                 // stop with error
                 $this->console->writeFailLine(
                     'task_install_unzip_skeleton_unzip_failed',
-                    array(
+                    [
                         $this->console->colorize(
                             $this->params->tmpFile, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;
@@ -110,11 +110,11 @@ class UnzipSkeletonApplication extends AbstractTask
             if (false === $result) {
                 $this->console->writeFailLine(
                     'task_install_unzip_skeleton_copy_failed',
-                    array(
+                    [
                         $this->console->colorize(
                             $this->params->tmpFile, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

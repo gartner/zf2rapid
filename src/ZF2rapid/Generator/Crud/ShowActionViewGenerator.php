@@ -34,7 +34,7 @@ class ShowActionViewGenerator extends AbstractActionViewGenerator
         $moduleRoute      = $this->filterCamelCaseToDash($moduleName);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = 'use ' . $loadedEntity->getName() . ';';
         $body[] = '';
         $body[] = '/** @var ' . $entityName . ' $' . $entityParam . ' */';

@@ -22,7 +22,7 @@ class CreateModule extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -34,7 +34,7 @@ class CreateModule extends AbstractCommand
             'ZF2rapid\Task\Module\GenerateModuleConfig',
             'ZF2rapid\Task\Module\ChooseApplicationConfigFile',
             'ZF2rapid\Task\Module\ActivateModule',
-        );
+        ];
 
     /**
      * Start the command
@@ -52,11 +52,11 @@ class CreateModule extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_module_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

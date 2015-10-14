@@ -40,7 +40,7 @@ class ChooseApplicationConfigFile extends AbstractTask
             $this->params->configFile = $this->params->paramConfigFile;
         } else {
             // set filter dirs
-            $filterDirs = array('..', '.', 'autoload');
+            $filterDirs = ['..', '.', 'autoload'];
 
             // get existing config files
             $configFiles = array_values(

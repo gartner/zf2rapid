@@ -44,7 +44,7 @@ class BaseHydratorParamTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -75,9 +75,9 @@ class BaseHydratorParamTest extends PHPUnit_Framework_TestCase
 
         $this->console->expects($this->exactly(4))->method('colorize');
 
-        $unknownHydrators = array(
+        $unknownHydrators = [
             'Unknown', 'ClassObjects', 'ObjectMethod', 'Whatever'
-        );
+        ];
 
         foreach ($unknownHydrators as $hydrator) {
             $this->parameters->set('paramBaseHydrator', $hydrator);
@@ -101,9 +101,9 @@ class BaseHydratorParamTest extends PHPUnit_Framework_TestCase
 
         $this->console->expects($this->never())->method('colorize');
 
-        $knownHydrators = array(
+        $knownHydrators = [
             'ArraySerializable', 'ClassMethods', 'ObjectProperty', 'Reflection'
-        );
+        ];
 
         foreach ($knownHydrators as $hydrator) {
             $this->parameters->set('paramBaseHydrator', $hydrator);

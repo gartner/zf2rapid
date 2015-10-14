@@ -57,7 +57,7 @@ class DeleteActionMethod extends AbstractTask
         if (!$class->hasMethod($actionMethod)) {
             $this->console->writeFailLine(
                 'task_delete_action_method_not_exists',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramAction, Color::GREEN
                     ),
@@ -67,7 +67,7 @@ class DeleteActionMethod extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

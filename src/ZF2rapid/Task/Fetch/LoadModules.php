@@ -42,7 +42,7 @@ class LoadModules extends AbstractTask
         }
 
         // init loadable modules
-        $loadableModules = array();
+        $loadableModules = [];
 
         // loop through module list
         foreach ($moduleList as $moduleName) {
@@ -63,7 +63,7 @@ class LoadModules extends AbstractTask
         $sharedEvents = new SharedEventManager();
         $defaultListeners = new DefaultListenerAggregate(
             new ListenerOptions(
-                array('module_paths' => $modulePaths)
+                ['module_paths' => $modulePaths]
             )
         );
 
@@ -84,11 +84,11 @@ class LoadModules extends AbstractTask
         // output fail message
         $this->console->writeTaskLine(
             'task_fetch_load_modules_not_found',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 1;
@@ -99,10 +99,10 @@ class LoadModules extends AbstractTask
      *
      * @return array
      */
-    private function loadModulesForProject(array $modulePaths = array())
+    private function loadModulesForProject(array $modulePaths = [])
     {
         // init $moduleList
-        $moduleList = array();
+        $moduleList = [];
 
         // loop through module paths
         foreach ($modulePaths as $modulePath) {
@@ -125,10 +125,10 @@ class LoadModules extends AbstractTask
     private function getModulePathsForProject()
     {
         // init modulePaths
-        $modulePaths = array();
+        $modulePaths = [];
 
         // set filter dirs
-        $filterDirs = array('..', '.', 'autoload');
+        $filterDirs = ['..', '.', 'autoload'];
 
         // get existing config files
         $configFiles = array_values(

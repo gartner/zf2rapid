@@ -38,7 +38,7 @@ abstract class AbstractCommand implements CommandInterface
     /**
      * @var array
      */
-    protected $tasks = array();
+    protected $tasks = [];
 
     /**
      * Start command processing

@@ -27,13 +27,13 @@ class LoadActions extends AbstractTask
     public function processCommandTask()
     {
         // initialize action list
-        $loadedActions = array();
+        $loadedActions = [];
 
         // loop through controllers by module
         foreach (
             $this->params->loadedControllers as $moduleKey => $controllerTypes
         ) {
-            $loadedActions[$moduleKey] = array();
+            $loadedActions[$moduleKey] = [];
 
             $moduleViewPath = $this->filterCamelCaseToDash($moduleKey);
 
@@ -43,7 +43,7 @@ class LoadActions extends AbstractTask
                 // loop through controllers
                 foreach ($controllerList as $controllerKey => $controllerClass)
                 {
-                    $loadedActions[$moduleKey][$controllerKey] = array();
+                    $loadedActions[$moduleKey][$controllerKey] = [];
 
                     // start class reflection
                     $classReflection = new ClassReflection($controllerClass);

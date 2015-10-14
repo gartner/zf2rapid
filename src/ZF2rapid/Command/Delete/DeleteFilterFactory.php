@@ -22,7 +22,7 @@ class DeleteFilterFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeleteFilterFactory extends AbstractCommand
             'ZF2rapid\Task\Check\FilterExists',
             'ZF2rapid\Task\DeleteFactory\DeleteFilterFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateFilterConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,14 +48,14 @@ class DeleteFilterFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_filter_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramFilter, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

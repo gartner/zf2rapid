@@ -21,7 +21,7 @@ class ShowControllerPlugins extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class ShowControllerPlugins extends AbstractCommand
             'ZF2rapid\Task\Fetch\LoadControllerPlugins',
             'ZF2rapid\Task\Display\UnknownModules',
             'ZF2rapid\Task\Display\LoadedControllerPlugins',
-        );
+        ];
 
     /**
      * Start the command

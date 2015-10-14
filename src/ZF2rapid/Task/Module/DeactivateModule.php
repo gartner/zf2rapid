@@ -40,19 +40,19 @@ class DeactivateModule extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_module_deactivate_module_config_file',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->configFile, Color::GREEN
                 )
-            )
+            ]
         );
 
         // check for chosen config file
         if ($this->params->configFile) {
-            $configFiles = array($this->params->configFile);
+            $configFiles = [$this->params->configFile];
         } else {
             // set filter dirs
-            $filterDirs = array('..', '.', 'autoload');
+            $filterDirs = ['..', '.', 'autoload'];
 
             // get existing config files
             $configFiles = array_values(
@@ -71,11 +71,11 @@ class DeactivateModule extends AbstractTask
             if ($this->params->configFile && !file_exists($configFile)) {
                 $this->console->writeFailLine(
                     'task_module_deactivate_module_config_file_not_exists',
-                    array(
+                    [
                         $this->console->colorize(
                             $configFile, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;
@@ -90,19 +90,19 @@ class DeactivateModule extends AbstractTask
             ) {
                 $this->console->writeFailLine(
                     'task_module_deactivate_module_not_zf2_config_file',
-                    array(
+                    [
                         $this->console->colorize(
                             $configFile, Color::GREEN
                         )
-                    )
+                    ]
                 );
                 $this->console->writeFailLine(
                     'task_module_deactivate_module_no_modules_array_section',
-                    array(
+                    [
                         $this->console->colorize(
                             'modules', Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

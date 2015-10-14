@@ -61,14 +61,14 @@ configuration for the ViewManager.
      * @license All rights reserved
      */
     
-    return array(
-        'view_manager' => array(
+    return [
+        'view_manager' => [
             'template_map' => include SHOP_MODULE_ROOT . '/template_map.php',
-            'template_path_stack' => array(
+            'template_path_stack' => [
                 SHOP_MODULE_ROOT . '/view'
-            )
-        )
-    );
+            ]
+        ]
+    ];
 
 The `/module/Shop/Module.php` file should contain the `Module` class, 
 which provides the methods `init()`, `getConfig()` and 
@@ -134,16 +134,16 @@ which provides the methods `init()`, `getConfig()` and
          */
         public function getAutoloaderConfig()
         {
-            return array(
-                'Zend\\Loader\\ClassMapAutoloader' => array(
+            return [
+                'Zend\\Loader\\ClassMapAutoloader' => [
                     __NAMESPACE__ => __DIR__ . '/autoload_classmap.php'
-                ),
-                'Zend\\Loader\\StandardAutoloader' => array(
-                    'namespaces' => array(
+                ],
+                'Zend\\Loader\\StandardAutoloader' => [
+                    'namespaces' => [
                         __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
-                    )
-                )
-            );
+                    ]
+                ]
+            ];
         }
     }
 

@@ -28,7 +28,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param string $className
@@ -38,7 +38,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
      * @param array  $loadedTables
      */
     public function __construct(
-        $className, $moduleName, $tableName, array $config = array(), array $loadedTables = array()
+        $className, $moduleName, $tableName, array $config = [], array $loadedTables = []
     ) {
         // set config data
         $this->config = $config;
@@ -63,7 +63,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
         $this->addUse('Zend\Stdlib\Hydrator\HydratorPluginManager');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($className, $moduleName, $tableName, $loadedTables[$tableName]);
@@ -83,9 +83,9 @@ class TableGatewayFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -100,7 +100,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
      * @param array  $loadedTable
      */
     protected function addCreateServiceMethod(
-        $className, $moduleName, $tableName, array $loadedTable = array()
+        $className, $moduleName, $tableName, array $loadedTable = []
     ) {
         /** @var ConstraintObject $primaryKey */
         $primaryKey     = $loadedTable['primaryKey'];
@@ -112,7 +112,7 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $entityName      = ucfirst($tableName) . 'Entity';
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = '/** @var HydratorPluginManager $hydratorManager */';
         $body[] = '$hydratorManager = $serviceLocator->get(\'HydratorManager\');';
         $body[] = '';
@@ -139,11 +139,11 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     $managerName, 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -152,15 +152,15 @@ class TableGatewayFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             $managerName,
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

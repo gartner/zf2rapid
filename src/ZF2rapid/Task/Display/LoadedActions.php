@@ -28,25 +28,25 @@ class LoadedActions extends AbstractTask
         // output done message
         $this->console->writeTaskLine(
             'task_display_loaded_actions_found_in_path',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         // loop through modules
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
             $this->console->writeListItemLine(
                 'task_display_loaded_actions_module_class',
-                array(
+                [
                     $this->console->colorize(
                         $moduleName, Color::GREEN
                     ),
                     $this->console->colorize(
                         get_class($moduleObject), Color::BLUE
                     )
-                )
+                ]
             );
 
             // check for empty controller list
@@ -69,14 +69,14 @@ class LoadedActions extends AbstractTask
                 ) {
                     $this->console->writeListItemLineLevel2(
                         'task_display_loaded_actions_controller_class',
-                        array(
+                        [
                             $this->console->colorize(
                                 $controllerName, Color::GREEN
                             ),
                             $this->console->colorize(
                                 $controllerClass, Color::BLUE
                             )
-                        ),
+                        ],
                         false
                     );
 
@@ -87,14 +87,14 @@ class LoadedActions extends AbstractTask
                     ) {
                         $this->console->writeListItemLineLevel3(
                             'task_display_loaded_actions_action_file',
-                            array(
+                            [
                                 $this->console->colorize(
                                     $actionName, Color::GREEN
                                 ),
                                 $this->console->colorize(
                                     $actionFile, Color::BLUE
                                 )
-                            ),
+                            ],
                             false
                         );
                     }

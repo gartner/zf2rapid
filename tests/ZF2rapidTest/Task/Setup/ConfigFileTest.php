@@ -54,7 +54,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -145,7 +145,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(0, $result);
 
-        $expectedConfig = array(
+        $expectedConfig = [
             'configFileFormat'          => 'php',
             'flagAddDocBlocks'          => 'true',
             'fileDocBlockText'          => 'ZF2 Application built by ZF2rapid',
@@ -162,7 +162,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
             'namespaceEntity'           => 'Entity',
             'namespaceTableGateway'     => 'TableGateway',
             'namespaceRepository'       => 'Repository',
-        );
+        ];
 
         $this->assertEquals($expectedConfig, $this->parameters->config);
 
@@ -190,10 +190,10 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
             'workingPath', $this->zf2rapidFileDir
         );
 
-        $setupConfig = array(
+        $setupConfig = [
             'foo' => 'bar',
             'one' => 'two',
-        );
+        ];
 
         file_put_contents(
             $this->zf2rapidFileDir . $this->zf2rapidFileName,
@@ -205,7 +205,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
 
         $expectedConfig = array_merge(
             $setupConfig,
-            array(
+            [
                 'configFileFormat'          => 'php',
                 'flagAddDocBlocks'          => 'true',
                 'fileDocBlockText'          => 'ZF2 Application built by ZF2rapid',
@@ -222,7 +222,7 @@ class ConfigFileTest extends PHPUnit_Framework_TestCase
                 'namespaceEntity'           => 'Entity',
                 'namespaceTableGateway'     => 'TableGateway',
                 'namespaceRepository'       => 'Repository',
-            )
+            ]
         );
 
         $task = new ConfigFile();

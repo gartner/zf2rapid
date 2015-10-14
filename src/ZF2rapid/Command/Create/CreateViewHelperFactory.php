@@ -22,7 +22,7 @@ class CreateViewHelperFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class CreateViewHelperFactory extends AbstractCommand
             'ZF2rapid\Task\Check\ViewHelperExists',
             'ZF2rapid\Task\GenerateFactory\GenerateViewHelperFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateViewHelperConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class CreateViewHelperFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_view_helper_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramViewHelper, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

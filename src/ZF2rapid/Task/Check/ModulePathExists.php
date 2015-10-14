@@ -29,11 +29,11 @@ class ModulePathExists extends AbstractTask
         if (!file_exists($this->params->projectModuleDir)) {
             $this->console->writeFailLine(
                 'task_check_project_path_not_exists',
-                array(
+                [
                     $this->console->colorize(
                         realpath($this->params->workingPath), Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

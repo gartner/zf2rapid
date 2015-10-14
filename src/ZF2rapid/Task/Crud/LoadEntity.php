@@ -35,24 +35,24 @@ class LoadEntity extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_crud_load_entity_class',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramEntityClass, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramEntityModule, Color::GREEN
                 ),
-            )
+            ]
         );
 
         if (!file_exists($this->params->entityModuleDir)) {
             $this->console->writeFailLine(
                 'task_crud_load_entity_module_not_found',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramEntityModule, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
@@ -61,14 +61,14 @@ class LoadEntity extends AbstractTask
         if (!file_exists($this->params->entityFile)) {
             $this->console->writeFailLine(
                 'task_crud_load_entity_entity_not_found',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramEntityClass, Color::GREEN
                     ),
                     $this->console->colorize(
                         $this->params->paramEntityModule, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
@@ -87,13 +87,13 @@ class LoadEntity extends AbstractTask
         $metaData = new Metadata($dbAdapter);
 
         // init loaded tables
-        $loadedTables = array();
+        $loadedTables = [];
 
         /** @var TableObject $tableObject */
         foreach ($metaData->getTables() as $tableObject) {
-            $columns     = array();
-            $primaryKey  = array();
-            $foreignKeys = array();
+            $columns     = [];
+            $primaryKey  = [];
+            $foreignKeys = [];
 
             /** @var ColumnObject $columnObject */
             foreach ($tableObject->getColumns() as $columnObject) {
@@ -110,11 +110,11 @@ class LoadEntity extends AbstractTask
                 }
             }
 
-            $loadedTables[$tableObject->getName()] = array(
+            $loadedTables[$tableObject->getName()] = [
                 'columns'     => $columns,
                 'primaryKey'  => $primaryKey,
                 'foreignKeys' => $foreignKeys,
-            );
+            ];
         }
 
         $this->params->loadedTables = $loadedTables;

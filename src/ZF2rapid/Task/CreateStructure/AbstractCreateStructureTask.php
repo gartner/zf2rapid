@@ -34,12 +34,12 @@ abstract class AbstractCreateStructureTask extends AbstractTask
             if (!mkdir($dir, 0777, true)) {
                 $this->console->writeFailLine(
                     'task_create_structure_directory_not_created',
-                    array(
+                    [
                         $dirName,
                         $this->console->colorize(
                             $dir, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return false;
@@ -48,12 +48,12 @@ abstract class AbstractCreateStructureTask extends AbstractTask
             // output message
             $this->console->writeTaskLine(
                 'task_create_structure_directory_was_created',
-                array(
+                [
                     $dirName,
                     $this->console->colorize(
                         $dir, Color::GREEN
                     )
-                )
+                ]
             );
         }
 

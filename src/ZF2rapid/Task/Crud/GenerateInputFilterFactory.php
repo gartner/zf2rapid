@@ -31,9 +31,9 @@ class GenerateInputFilterFactory extends AbstractTask
             // output message
             $this->console->writeTaskLine(
                 'task_generate_factory_writing',
-                array(
+                [
                     'inputFilter'
-                )
+                ]
             );
 
             // set factory file
@@ -45,7 +45,7 @@ class GenerateInputFilterFactory extends AbstractTask
             if (file_exists($factoryFile)) {
                 $this->console->writeFailLine(
                     'task_generate_factory_exists',
-                    array(
+                    [
                         'inputFilter',
                         $this->console->colorize(
                             $tableConfig['inputFilterClass'], Color::GREEN
@@ -53,7 +53,7 @@ class GenerateInputFilterFactory extends AbstractTask
                         $this->console->colorize(
                             $this->params->paramModule, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

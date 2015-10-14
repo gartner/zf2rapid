@@ -40,7 +40,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var array
@@ -53,7 +53,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      * @param array       $loadedTables
      * @param array       $config
      */
-    public function __construct($paramModule, $entityModule, array $loadedTables = array(), array $config = array())
+    public function __construct($paramModule, $entityModule, array $loadedTables = [], array $config = [])
     {
         // set config data
         $this->paramModule  = $paramModule;
@@ -103,9 +103,9 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
                     $this->getName(),
                     'Provides the ' . $className . ' form for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -126,7 +126,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
         $primaryKey     = $loadedTable['primaryKey'];
         $primaryColumns = $primaryKey->getColumns();
 
-        $foreignKeys = array();
+        $foreignKeys = [];
 
         /** @var ConstraintObject $foreignKey */
         foreach ($loadedTable['foreignKeys'] as $foreignKey) {
@@ -135,14 +135,14 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
             }
         }
 
-        $body   = array();
+        $body   = [];
         $body[] = '$this->setName(\'' . $moduleName . 'Form\');';
         $body[] = '';
 
         /** @var ColumnObject $column */
         foreach ($loadedTable['columns'] as $column) {
             if (in_array($column->getName(), $primaryColumns)
-                && in_array($column->getDataType(), array('tinyint', 'smallint', 'mediumint', 'int', 'bigint'))
+                && in_array($column->getDataType(), ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'])
             ) {
                 continue;
             }
@@ -168,7 +168,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
                 }
             }
 
-            $options   = array();
+            $options   = [];
             $options[] = '            \'label\' => \'' . $column->getTableName() . '_label_' . $column->getName()
                 . '\',';
 
@@ -178,21 +178,21 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
 
                 $options[] = '            \'value_options\' => $this->' . $column->getName() . 'Options,';
             } elseif ($column->getDataType() == 'enum') {
-                $valueOptions   = array();
-                $valueOptions[] = 'array(';
+                $valueOptions   = [];
+                $valueOptions[] = '[';
 
                 foreach ($column->getErrata('permitted_values') as $value) {
                     $valueOptions[] = '                \'' . $value . '\' => \'' . $column->getTableName() . '_option_'
                         . $column->getName() . '_' . $value . '\',';
                 }
 
-                $valueOptions[] = '            )';
+                $valueOptions[] = '            ]';
 
                 $options[] = '            \'value_options\' => ' . implode(AbstractGenerator::LINE_FEED, $valueOptions)
                     . ',';
             }
 
-            $attributes   = array();
+            $attributes   = [];
             $attributes[] = '            \'class\' => \'form-control\',';
 
             if (isset($foreignKeys[$column->getName()])) {
@@ -223,36 +223,36 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
             }
 
             $body[] = '$this->add(';
-            $body[] = '    array(';
+            $body[] = '    [';
             $body[] = '        \'name\' => \'' . $column->getName() . '\',';
             $body[] = '        \'type\' => \'' . $type . '\',';
-            $body[] = '        \'options\' => array(';
+            $body[] = '        \'options\' => [';
 
             $body = array_merge($body, $options);
 
-            $body[] = '        ),';
-            $body[] = '        \'attributes\' => array(';
+            $body[] = '        ],';
+            $body[] = '        \'attributes\' => [';
 
             $body = array_merge($body, $attributes);
 
-            $body[] = '        ),';
-            $body[] = '    )';
+            $body[] = '        ],';
+            $body[] = '    ]';
             $body[] = ');';
             $body[] = '';
         }
 
         $body[] = '$this->add(';
-        $body[] = '    array(';
+        $body[] = '    [';
         $body[] = '        \'name\' => \'save_' . $tableName . '\',';
         $body[] = '        \'type\' => \'Submit\',';
-        $body[] = '        \'options\' => array(';
-        $body[] = '        ),';
-        $body[] = '        \'attributes\' => array(';
+        $body[] = '        \'options\' => [';
+        $body[] = '        ],';
+        $body[] = '        \'attributes\' => [';
         $body[] = '            \'value\' => \'' . $tableName . '_action_save\',';
         $body[] = '            \'id\' => \'save_' . $tableName . '\',';
         $body[] = '            \'class\' => \'btn btn-success\',';
-        $body[] = '        ),';
-        $body[] = '    )';
+        $body[] = '        ],';
+        $body[] = '    ]';
         $body[] = ');';
         $body[] = '';
 
@@ -282,12 +282,12 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
             new DocBlockGenerator(
                 $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => 'array',
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -312,12 +312,12 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
             new DocBlockGenerator(
                 'Set ' . $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => 'array $' . $columnName . 'Options',
-                    )
-                )
+                    ]
+                ]
             )
         );
 

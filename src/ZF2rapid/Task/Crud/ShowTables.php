@@ -42,11 +42,11 @@ class ShowTables extends AbstractTask
         // output found modules
         $this->console->writeTaskLine(
             'task_crud_show_tables_found',
-            array(
+            [
                 $this->console->colorize(
                     $database, Color::GREEN
                 ),
-            )
+            ]
         );
 
         $this->console->writeLine();
@@ -55,9 +55,9 @@ class ShowTables extends AbstractTask
         foreach ($tables as $tableObject) {
             $this->console->writeListItemLine(
                 'task_crud_show_tables_table_name',
-                array(
+                [
                     $this->console->colorize($tableObject->getName(), Color::GREEN),
-                )
+                ]
             );
         }
 

@@ -22,7 +22,7 @@ class DeleteAction extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeleteAction extends AbstractCommand
             'ZF2rapid\Task\Check\ControllerExists',
             'ZF2rapid\Task\DeleteAction\DeleteActionMethod',
             'ZF2rapid\Task\DeleteAction\DeleteActionView',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,7 +48,7 @@ class DeleteAction extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_action_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramAction, Color::GREEN
                 ),
@@ -58,7 +58,7 @@ class DeleteAction extends AbstractCommand
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

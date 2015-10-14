@@ -271,19 +271,19 @@ class Params extends AbstractTask
             'configFile'
         );
 
-        $this->params->currentHydratorStrategies = array();
+        $this->params->currentHydratorStrategies = [];
 
         if ($this->route->getMatchedParam('tables')) {
             $this->params->paramTableList = $this->route->getMatchedParam(
                 'tables'
             );
 
-            $this->params->tableConfig = array();
+            $this->params->tableConfig = [];
 
             foreach ($this->params->paramTableList as $tableName) {
                 $tableClass = $this->filterUnderscoreToCamelCase($tableName);
 
-                $config = array();
+                $config = [];
 
                 $config['tableClass'] = $tableClass;
 

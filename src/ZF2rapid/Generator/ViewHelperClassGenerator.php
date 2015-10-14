@@ -25,12 +25,12 @@ class ViewHelperClassGenerator extends ClassGenerator implements ClassGeneratorI
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -77,9 +77,9 @@ class ViewHelperClassGenerator extends ClassGenerator implements ClassGeneratorI
                     $this->getName(),
                     'Provides the ' . $viewHelperName . ' view helper for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -91,12 +91,12 @@ class ViewHelperClassGenerator extends ClassGenerator implements ClassGeneratorI
     protected function addInvokeMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add view helper code here',
             '$output = \'\';',
             '',
             'return $output;',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -110,9 +110,9 @@ class ViewHelperClassGenerator extends ClassGenerator implements ClassGeneratorI
                 new DocBlockGenerator(
                     'Called when view helper is executed',
                     null,
-                    array(
-                        new ReturnTag(array('string')),
-                    )
+                    [
+                        new ReturnTag(['string']),
+                    ]
                 )
             );
         }

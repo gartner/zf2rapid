@@ -41,7 +41,7 @@ abstract class AbstractDeleteClass extends AbstractTask
         if (!file_exists($file)) {
             $this->console->writeFailLine(
                 'task_delete_class_not_exists',
-                array(
+                [
                     $classText,
                     $this->console->colorize(
                         $this->params->paramController, Color::GREEN
@@ -49,7 +49,7 @@ abstract class AbstractDeleteClass extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return false;

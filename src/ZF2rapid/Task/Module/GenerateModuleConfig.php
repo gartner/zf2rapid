@@ -32,15 +32,12 @@ class GenerateModuleConfig extends AbstractTask
         );
 
         // setup config data for view manager
-        $configData = array(
-            'view_manager' => array(
-                'template_map'        => 'include '
-                    . $this->params->moduleRootConstant
-                    . ' . \'/template_map.php\',',
-                'template_path_stack' => 'array('
-                    . $this->params->moduleRootConstant . ' . \'/view\')',
-            ),
-        );
+        $configData = [
+            'view_manager' => [
+                'template_map'        => 'include ' . $this->params->moduleRootConstant . ' . \'/template_map.php\',',
+                'template_path_stack' => '[' . $this->params->moduleRootConstant . ' . \'/view\']',
+            ],
+        ];
 
         // create config array
         $config = new ConfigArrayGenerator($configData, $this->params);

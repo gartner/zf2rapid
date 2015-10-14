@@ -22,13 +22,13 @@ class GenerateTemplateMap extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
             'ZF2rapid\Task\Check\ModulePathExists',
             'ZF2rapid\Task\GenerateMap\GenerateTemplateMap',
-        );
+        ];
 
     /**
      * Start the command
@@ -46,11 +46,11 @@ class GenerateTemplateMap extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_generate_template_map_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

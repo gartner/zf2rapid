@@ -36,9 +36,9 @@ abstract class AbstractGenerateClass extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_generate_class_writing',
-            array(
+            [
                 $classText
-            )
+            ]
         );
 
         // set class file
@@ -48,7 +48,7 @@ abstract class AbstractGenerateClass extends AbstractTask
         if (file_exists($classFile)) {
             $this->console->writeFailLine(
                 'task_generate_class_exists',
-                array(
+                [
                     $classText,
                     $this->console->colorize(
                         $className, Color::GREEN
@@ -56,7 +56,7 @@ abstract class AbstractGenerateClass extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return false;

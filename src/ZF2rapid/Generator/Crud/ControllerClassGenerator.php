@@ -44,7 +44,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param null|string $controllerName
@@ -52,7 +52,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
      * @param null|string $entityModule
      * @param array       $config
      */
-    public function __construct($controllerName, $paramModule, $entityModule, array $config = array())
+    public function __construct($controllerName, $paramModule, $entityModule, array $config = [])
     {
         // set config data
         $this->controllerName = $controllerName;
@@ -84,12 +84,12 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             . $repositoryClass;
 
         // prepare form params
-        if (in_array($this->controllerName, array('Create', 'Update'))) {
+        if (in_array($this->controllerName, ['Create', 'Update'])) {
             $formClass     = $this->paramModule . 'DataForm';
             $formNamespace = $this->paramModule . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
-        } elseif (in_array($this->controllerName, array('Delete'))) {
+        } elseif (in_array($this->controllerName, ['Delete'])) {
             $formClass     = $this->paramModule . 'DeleteForm';
             $formNamespace = $this->paramModule . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
@@ -154,9 +154,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
                     $this->getName(),
                     'Handles the ' . $controllerName . ' requests for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -175,12 +175,12 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 null,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => $repositoryClass,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -210,12 +210,12 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Set ' . $repositoryClass,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => $repositoryClass . ' $' . $repositoryParam,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -237,12 +237,12 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 null,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => $formClass,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -271,12 +271,12 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Set ' . $formClass,
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => $formClass . ' $' . $formParam,
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -294,17 +294,17 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
     {
         $listParam = lcfirst($this->paramModule) . 'List';
 
-        $body = array(
+        $body = [
             '$' . $listParam . ' = $this->' . lcfirst($repositoryClass) . '->getAllEntities();',
             '',
             '$viewModel = new ViewModel(',
-            '    array(',
+            '    [',
             '        \'' . $listParam . '\' => $' . $listParam . ',',
-            '    )',
+            '    ]',
             ');',
             '',
             'return $viewModel;',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -314,9 +314,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Index action for IndexController',
                 null,
-                array(
-                    new ReturnTag(array('ViewModel')),
-                )
+                [
+                    new ReturnTag(['ViewModel']),
+                ]
             )
         );
         $indexAction->setBody($body);
@@ -335,7 +335,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
         $dashedParam    = strtolower(StaticFilter::execute($this->paramModule, 'WordCamelCaseToDash'));
         $noFoundMessage = $dashedParam . '_message_' . $dashedParam . '_not_found';
 
-        $body = array(
+        $body = [
             '$id = $this->params()->fromRoute(\'id\');',
             '',
             'if (!$id) {',
@@ -353,13 +353,13 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             '}',
             '',
             '$viewModel = new ViewModel(',
-            '    array(',
+            '    [',
             '        \'' . $entityParam . '\' => $' . $entityParam . ',',
-            '    )',
+            '    ]',
             ');',
             '',
             'return $viewModel;',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -369,9 +369,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Index action for ShowController',
                 null,
-                array(
-                    new ReturnTag(array('ViewModel')),
-                )
+                [
+                    new ReturnTag(['ViewModel']),
+                ]
             )
         );
         $indexAction->setBody($body);
@@ -401,7 +401,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
 
         $this->addUse($entityNamespace);
 
-        $body = array(
+        $body = [
             '$' . $formParam . ' = $this->' . $formParam . ';',
             '',
             'if ($this->params()->fromPost(\'save_' . $underscoredParam . '\')) {',
@@ -426,13 +426,13 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             '}',
             '',
             '$viewModel = new ViewModel(',
-            '    array(',
+            '    [',
             '        \'' . $formParam . '\' => $' . $formParam . ',',
-            '    )',
+            '    ]',
             ');',
             '',
             'return $viewModel;',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -442,9 +442,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Index action for CreateController',
                 null,
-                array(
-                    new ReturnTag(array('ViewModel')),
-                )
+                [
+                    new ReturnTag(['ViewModel']),
+                ]
             )
         );
         $indexAction->setBody($body);
@@ -475,7 +475,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
 
         $this->addUse($entityNamespace);
 
-        $body = array(
+        $body = [
             '$id = $this->params()->fromRoute(\'id\');',
             '',
             'if (!$id) {',
@@ -514,14 +514,14 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             '}',
             '',
             '$viewModel = new ViewModel(',
-            '    array(',
+            '    [',
             '        \'' . $entityParam . '\' => $' . $entityParam . ',',
             '        \'' . $formParam . '\' => $' . $formParam . ',',
-            '    )',
+            '    ]',
             ');',
             '',
             'return $viewModel;',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -531,9 +531,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Index action for UpdateController',
                 null,
-                array(
-                    new ReturnTag(array('ViewModel')),
-                )
+                [
+                    new ReturnTag(['ViewModel']),
+                ]
             )
         );
         $indexAction->setBody($body);
@@ -561,7 +561,7 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
         $entityClass     = $this->paramModule . 'Entity';
         $entityParam     = lcfirst($entityClass);
 
-        $body = array(
+        $body = [
             '$id = $this->params()->fromRoute(\'id\');',
             '',
             'if (!$id) {',
@@ -593,14 +593,14 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             '}',
             '',
             '$viewModel = new ViewModel(',
-            '    array(',
+            '    [',
             '        \'' . $entityParam . '\' => $' . $entityParam . ',',
             '        \'' . $formParam . '\' => $' . $formParam . ',',
-            '    )',
+            '    ]',
             ');',
             '',
             'return $viewModel;',
-        );
+        ];
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
@@ -610,9 +610,9 @@ class ControllerClassGenerator extends ClassGenerator implements ClassGeneratorI
             new DocBlockGenerator(
                 'Index action for DeleteController',
                 null,
-                array(
-                    new ReturnTag(array('ViewModel')),
-                )
+                [
+                    new ReturnTag(['ViewModel']),
+                ]
             )
         );
         $indexAction->setBody($body);

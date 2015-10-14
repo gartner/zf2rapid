@@ -37,9 +37,9 @@ class CreateModuleRouting extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_module_create_routing_config_file_not_exists',
-                array(
+                [
                     $this->console->colorize($configFile, Color::GREEN),
-                )
+                ]
             );
 
             return 1;
@@ -54,11 +54,11 @@ class CreateModuleRouting extends AbstractTask
         ) {
             $this->console->writeFailLine(
                 'task_module_create_routing_controller_not_exists',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     ),
-                )
+                ]
             );
 
             return 1;
@@ -84,26 +84,26 @@ class CreateModuleRouting extends AbstractTask
                     // output success message
                     $this->console->writeOkLine(
                         'task_module_create_routing_not_overwritten',
-                        array(
+                        [
                             $this->console->colorize(
                                 $this->params->paramModule, Color::GREEN
                             )
-                        )
+                        ]
                     );
 
                     return 1;
                 }
             }
         } else {
-            $configData['router'] = array(
-                'routes' => array(),
-            );
+            $configData['router'] = [
+                'routes' => [],
+            ];
         }
 
         // check for strict mode
         if ($this->params->paramStrict) {
             // create child routes
-            $childRoutes = array();
+            $childRoutes = [];
 
             // loop through loaded controller actions
             foreach (
@@ -118,41 +118,41 @@ class CreateModuleRouting extends AbstractTask
 
                 $actionList = array_keys($loadedActions);
 
-                $childRoutes[$controllerName . '-action'] = array(
+                $childRoutes[$controllerName . '-action'] = [
                     'type'    => 'segment',
-                    'options' => array(
+                    'options' => [
                         'route'       => '/' . $controllerName
                             . '[/:action[/:id]]',
-                        'defaults'    => array(
+                        'defaults'    => [
                             'controller' => $controllerName,
-                        ),
-                        'constraints' => array(
+                        ],
+                        'constraints' => [
                             'action' => '(' . implode('|', $actionList) . ')',
                             'id'     => '[0-9_-]*',
-                        ),
-                    ),
-                );
+                        ],
+                    ],
+                ];
             }
 
         } else {
             // create child routes
-            $childRoutes = array(
-                'controller-action' => array(
+            $childRoutes = [
+                'controller-action' => [
                     'type'    => 'segment',
-                    'options' => array(
+                    'options' => [
                         'route'       => '/:controller[/:action[/:id]]',
-                        'constraints' => array(
+                        'constraints' => [
                             'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                             'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             'id'         => '[0-9_-]*',
-                        ),
-                    ),
-                ),
-            );
+                        ],
+                    ],
+                ],
+            ];
         }
 
         // set controller keys
-        $controllerKeys = array();
+        $controllerKeys = [];
 
         // merge controller keys
         foreach ($configData['controllers'] as $group) {
@@ -187,21 +187,21 @@ class CreateModuleRouting extends AbstractTask
         }
 
         // create route
-        $configData['router']['routes'][$routingKey] = array(
+        $configData['router']['routes'][$routingKey] = [
             'type'          => 'Literal',
-            'options'       => array(
+            'options'       => [
                 'route'    => '/' . $this->filterCamelCaseToDash(
                         $this->params->paramModule
                     ),
-                'defaults' => array(
+                'defaults' => [
                     '__NAMESPACE__' => $this->params->paramModule,
                     'controller'    => $defaultController,
                     'action'        => 'index',
-                ),
-            ),
+                ],
+            ],
             'may_terminate' => true,
             'child_routes'  => $childRoutes,
-        );
+        ];
 
         // create config array
         $config = new ConfigArrayGenerator($configData, $this->params);

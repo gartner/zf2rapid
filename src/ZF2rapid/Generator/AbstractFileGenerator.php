@@ -23,7 +23,7 @@ abstract class AbstractFileGenerator extends ZendFileGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * Add file doc block
@@ -36,14 +36,14 @@ abstract class AbstractFileGenerator extends ZendFileGenerator
                 new DocBlockGenerator(
                     $this->config['fileDocBlockText'],
                     null,
-                    array(
+                    [
                         new GenericTag(
                             'copyright', $this->config['fileDocBlockCopyright']
                         ),
                         new LicenseTag(
                             $this->config['fileDocBlockLicense']
                         ),
-                    )
+                    ]
                 )
             );
         }

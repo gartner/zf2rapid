@@ -63,7 +63,7 @@ class GenerateActionMethod extends AbstractTask
         if ($class->hasMethod($checkMethod)) {
             $this->console->writeFailLine(
                 'task_generate_action_method_exists',
-                array(
+                [
                     $this->console->colorize(
                         $action, Color::GREEN
                     ),
@@ -73,7 +73,7 @@ class GenerateActionMethod extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

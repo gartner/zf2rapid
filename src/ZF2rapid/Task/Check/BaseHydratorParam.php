@@ -41,10 +41,9 @@ class BaseHydratorParam extends AbstractTask
     {
         if (in_array(
             $baseHydrator,
-            array(
-                'ArraySerializable', 'ClassMethods', 'ObjectProperty',
-                'Reflection'
-            )
+            [
+                'ArraySerializable', 'ClassMethods', 'ObjectProperty', 'Reflection'
+            ]
         )) {
             return true;
         }
@@ -53,9 +52,9 @@ class BaseHydratorParam extends AbstractTask
 
         $this->console->writeFailLine(
             'task_check_base_hydrator_param_unknown',
-            array(
+            [
                 $this->console->colorize($hydratorClass, Color::GREEN)
-            )
+            ]
         );
 
         return false;

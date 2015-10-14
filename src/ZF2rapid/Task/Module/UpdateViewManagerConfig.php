@@ -39,9 +39,9 @@ class UpdateViewManagerConfig extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_module_update_view_manager_config_file_not_exists',
-                array(
+                [
                     $this->console->colorize($configFile, Color::GREEN),
-                )
+                ]
             );
 
             return 1;
@@ -52,12 +52,12 @@ class UpdateViewManagerConfig extends AbstractTask
 
         // check for view_manager config key
         if (!isset($configData['view_manager'])) {
-            $configData['view_manager'] = array();
+            $configData['view_manager'] = [];
         }
 
         // check for view_manager config key
         if (!isset($configData['view_manager']['template_path_stack'])) {
-            $configData['view_manager']['template_path_stack'] = array();
+            $configData['view_manager']['template_path_stack'] = [];
         }
 
         // check for template path stack

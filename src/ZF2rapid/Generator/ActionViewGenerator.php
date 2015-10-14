@@ -43,12 +43,12 @@ class ActionViewGenerator extends BodyGenerator
     protected function addContent($actionName, $controllerName, $moduleName)
     {
         // set action body
-        $body = array(
+        $body = [
             '?>',
             '<h2>' . $moduleName . ' Module</h2>',
             '<h3>' . $controllerName . ' Controller</h3>',
             '<h4>' . $actionName . ' Action</h4>',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // add method

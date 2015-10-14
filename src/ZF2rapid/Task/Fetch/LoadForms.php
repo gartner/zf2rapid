@@ -28,7 +28,7 @@ class LoadForms extends AbstractTask
     public function processCommandTask()
     {
         // initialize plugin list
-        $loadedForms = array();
+        $loadedForms = [];
 
         // loop through loaded modules and fetch controllers for module
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
@@ -47,11 +47,11 @@ class LoadForms extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_fetch_load_forms_not_found',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 1;
@@ -67,7 +67,7 @@ class LoadForms extends AbstractTask
     protected function loadPluginsForModule($moduleObject)
     {
         // initialize plugins
-        $plugins = array();
+        $plugins = [];
 
         // check for configuration
         if (!method_exists($moduleObject, 'getConfig')) {
@@ -85,12 +85,12 @@ class LoadForms extends AbstractTask
         // loop through plugins
         foreach ($moduleConfig['controller_plugins'] as $type => $loadedPlugins) {
             // skip if not invokable nor factory
-            if (!in_array($type, array('invokables', 'factories'))) {
+            if (!in_array($type, ['invokables', 'factories'])) {
                 continue;
             }
 
             // initialize plugin type
-            $plugins[$type] = array();
+            $plugins[$type] = [];
 
             // loop through plugin list
             foreach ($loadedPlugins as $pluginKey => $pluginClass) {

@@ -101,103 +101,103 @@ application should be look similar to this.
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
     
-    return array(
+    return [
         [...]
-        'controllers' => array(
-            'factories' => array(
+        'controllers' => [
+            'factories' => [
                 'Customer\\Index' => 'Customer\\Application\\Controller\\IndexControllerFactory',
                 'Customer\\Show' => 'Customer\\Application\\Controller\\ShowControllerFactory',
                 'Customer\\Create' => 'Customer\\Application\\Controller\\CreateControllerFactory',
                 'Customer\\Update' => 'Customer\\Application\\Controller\\UpdateControllerFactory',
                 'Customer\\Delete' => 'Customer\\Application\\Controller\\DeleteControllerFactory',
-            ),
-        ),
-        'form_elements' => array(
-            'invokables' => array(
+            ],
+        ],
+        'form_elements' => [
+            'invokables' => [
                 'Customer\\Delete\\Form' => 'Customer\\Application\\Form\\CustomerDeleteForm',
-            ),
-            'factories' => array(
+            ],
+            'factories' => [
                 'Customer\\Data\\Form' => 'Customer\\Application\\Form\\CustomerDataFormFactory',
-            ),
-        ),
-        'router' => array(
-            'routes' => array(
-                'customer' => array(
+            ],
+        ],
+        'router' => [
+            'routes' => [
+                'customer' => [
                     'type' => 'Literal',
-                    'options' => array(
+                    'options' => [
                         'route' => '/customer',
-                        'defaults' => array(
+                        'defaults' => [
                             '__NAMESPACE__' => 'Customer',
                             'controller' => 'Index',
                             'action' => 'index',
-                        ),
-                    ),
+                        ],
+                    ],
                     'may_terminate' => true,
-                    'child_routes' => array(
-                        'show' => array(
+                    'child_routes' => [
+                        'show' => [
                             'type' => 'segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/show[/:id]',
-                                'defaults' => array(
+                                'defaults' => [
                                     'controller' => 'Show',
-                                ),
-                                'constraints' => array(
+                                ],
+                                'constraints' => [
                                     'id' => '[a-z0-9-]*',
-                                ),
-                            ),
-                        ),
-                        'create' => array(
+                                ],
+                            ],
+                        ],
+                        'create' => [
                             'type' => 'segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/create',
-                                'defaults' => array(
+                                'defaults' => [
                                     'controller' => 'Create',
-                                ),
-                                'constraints' => array(
+                                ],
+                                'constraints' => [
                                     
-                                ),
-                            ),
-                        ),
-                        'update' => array(
+                                ],
+                            ],
+                        ],
+                        'update' => [
                             'type' => 'segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/update[/:id]',
-                                'defaults' => array(
+                                'defaults' => [
                                     'controller' => 'Update',
-                                ),
-                                'constraints' => array(
+                                ],
+                                'constraints' => [
                                     'id' => '[a-z0-9-]*',
-                                ),
-                            ),
-                        ),
-                        'delete' => array(
+                                ],
+                            ],
+                        ],
+                        'delete' => [
                             'type' => 'segment',
-                            'options' => array(
+                            'options' => [
                                 'route' => '/delete[/:id]',
-                                'defaults' => array(
+                                'defaults' => [
                                     'controller' => 'Delete',
-                                ),
-                                'constraints' => array(
+                                ],
+                                'constraints' => [
                                     'id' => '[a-z0-9-]*',
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-        'translator' => array(
-            'translation_file_patterns' => array(
-                array(
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        'translator' => [
+            'translation_file_patterns' => [
+                [
                     'type' => 'phpArray',
                     'base_dir' => CUSTOMER_MODULE_ROOT . '/language',
                     'pattern' => '%s.php',
-                ),
-            ),
-        ),
-        'navigation' => array(
-            'default' => array(
-                'customer' => array(
+                ],
+            ],
+        ],
+        'navigation' => [
+            'default' => [
+                'customer' => [
                     'type' => 'mvc',
                     'order' => '200',
                     'label' => 'customer_navigation_index',
@@ -205,32 +205,32 @@ application should be look similar to this.
                     '__NAMESPACE__' => 'Customer',
                     'controller' => 'Index',
                     'action' => 'index',
-                    'pages' => array(
-                        'show' => array(
+                    'pages' => [
+                        'show' => [
                             'type' => 'mvc',
                             'route' => 'customer/show',
                             'visible' => false,
-                        ),
-                        'create' => array(
+                        ],
+                        'create' => [
                             'type' => 'mvc',
                             'route' => 'customer/create',
                             'visible' => false,
-                        ),
-                        'update' => array(
+                        ],
+                        'update' => [
                             'type' => 'mvc',
                             'route' => 'customer/update',
                             'visible' => false,
-                        ),
-                        'delete' => array(
+                        ],
+                        'delete' => [
                             'type' => 'mvc',
                             'route' => 'customer/delete',
                             'visible' => false,
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    );
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ];
 
 ## Generated translation file
 
@@ -245,7 +245,7 @@ In the `/module/Customer/language/en_US.php` file you will find a translation fi
      * @license http://opensource.org/licenses/MIT The MIT License (MIT)
      */
     
-    return array(
+    return [
         'customer_title_index' => 'Customer overview',
         'customer_title_show' => 'Customer view',
         'customer_title_create' => 'Customer create',
@@ -299,7 +299,7 @@ In the `/module/Customer/language/en_US.php` file you will find a translation fi
         'customer_message_customer_city_notempty' => 'City should not be empty!',
         'customer_message_customer_country_stringlength' => 'Wrong length for customer country!',
         'customer_message_customer_country_notempty' => 'Country should not be empty!',
-    );
+    ];
 
 You should edit the file to add proper texts since all texts were auto-generated. If you need other 
 languages just copy the file and rename it to another locale like `de_DE` or `es_ES`, for example. 
@@ -358,9 +358,9 @@ the database.
             $customerList = $this->customerRepository->getAllEntities();
     
             $viewModel = new ViewModel(
-                array(
+                [
                     'customerList' => $customerList
-                )
+                ]
             );
     
             return $viewModel;
@@ -449,9 +449,9 @@ just shows the `indexAction()` method of the `ShowController`.
             }
     
             $viewModel = new ViewModel(
-                array(
+                [
                     'customerEntity' => $customerEntity
-                )
+                ]
             );
     
             return $viewModel;
@@ -509,7 +509,7 @@ customer list in a HTML table. It adds a link to the `customer/show` route.
                 <td><?php echo $customerEntity->getCity() ?></td>
                 <td><?php echo $customerEntity->getCountry() ?></td>
                 <td>
-                    <a class="btn btn-default btn-xs" href="<?php echo $this->url('customer/show', array('id' => $customerEntity->getIdentifier())); ?>">
+                    <a class="btn btn-default btn-xs" href="<?php echo $this->url('customer/show', ['id' => $customerEntity->getIdentifier()]); ?>">
                         <i class="fa fa-search"></i>
                         <?php echo $this->translate('customer_action_show'); ?>
                     </a>

@@ -28,7 +28,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var array
@@ -49,13 +49,13 @@ class InputFilterFactoryGenerator extends ClassGenerator
      * @param array  $config
      */
     public function __construct(
-        $className, $moduleName, $namespaceName, $tableName, array $loadedTable = array(), array $config = array()
+        $className, $moduleName, $namespaceName, $tableName, array $loadedTable = [], array $config = []
     ) {
         // set config data
         $this->config      = $config;
         $this->loadedTable = $loadedTable;
 
-        $this->foreignKeys = array();
+        $this->foreignKeys = [];
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->loadedTable['foreignKeys'] as $foreignKey) {
@@ -82,7 +82,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($className, $moduleName);
@@ -102,9 +102,9 @@ class InputFilterFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -121,7 +121,7 @@ class InputFilterFactoryGenerator extends ClassGenerator
         $managerName = 'inputFilterManager';
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
@@ -159,11 +159,11 @@ class InputFilterFactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     $managerName, 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -172,15 +172,15 @@ class InputFilterFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             $managerName,
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

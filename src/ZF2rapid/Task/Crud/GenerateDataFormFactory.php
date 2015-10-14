@@ -30,9 +30,9 @@ class GenerateDataFormFactory extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_generate_factory_writing',
-            array(
+            [
                 'form'
-            )
+            ]
         );
 
         // set factory file
@@ -42,7 +42,7 @@ class GenerateDataFormFactory extends AbstractTask
         if (file_exists($factoryFile)) {
             $this->console->writeFailLine(
                 'task_generate_factory_exists',
-                array(
+                [
                     'form',
                     $this->console->colorize(
                         $this->params->paramModule . 'Form', Color::GREEN
@@ -50,7 +50,7 @@ class GenerateDataFormFactory extends AbstractTask
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

@@ -29,7 +29,7 @@ class DataFormFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var array
@@ -44,7 +44,7 @@ class DataFormFactoryGenerator extends ClassGenerator
      * @param array  $config
      */
     public function __construct(
-        $className, $moduleName, $entityModule, array $loadedTables = array(), array $config = array()
+        $className, $moduleName, $entityModule, array $loadedTables = [], array $config = []
     ) {
         // set config data
         $this->config = $config;
@@ -52,7 +52,7 @@ class DataFormFactoryGenerator extends ClassGenerator
         $tableName   = $this->filterCamelCaseToUnderscore($moduleName);
         $loadedTable = $loadedTables[$tableName];
 
-        $this->foreignKeys = array();
+        $this->foreignKeys = [];
 
         /** @var ConstraintObject $foreignKey */
         foreach ($loadedTable['foreignKeys'] as $foreignKey) {
@@ -93,7 +93,7 @@ class DataFormFactoryGenerator extends ClassGenerator
         $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
         $this->addUse('Zend\Stdlib\Hydrator\HydratorPluginManager');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($className, $moduleName, $entityModule);
@@ -113,9 +113,9 @@ class DataFormFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -137,7 +137,7 @@ class DataFormFactoryGenerator extends ClassGenerator
         $inputFilterService = $entityModule . '\\' . ucfirst($moduleName);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = '/** @var ServiceLocatorAwareInterface $' . $managerName . ' */';
         $body[] = '$serviceLocator = $' . $managerName . '->getServiceLocator();';
         $body[] = '';
@@ -189,11 +189,11 @@ class DataFormFactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     $managerName, 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -202,15 +202,15 @@ class DataFormFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             $managerName,
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

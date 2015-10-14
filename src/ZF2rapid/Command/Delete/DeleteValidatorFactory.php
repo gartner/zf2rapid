@@ -22,7 +22,7 @@ class DeleteValidatorFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeleteValidatorFactory extends AbstractCommand
             'ZF2rapid\Task\Check\ValidatorExists',
             'ZF2rapid\Task\DeleteFactory\DeleteValidatorFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateValidatorConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,14 +48,14 @@ class DeleteValidatorFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_validator_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramValidator, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

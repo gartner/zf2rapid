@@ -40,11 +40,11 @@ class ActivateModule extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_module_activate_module_config_file',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->configFile, Color::GREEN
                 )
-            )
+            ]
         );
 
         // set config dir and file
@@ -55,11 +55,11 @@ class ActivateModule extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_module_activate_module_config_file_not_exists',
-                array(
+                [
                     $this->console->colorize(
                         $configFile, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;
@@ -72,19 +72,19 @@ class ActivateModule extends AbstractTask
         if (!is_array($configData) || !isset($configData['modules'])) {
             $this->console->writeFailLine(
                 'task_module_activate_module_not_zf2_config_file',
-                array(
+                [
                     $this->console->colorize(
                         $configFile, Color::GREEN
                     )
-                )
+                ]
             );
             $this->console->writeFailLine(
                 'task_module_activate_module_no_modules_array_section',
-                array(
+                [
                     $this->console->colorize(
                         'modules', Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

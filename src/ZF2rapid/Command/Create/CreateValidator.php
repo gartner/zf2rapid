@@ -22,7 +22,7 @@ class CreateValidator extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -32,7 +32,7 @@ class CreateValidator extends AbstractCommand
             'ZF2rapid\Task\GenerateClass\GenerateValidatorClass',
             'ZF2rapid\Task\GenerateFactory\GenerateValidatorFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateValidatorConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -50,14 +50,14 @@ class CreateValidator extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_validator_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramValidator, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

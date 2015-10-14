@@ -21,7 +21,7 @@ class CreateApplication extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -38,7 +38,7 @@ class CreateApplication extends AbstractCommand
             'ZF2rapid\Task\Crud\GenerateViews',
             'ZF2rapid\Task\Crud\CreateApplicationConfig',
             'ZF2rapid\Task\Crud\GenerateTranslationFile',
-        );
+        ];
 
     /**
      * Start the command

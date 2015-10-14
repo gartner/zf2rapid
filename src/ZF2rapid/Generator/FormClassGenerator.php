@@ -26,12 +26,12 @@ class FormClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -78,9 +78,9 @@ class FormClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' form for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -92,9 +92,9 @@ class FormClassGenerator extends ClassGenerator
     protected function addInitMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add form elements and form configuration here',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method

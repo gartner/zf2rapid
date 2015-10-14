@@ -22,7 +22,7 @@ class CreateInputFilter extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -32,7 +32,7 @@ class CreateInputFilter extends AbstractCommand
             'ZF2rapid\Task\GenerateClass\GenerateInputFilterClass',
             'ZF2rapid\Task\GenerateFactory\GenerateInputFilterFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateInputFilterConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -50,14 +50,14 @@ class CreateInputFilter extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_input_filter_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramInputFilter, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

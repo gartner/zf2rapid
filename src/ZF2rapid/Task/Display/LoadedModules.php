@@ -28,11 +28,11 @@ class LoadedModules extends AbstractTask
         // output found modules
         $this->console->writeTaskLine(
             'task_display_loaded_modules_found_in_path',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 ),
-            )
+            ]
         );
 
         $this->console->writeLine();
@@ -41,12 +41,12 @@ class LoadedModules extends AbstractTask
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
             $this->console->writeListItemLine(
                 'task_display_loaded_modules_module_class',
-                array(
+                [
                     $this->console->colorize($moduleName, Color::GREEN),
                     $this->console->colorize(
                         get_class($moduleObject), Color::BLUE
                     ),
-                )
+                ]
             );
         }
 

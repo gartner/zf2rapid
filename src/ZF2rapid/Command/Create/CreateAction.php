@@ -22,7 +22,7 @@ class CreateAction extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class CreateAction extends AbstractCommand
             'ZF2rapid\Task\Check\ControllerExists',
             'ZF2rapid\Task\GenerateAction\GenerateActionMethod',
             'ZF2rapid\Task\GenerateAction\GenerateActionView',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,7 +49,7 @@ class CreateAction extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_action_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramAction, Color::GREEN
                 ),
@@ -59,7 +59,7 @@ class CreateAction extends AbstractCommand
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

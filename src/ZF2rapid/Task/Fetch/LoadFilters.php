@@ -28,7 +28,7 @@ class LoadFilters extends AbstractTask
     public function processCommandTask()
     {
         // initialize plugin list
-        $loadedFilters = array();
+        $loadedFilters = [];
 
         // loop through loaded modules and fetch controllers for module
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
@@ -47,11 +47,11 @@ class LoadFilters extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_fetch_load_filters_not_found',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 1;
@@ -67,7 +67,7 @@ class LoadFilters extends AbstractTask
     protected function loadPluginsForModule($moduleObject)
     {
         // initialize plugins
-        $plugins = array();
+        $plugins = [];
 
         // check for configuration
         if (!method_exists($moduleObject, 'getConfig')) {
@@ -85,12 +85,12 @@ class LoadFilters extends AbstractTask
         // loop through plugins
         foreach ($moduleConfig['filters'] as $type => $loadedPlugins) {
             // skip if not invokable nor factory
-            if (!in_array($type, array('invokables', 'factories'))) {
+            if (!in_array($type, ['invokables', 'factories'])) {
                 continue;
             }
 
             // initialize plugin type
-            $plugins[$type] = array();
+            $plugins[$type] = [];
 
             // loop through plugin list
             foreach ($loadedPlugins as $pluginKey => $pluginClass) {

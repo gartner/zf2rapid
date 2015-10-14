@@ -31,9 +31,9 @@ class GenerateTableGatewayFactory extends AbstractTask
             // output message
             $this->console->writeTaskLine(
                 'task_generate_factory_writing',
-                array(
+                [
                     'table gateway'
-                )
+                ]
             );
 
             // set factory file
@@ -44,7 +44,7 @@ class GenerateTableGatewayFactory extends AbstractTask
             if (file_exists($factoryFile)) {
                 $this->console->writeFailLine(
                     'task_generate_factory_exists',
-                    array(
+                    [
                         'table gateway',
                         $this->console->colorize(
                             $tableConfig['tableGatewayClass'], Color::GREEN
@@ -52,7 +52,7 @@ class GenerateTableGatewayFactory extends AbstractTask
                         $this->console->colorize(
                             $this->params->paramModule, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

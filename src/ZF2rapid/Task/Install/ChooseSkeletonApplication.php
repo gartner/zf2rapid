@@ -40,11 +40,11 @@ class ChooseSkeletonApplication extends AbstractTask
         $spaces = Console::INDENTION_PROMPT_OPTIONS;
 
         // define options for select prompt
-        $options = array(
+        $options = [
             $spaces . 'a' => 'task_install_choose_skeleton_official',
             $spaces . 'b' => 'task_install_choose_skeleton_zf2rapid',
             $spaces . 'c' => 'task_install_choose_skeleton_custom',
-        );
+        ];
 
         $skeletonAnswer = $this->console->writeSelectPrompt(
             'task_install_choose_skeleton_prompt',
@@ -73,11 +73,11 @@ class ChooseSkeletonApplication extends AbstractTask
         // write which skeleton application was chosen
         $this->console->writeTaskLine(
             'task_install_choose_skeleton_installation',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->skeletonName, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 0;

@@ -28,12 +28,12 @@ class FilterClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -80,9 +80,9 @@ class FilterClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' filter for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -94,10 +94,10 @@ class FilterClassGenerator extends ClassGenerator
     protected function addFilterMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add filter code here',
             'return $value;',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -105,11 +105,11 @@ class FilterClassGenerator extends ClassGenerator
         $method->setName('filter');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'value', 'mixed'
                 ),
-            )
+            ]
         );
 
 
@@ -119,15 +119,15 @@ class FilterClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Called when filter is executed',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'value',
-                            array(
+                            [
                                 'mixed',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array('mixed')),
-                    )
+                        new ReturnTag(['mixed']),
+                    ]
                 )
             );
         }

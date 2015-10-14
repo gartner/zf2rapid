@@ -35,7 +35,7 @@ class DeleteActionViewGenerator extends AbstractActionViewGenerator
         $deleteMessage    = $moduleRoute . '_message_' . $moduleRoute . '_deleting_possible';
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = 'use ' . $loadedEntity->getName() . ';';
         $body[] = '';
         $body[] = '/** @var ' . $entityName . ' $' . $entityParam . ' */';
@@ -44,7 +44,7 @@ class DeleteActionViewGenerator extends AbstractActionViewGenerator
         $body[] = '$this->h1(\'' . $moduleIdentifier . '_title_delete\');';
         $body[] = '';
         $body[] = '$this->' . $formParam . '->setAttribute(\'action\', $this->url(\'' . $moduleIdentifier
-            . '/delete\', array(\'id\' => $' . $entityParam . '->getIdentifier())));';
+            . '/delete\', [\'id\' => $' . $entityParam . '->getIdentifier()]));';
         $body[] = '';
         $body[] = '?>';
         $body[] = '<div class="well">';

@@ -208,7 +208,7 @@ class Console implements AdapterInterface, ConsoleInterface
     /**
      * Determine and return current console width and height.
      *
-     * @return array        array($width, $height)
+     * @return array  array($width, $height)
      */
     public function getSize()
     {
@@ -517,7 +517,7 @@ class Console implements AdapterInterface, ConsoleInterface
      * @param bool   $postNewLine
      */
     public function writeBadgeLine(
-        $message, array $placeholders = array(), $badgeText, $badgeColor,
+        $message, array $placeholders = [], $badgeText, $badgeColor,
         $preNewLine = false, $postNewLine = false
     ) {
         if ($preNewLine) {
@@ -546,7 +546,7 @@ class Console implements AdapterInterface, ConsoleInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeIndentedLine($message, array $placeholders = array())
+    public function writeIndentedLine($message, array $placeholders = [])
     {
         $this->adapter->writeLine();
         $this->adapter->write('       ');
@@ -561,7 +561,7 @@ class Console implements AdapterInterface, ConsoleInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeListItemLine($message, array $placeholders = array())
+    public function writeListItemLine($message, array $placeholders = [])
     {
         $this->adapter->write('       * ');
         $this->adapter->writeLine(
@@ -575,7 +575,7 @@ class Console implements AdapterInterface, ConsoleInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeListItemLineLevel2($message, array $placeholders = array())
+    public function writeListItemLineLevel2($message, array $placeholders = [])
     {
         $this->adapter->write('         * ');
         $this->adapter->writeLine(
@@ -589,7 +589,7 @@ class Console implements AdapterInterface, ConsoleInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeListItemLineLevel3($message, array $placeholders = array())
+    public function writeListItemLineLevel3($message, array $placeholders = [])
     {
         $this->adapter->write('           * ');
         $this->adapter->writeLine(
@@ -601,9 +601,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a yellow GO badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeGoLine($message, array $placeholders = array())
+    public function writeGoLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_go', Color::YELLOW, false, true
@@ -614,9 +614,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a Blue Done badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeTaskLine($message, array $placeholders = array())
+    public function writeTaskLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_task', Color::BLUE, false, false
@@ -627,9 +627,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a green OK badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeOkLine($message, array $placeholders = array())
+    public function writeOkLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_ok', Color::GREEN, true, true
@@ -640,9 +640,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a red Fail badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeFailLine($message, array $placeholders = array())
+    public function writeFailLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_fail', Color::RED, true, true
@@ -653,9 +653,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a red Warn badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeWarnLine($message, array $placeholders = array())
+    public function writeWarnLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_warning', Color::RED, true, true
@@ -666,9 +666,9 @@ class Console implements AdapterInterface, ConsoleInterface
      * Write a line with a yellow to-do badge
      *
      * @param string $message
-     * @param array $placeholders
+     * @param array  $placeholders
      */
-    public function writeTodoLine($message, array $placeholders = array())
+    public function writeTodoLine($message, array $placeholders = [])
     {
         $this->writeBadgeLine(
             $message, $placeholders, 'badge_todo', Color::GREEN, false, true

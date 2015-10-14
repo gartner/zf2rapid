@@ -27,7 +27,7 @@ class ControllerFactoryGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param string $controllerName
@@ -36,7 +36,7 @@ class ControllerFactoryGenerator extends ClassGenerator
      * @param array  $config
      */
     public function __construct(
-        $controllerName, $moduleName, $entityModule, array $config = array()
+        $controllerName, $moduleName, $entityModule, array $config = []
     ) {
         // set config data
         $this->config = $config;
@@ -52,12 +52,12 @@ class ControllerFactoryGenerator extends ClassGenerator
         $repositoryNamespace = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $repositoryClass;
 
         // prepare form params
-        if (in_array($controllerName, array('CreateController', 'UpdateController'))) {
+        if (in_array($controllerName, ['CreateController', 'UpdateController'])) {
             $formClass     = $moduleName . 'DataForm';
             $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
             $this->addUse($formNamespace);
-        } elseif (in_array($controllerName, array('DeleteController'))) {
+        } elseif (in_array($controllerName, ['DeleteController'])) {
             $formClass     = $moduleName . 'DeleteForm';
             $formNamespace = $moduleName . '\\' . $this->config['namespaceForm'] . '\\' . $formClass;
 
@@ -69,7 +69,7 @@ class ControllerFactoryGenerator extends ClassGenerator
         $this->addUse('Zend\ServiceManager\FactoryInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorAwareInterface');
         $this->addUse('Zend\ServiceManager\ServiceLocatorInterface');
-        $this->setImplementedInterfaces(array('FactoryInterface'));
+        $this->setImplementedInterfaces(['FactoryInterface']);
 
         // add methods
         $this->addCreateServiceMethod($controllerName, $moduleName, $entityModule);
@@ -89,9 +89,9 @@ class ControllerFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     $this->getName(),
                     'Creates an instance of ' . $className,
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -112,11 +112,11 @@ class ControllerFactoryGenerator extends ClassGenerator
         $repositoryService = $entityModule . '\\' . $this->config['namespaceRepository'] . '\\' . $moduleName;
 
         // prepare form params
-        if (in_array($className, array('CreateController', 'UpdateController'))) {
+        if (in_array($className, ['CreateController', 'UpdateController'])) {
             $formClass   = $moduleName . 'DataForm';
             $formParam   = lcfirst($formClass);
             $formService = $moduleName . '\\Data\\Form';
-        } elseif (in_array($className, array('DeleteController'))) {
+        } elseif (in_array($className, ['DeleteController'])) {
             $formClass   = $moduleName . 'DeleteForm';
             $formParam   = lcfirst($formClass);
             $formService = $moduleName . '\\Delete\\Form';
@@ -127,7 +127,7 @@ class ControllerFactoryGenerator extends ClassGenerator
         }
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = '/** @var ServiceLocatorAwareInterface $controllerManager */';
         $body[] = '$serviceLocator = $controllerManager->getServiceLocator();';
         $body[] = '';
@@ -165,11 +165,11 @@ class ControllerFactoryGenerator extends ClassGenerator
         $method->setName('createService');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'controllerManager', 'ServiceLocatorInterface'
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -178,15 +178,15 @@ class ControllerFactoryGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Create service',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'controllerManager',
-                            array(
+                            [
                                 'ServiceLocatorInterface',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($className)),
-                    )
+                        new ReturnTag([$className]),
+                    ]
                 )
             );
         }

@@ -22,7 +22,7 @@ class DeactivateModule extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeactivateModule extends AbstractCommand
             'ZF2rapid\Task\Check\ModuleExists',
             'ZF2rapid\Task\Module\ChooseApplicationConfigFile',
             'ZF2rapid\Task\Module\DeactivateModule',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,11 +48,11 @@ class DeactivateModule extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_deactivate_module_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

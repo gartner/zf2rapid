@@ -7,7 +7,7 @@
  * @license     http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-return array(
+return [
     'badge_ok'                                                 => '  OK  ',
     'badge_go'                                                 => '  GO  ',
     'badge_fail'                                               => ' FAIL ',
@@ -626,4 +626,4 @@ return array(
 
     'task_update_config_module_config_not_exists'              => 'The module config file %1$s does not exist.',
 
-);
+];

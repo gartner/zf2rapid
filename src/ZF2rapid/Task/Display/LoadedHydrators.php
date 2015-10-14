@@ -28,25 +28,25 @@ class LoadedHydrators extends AbstractTask
         // output done message
         $this->console->writeTaskLine(
             'task_display_loaded_hydrators_found_in_path',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         // loop through modules
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
             $this->console->writeListItemLine(
                 'task_display_loaded_hydrators_module_class',
-                array(
+                [
                     $this->console->colorize(
                         $moduleName, Color::GREEN
                     ),
                     $this->console->colorize(
                         get_class($moduleObject), Color::BLUE
                     )
-                )
+                ]
             );
 
             // check for empty hydrator list
@@ -65,11 +65,11 @@ class LoadedHydrators extends AbstractTask
             ) {
                 $this->console->writeListItemLineLevel2(
                     'task_display_loaded_hydrators_type',
-                    array(
+                    [
                         $this->console->colorize(
                             $pluginType, Color::GREEN
                         ),
-                    ),
+                    ],
                     false
                 );
 
@@ -79,14 +79,14 @@ class LoadedHydrators extends AbstractTask
                 ) {
                     $this->console->writeListItemLineLevel3(
                         'task_display_loaded_hydrators_hydrator_class',
-                        array(
+                        [
                             $this->console->colorize(
                                 $pluginName, Color::GREEN
                             ),
                             $this->console->colorize(
                                 $pluginClass, Color::BLUE
                             )
-                        ),
+                        ],
                         false
                     );
                 }

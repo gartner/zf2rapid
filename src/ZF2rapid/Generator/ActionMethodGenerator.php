@@ -23,7 +23,7 @@ class ActionMethodGenerator extends MethodGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param null|string $actionName
@@ -31,7 +31,7 @@ class ActionMethodGenerator extends MethodGenerator
      * @param array       $config
      */
     public function __construct(
-        $actionName, $controllerName, array $config = array()
+        $actionName, $controllerName, array $config = []
     ) {
         // set config data
         $this->config = $config;
@@ -40,11 +40,11 @@ class ActionMethodGenerator extends MethodGenerator
         parent::__construct(lcfirst($actionName) . 'Action');
 
         // set action body
-        $body = array(
+        $body = [
             '$viewModel = new ViewModel();',
             '',
             'return $viewModel;',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         $this->setBody($body);
@@ -56,9 +56,9 @@ class ActionMethodGenerator extends MethodGenerator
                     $actionName . ' action for ' . $controllerName
                     . 'Controller',
                     null,
-                    array(
-                        new ReturnTag(array('ViewModel')),
-                    )
+                    [
+                        new ReturnTag(['ViewModel']),
+                    ]
                 )
             );
         }

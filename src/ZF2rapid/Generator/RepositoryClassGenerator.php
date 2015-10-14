@@ -23,12 +23,12 @@ class RepositoryClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -72,9 +72,9 @@ class RepositoryClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' repository for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }

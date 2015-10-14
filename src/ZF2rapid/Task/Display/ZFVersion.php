@@ -56,23 +56,23 @@ class ZFVersion extends AbstractTask
         // output success message
         $this->console->writeTaskLine(
             'task_display_zfversion_path',
-            array(
+            [
                 $this->console->colorize(
                     $workingPath . $library, Color::GREEN
                 )
-            )
+            ]
         );
 
         $this->console->writeIndentedLine(
             'task_display_zfversion_version',
-            array(
+            [
                 $this->console->colorize(
                     $workingPath, Color::GREEN
                 ),
                 $this->console->colorize(
                     Version::VERSION, Color::BLUE
                 )
-            )
+            ]
         );
 
         return 0;

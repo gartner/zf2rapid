@@ -28,25 +28,25 @@ class LoadedControllers extends AbstractTask
         // output done message
         $this->console->writeTaskLine(
             'task_display_loaded_controllers_found_in_path',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         // loop through modules
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
             $this->console->writeListItemLine(
                 'task_display_loaded_controllers_module_class',
-                array(
+                [
                     $this->console->colorize(
                         $moduleName, Color::GREEN
                     ),
                     $this->console->colorize(
                         get_class($moduleObject), Color::BLUE
                     )
-                )
+                ]
             );
 
             // check for empty controller list
@@ -65,11 +65,11 @@ class LoadedControllers extends AbstractTask
             ) {
                 $this->console->writeListItemLineLevel2(
                     'task_display_loaded_controllers_type',
-                    array(
+                    [
                         $this->console->colorize(
                             $controllerType, Color::GREEN
                         ),
-                    ),
+                    ],
                     false
                 );
 
@@ -79,14 +79,14 @@ class LoadedControllers extends AbstractTask
                 ) {
                     $this->console->writeListItemLineLevel3(
                         'task_display_loaded_controllers_controller_class',
-                        array(
+                        [
                             $this->console->colorize(
                                 $controllerName, Color::GREEN
                             ),
                             $this->console->colorize(
                                 $controllerClass, Color::BLUE
                             )
-                        ),
+                        ],
                         false
                     );
                 }

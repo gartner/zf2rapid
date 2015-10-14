@@ -43,7 +43,7 @@ class GenerateTranslationFile extends AbstractTask
         $loadedEntity = $this->params->loadedEntity;
 
         // setup translation data
-        $translationData = array(
+        $translationData = [
             $moduleIdentifier . '_title_index'       => $entityName . ' overview',
             $moduleIdentifier . '_title_show'        => $entityName . ' view',
             $moduleIdentifier . '_title_create'      => $entityName . ' create',
@@ -60,7 +60,7 @@ class GenerateTranslationFile extends AbstractTask
             $moduleIdentifier . '_action_create'     => 'Create ' . $entityName,
             $moduleIdentifier . '_action_update'     => 'Update ' . $entityName,
             $moduleIdentifier . '_action_delete'     => 'Delete ' . $entityName,
-        );
+        ];
 
         // loop through entity properties
         foreach ($loadedEntity->getProperties() as $property) {

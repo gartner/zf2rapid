@@ -27,16 +27,16 @@ class ConfigArrayGenerator extends ValueGenerator
      * @var array
      */
     protected $ignoreKeys
-        = array(
+        = [
             'controllers',
             'router',
-        );
+        ];
 
     /**
      * @param array      $configData
      * @param Parameters $params
      */
-    public function __construct(array $configData = array(), Parameters $params)
+    public function __construct(array $configData = [], Parameters $params)
     {
         // set params
         $this->params = $params;

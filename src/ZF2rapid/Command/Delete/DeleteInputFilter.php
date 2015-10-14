@@ -22,7 +22,7 @@ class DeleteInputFilter extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class DeleteInputFilter extends AbstractCommand
             'ZF2rapid\Task\DeleteClass\DeleteInputFilter',
             'ZF2rapid\Task\DeleteFactory\DeleteInputFilterFactory',
             'ZF2rapid\Task\RemoveConfig\RemoveInputFilterConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class DeleteInputFilter extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_input_filter_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramInputFilter, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

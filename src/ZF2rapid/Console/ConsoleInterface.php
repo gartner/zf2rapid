@@ -75,7 +75,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param bool   $postNewLine
      */
     public function writeBadgeLine(
-        $message, array $placeholders = array(), $badgeText, $badgeColor,
+        $message, array $placeholders = [], $badgeText, $badgeColor,
         $preNewLine = false, $postNewLine = false
     );
 
@@ -85,7 +85,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeIndentedLine($message, array $placeholders = array());
+    public function writeIndentedLine($message, array $placeholders = []);
 
     /**
      * Write a list item line
@@ -93,7 +93,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeListItemLine($message, array $placeholders = array());
+    public function writeListItemLine($message, array $placeholders = []);
 
     /**
      * Write a list item line for second level
@@ -102,7 +102,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param array  $placeholders
      */
     public function writeListItemLineLevel2(
-        $message, array $placeholders = array()
+        $message, array $placeholders = []
     );
 
     /**
@@ -112,7 +112,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param array  $placeholders
      */
     public function writeListItemLineLevel3(
-        $message, array $placeholders = array()
+        $message, array $placeholders = []
     );
 
     /**
@@ -121,7 +121,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeGoLine($message, array $placeholders = array());
+    public function writeGoLine($message, array $placeholders = []);
 
     /**
      * Write a line with a Blue Done badge
@@ -129,7 +129,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeTaskLine($message, array $placeholders = array());
+    public function writeTaskLine($message, array $placeholders = []);
 
     /**
      * Write a line with a green OK badge
@@ -137,7 +137,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeOkLine($message, array $placeholders = array());
+    public function writeOkLine($message, array $placeholders = []);
 
     /**
      * Write a line with a red Fail badge
@@ -145,7 +145,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeFailLine($message, array $placeholders = array());
+    public function writeFailLine($message, array $placeholders = []);
 
     /**
      * Write a line with a red Warn badge
@@ -153,7 +153,7 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeWarnLine($message, array $placeholders = array());
+    public function writeWarnLine($message, array $placeholders = []);
 
     /**
      * Write a line with a yellow to-do badge
@@ -161,5 +161,5 @@ interface ConsoleInterface extends AdapterInterface
      * @param string $message
      * @param array  $placeholders
      */
-    public function writeTodoLine($message, array $placeholders = array());
+    public function writeTodoLine($message, array $placeholders = []);
 }

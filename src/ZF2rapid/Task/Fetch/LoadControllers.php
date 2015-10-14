@@ -28,7 +28,7 @@ class LoadControllers extends AbstractTask
     public function processCommandTask()
     {
         // initialize controller list
-        $loadedControllers = array();
+        $loadedControllers = [];
 
         // loop through loaded modules and fetch controllers for module
         foreach ($this->params->loadedModules as $moduleName => $moduleObject) {
@@ -47,11 +47,11 @@ class LoadControllers extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_fetch_load_controllers_not_found',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 1;
@@ -67,7 +67,7 @@ class LoadControllers extends AbstractTask
     protected function loadControllerForModule($moduleObject)
     {
         // initialize controllers
-        $controllers = array();
+        $controllers = [];
 
         // check for configuration
         if (!method_exists($moduleObject, 'getConfig')) {
@@ -85,12 +85,12 @@ class LoadControllers extends AbstractTask
         // loop through controllers
         foreach ($moduleConfig['controllers'] as $type => $loadedControllers) {
             // skip if not invokable nor factory
-            if (!in_array($type, array('invokables', 'factories'))) {
+            if (!in_array($type, ['invokables', 'factories'])) {
                 continue;
             }
 
             // initialize controller type
-            $controllers[$type] = array();
+            $controllers[$type] = [];
 
             // loop through controller list
             foreach ($loadedControllers as $controllerKey => $controllerClass) {

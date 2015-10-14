@@ -44,7 +44,7 @@ class WorkingPathTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -81,9 +81,9 @@ class WorkingPathTest extends PHPUnit_Framework_TestCase
      */
     public function testPathParamNonExistingPath()
     {
-        $paramValueMap = array(
-            array('workingPath', null, '/path/to/project')
-        );
+        $paramValueMap = [
+            ['workingPath', null, '/path/to/project']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)
@@ -109,9 +109,9 @@ class WorkingPathTest extends PHPUnit_Framework_TestCase
      */
     public function testPathParamExistingPath()
     {
-        $paramValueMap = array(
-            array('workingPath', null, '/tmp')
-        );
+        $paramValueMap = [
+            ['workingPath', null, '/tmp']
+        ];
 
         $this->route->method('getMatchedParam')->will(
             $this->returnValueMap($paramValueMap)

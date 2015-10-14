@@ -22,7 +22,7 @@ class DeleteViewHelper extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class DeleteViewHelper extends AbstractCommand
             'ZF2rapid\Task\DeleteClass\DeleteViewHelper',
             'ZF2rapid\Task\DeleteFactory\DeleteViewHelperFactory',
             'ZF2rapid\Task\RemoveConfig\RemoveViewHelperConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class DeleteViewHelper extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_view_helper_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramViewHelper, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

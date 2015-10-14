@@ -31,7 +31,7 @@ class HydratorStrategyGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var string
@@ -85,7 +85,7 @@ class HydratorStrategyGenerator extends ClassGenerator
             $moduleName . '\\' . $this->config['namespaceEntity'] . '\\'
             . $this->entityClass
         );
-        $this->setImplementedInterfaces(array('StrategyInterface'));
+        $this->setImplementedInterfaces(['StrategyInterface']);
 
         // add methods
         $this->addExtractMethod();
@@ -108,9 +108,9 @@ class HydratorStrategyGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . ucfirst($this->refTableName)
                     . ' hydrator strategy for the ' . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -122,13 +122,13 @@ class HydratorStrategyGenerator extends ClassGenerator
     protected function addExtractMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             'if (!is_object($value)) {',
             '    return $value;',
             '}',
             '',
             'return $value->getIdentifier();',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -136,9 +136,9 @@ class HydratorStrategyGenerator extends ClassGenerator
         $method->setName('extract');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator('value'),
-            )
+            ]
         );
 
         // check for api docs
@@ -147,15 +147,15 @@ class HydratorStrategyGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Extract identifier from entity',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'value',
-                            array(
+                            [
                                 $this->entityClass,
-                            )
+                            ]
                         ),
-                        new ReturnTag(array('string')),
-                    )
+                        new ReturnTag(['string']),
+                    ]
                 )
             );
         }
@@ -175,7 +175,7 @@ class HydratorStrategyGenerator extends ClassGenerator
         $firstColumn = reset($refTableData['columns']);
 
         // set action body
-        $body   = array();
+        $body   = [];
         $body[] = 'if (isset($data[\''
             . $this->refTableName . '.' . $firstColumn->getName() . '\'])) {';
 
@@ -198,14 +198,14 @@ class HydratorStrategyGenerator extends ClassGenerator
         $body[] = '$' . $this->refTableName . ' = new '
             . $this->entityClass . '();';
         $body[] = '$' . $this->refTableName . '->exchangeArray(';
-        $body[] = '    array(';
+        $body[] = '    [';
 
         /** @var ColumnObject $column */
         foreach ($refTableData['columns'] as $column) {
             $body[] = '        \'' . $column->getName() . '\' => $' . $column->getName() . ',';
         }
 
-        $body[] = '    )';
+        $body[] = '    ]';
         $body[] = ');';
         $body[] = '';
         $body[] = 'return $' . $this->refTableName . ';';
@@ -217,14 +217,14 @@ class HydratorStrategyGenerator extends ClassGenerator
         $method->setName('hydrate');
         $method->setBody($body);
         $method->setParameters(
-            array(
+            [
                 new ParameterGenerator(
                     'value'
                 ),
                 new ParameterGenerator(
-                    'data', 'array', array()
+                    'data', 'array', []
                 ),
-            )
+            ]
         );
 
         // check for api docs
@@ -233,18 +233,18 @@ class HydratorStrategyGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Hydrate an entity by populating data',
                     null,
-                    array(
+                    [
                         new ParamTag(
                             'value'
                         ),
                         new ParamTag(
                             'data',
-                            array(
+                            [
                                 'array',
-                            )
+                            ]
                         ),
-                        new ReturnTag(array($this->entityClass)),
-                    )
+                        new ReturnTag([$this->entityClass]),
+                    ]
                 )
             );
         }

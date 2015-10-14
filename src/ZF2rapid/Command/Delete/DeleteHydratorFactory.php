@@ -22,7 +22,7 @@ class DeleteHydratorFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeleteHydratorFactory extends AbstractCommand
             'ZF2rapid\Task\Check\HydratorExists',
             'ZF2rapid\Task\DeleteFactory\DeleteHydratorFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateHydratorConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,14 +48,14 @@ class DeleteHydratorFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_hydrator_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramHydrator, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

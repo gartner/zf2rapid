@@ -41,14 +41,14 @@ class InputFilterClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param null|string $tableName
      * @param array       $loadedTable
      * @param array       $config
      */
-    public function __construct($tableName, array $loadedTable = array(), array $config = array())
+    public function __construct($tableName, array $loadedTable = [], array $config = [])
     {
         // set config data
         $this->tableName   = $tableName;
@@ -97,9 +97,9 @@ class InputFilterClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' input filter for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -117,7 +117,7 @@ class InputFilterClassGenerator extends ClassGenerator
         $primaryKey     = $this->loadedTable['primaryKey'];
         $primaryColumns = $primaryKey->getColumns();
 
-        $foreignKeys = array();
+        $foreignKeys = [];
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->loadedTable['foreignKeys'] as $foreignKey) {
@@ -126,12 +126,12 @@ class InputFilterClassGenerator extends ClassGenerator
             }
         }
 
-        $body = array();
+        $body = [];
 
         /** @var ColumnObject $column */
         foreach ($this->loadedTable['columns'] as $column) {
             if (in_array($column->getName(), $primaryColumns)
-                && in_array($column->getDataType(), array('tinyint', 'smallint', 'mediumint', 'int', 'bigint'))
+                && in_array($column->getDataType(), ['tinyint', 'smallint', 'mediumint', 'int', 'bigint'])
             ) {
                 $required = 'false';
             } elseif ($column->isNullable() === false) {
@@ -140,43 +140,43 @@ class InputFilterClassGenerator extends ClassGenerator
                 $required = 'false';
             }
 
-            $filters = array();
+            $filters = [];
 
             if (in_array(
-                $column->getDataType(), array('varchar', 'char', 'text', 'enum', 'set', 'datetime', 'timestamp')
+                $column->getDataType(), ['varchar', 'char', 'text', 'enum', 'set', 'datetime', 'timestamp']
             )) {
-                $filters[] = '            array(';
+                $filters[] = '            [';
                 $filters[] = '                \'name\' => \'StringTrim\',';
-                $filters[] = '            ),';
+                $filters[] = '            ],';
             }
 
-            $validators = array();
+            $validators = [];
 
             if ($column->getDataType() == 'enum') {
                 $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
                     . '_inarray';
-                $options = 'array(\'' . implode('\', \'', $column->getErrata('permitted_values')) . '\')';
+                $options = '[\'' . implode('\', \'', $column->getErrata('permitted_values')) . '\']';
 
-                $validators[] = '            array(';
+                $validators[] = '            [';
                 $validators[] = '                \'name\' => \'InArray\',';
-                $validators[] = '                \'options\' => array(';
+                $validators[] = '                \'options\' => [';
                 $validators[] = '                     \'haystack\' => ' . $options . ',';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
-                $validators[] = '                ),';
-                $validators[] = '            ),';
+                $validators[] = '                ],';
+                $validators[] = '            ],';
 
             } elseif ($column->getDataType() == 'varchar') {
                 $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
                     . '_stringlength';
                 $max     = $column->getCharacterMaximumLength();
 
-                $validators[] = '            array(';
+                $validators[] = '            [';
                 $validators[] = '                \'name\' => \'StringLength\',';
-                $validators[] = '                \'options\' => array(';
+                $validators[] = '                \'options\' => [';
                 $validators[] = '                     \'max\' => ' . $max . ',';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
-                $validators[] = '                ),';
-                $validators[] = '            ),';
+                $validators[] = '                ],';
+                $validators[] = '            ],';
 
             } elseif ($column->getDataType() == 'char') {
                 $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
@@ -184,14 +184,14 @@ class InputFilterClassGenerator extends ClassGenerator
                 $min     = $column->getCharacterMaximumLength();
                 $max     = $column->getCharacterMaximumLength();
 
-                $validators[] = '            array(';
+                $validators[] = '            [';
                 $validators[] = '                \'name\' => \'StringLength\',';
-                $validators[] = '                \'options\' => array(';
+                $validators[] = '                \'options\' => [';
                 $validators[] = '                     \'min\' => ' . $min . ',';
                 $validators[] = '                     \'max\' => ' . $max . ',';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
-                $validators[] = '                ),';
-                $validators[] = '            ),';
+                $validators[] = '                ],';
+                $validators[] = '            ],';
             }
 
             if (isset($foreignKeys[$column->getName()])) {
@@ -201,42 +201,42 @@ class InputFilterClassGenerator extends ClassGenerator
                 $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
                     . '_inarray';
 
-                $validators[] = '            array(';
+                $validators[] = '            [';
                 $validators[] = '                \'name\' => \'InArray\',';
-                $validators[] = '                \'options\' => array(';
+                $validators[] = '                \'options\' => [';
                 $validators[] = '                     \'haystack\' => $this->' . $column->getName() . 'Options,';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
-                $validators[] = '                ),';
-                $validators[] = '            ),';
+                $validators[] = '                ],';
+                $validators[] = '            ],';
             }
 
             if ($required) {
                 $message = $column->getTableName() . '_message_' . $column->getTableName() . '_' . $column->getName()
                     . '_notempty';
 
-                $validators[] = '            array(';
+                $validators[] = '            [';
                 $validators[] = '                \'name\' => \'NotEmpty\',';
-                $validators[] = '                \'options\' => array(';
+                $validators[] = '                \'options\' => [';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
-                $validators[] = '                ),';
-                $validators[] = '            ),';
+                $validators[] = '                ],';
+                $validators[] = '            ],';
             }
 
             $body[] = '$this->add(';
-            $body[] = '    array(';
+            $body[] = '    [';
             $body[] = '        \'name\' => \'' . $column->getName() . '\',';
             $body[] = '        \'required\' => ' . $required . ',';
-            $body[] = '        \'filters\' => array(';
+            $body[] = '        \'filters\' => [';
 
             $body = array_merge($body, $filters);
 
-            $body[] = '        ),';
-            $body[] = '        \'validators\' => array(';
+            $body[] = '        ],';
+            $body[] = '        \'validators\' => [';
 
             $body = array_merge($body, $validators);
 
-            $body[] = '        ),';
-            $body[] = '    )';
+            $body[] = '        ],';
+            $body[] = '    ]';
             $body[] = ');';
             $body[] = '';
         }
@@ -268,12 +268,12 @@ class InputFilterClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'var',
                         'description' => 'array',
-                    )
-                )
+                    ]
+                ]
             )
         );
 
@@ -299,12 +299,12 @@ class InputFilterClassGenerator extends ClassGenerator
             new DocBlockGenerator(
                 'Set ' . $columnName . ' options',
                 null,
-                array(
-                    array(
+                [
+                    [
                         'name'        => 'param',
                         'description' => 'array $' . $columnName . 'Options',
-                    )
-                )
+                    ]
+                ]
             )
         );
 

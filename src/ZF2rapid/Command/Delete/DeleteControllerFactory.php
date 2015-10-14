@@ -22,7 +22,7 @@ class DeleteControllerFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class DeleteControllerFactory extends AbstractCommand
             'ZF2rapid\Task\Check\ControllerExists',
             'ZF2rapid\Task\DeleteFactory\DeleteControllerFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateControllerConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -48,14 +48,14 @@ class DeleteControllerFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_controller_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramController, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

@@ -23,12 +23,12 @@ class ControllerClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -75,9 +75,9 @@ class ControllerClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Handles the ' . $controllerName . ' requests for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }

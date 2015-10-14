@@ -29,7 +29,7 @@ class ModuleClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @var string
@@ -42,7 +42,7 @@ class ModuleClassGenerator extends ClassGenerator
      * @param array       $config
      */
     public function __construct(
-        $moduleName, $moduleRootConstant, array $config = array()
+        $moduleName, $moduleRootConstant, array $config = []
     ) {
         // set config data
         $this->config             = $config;
@@ -71,9 +71,9 @@ class ModuleClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Module ' . $moduleName,
                     'Sets up and configures the ' . $moduleName . ' module',
-                    array(
+                    [
                         new GenericTag('package', $moduleName),
-                    )
+                    ]
                 )
             );
         }
@@ -85,11 +85,11 @@ class ModuleClassGenerator extends ClassGenerator
     protected function addInitMethod()
     {
         // set action body
-        $bodyContent = array(
+        $bodyContent = [
             'if (!defined(\'' . $this->moduleRootConstant . '\')) {',
             '    define(\'' . $this->moduleRootConstant . '\', realpath(__DIR__));',
             '}',
-        );
+        ];
         $bodyContent = implode(AbstractGenerator::LINE_FEED, $bodyContent);
 
         // create method body
@@ -110,11 +110,11 @@ class ModuleClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Init module',
                     'Initialize module on loading',
-                    array(
+                    [
                         new ParamTag(
-                            'manager', array('ModuleManagerInterface')
+                            'manager', ['ModuleManagerInterface']
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -126,7 +126,7 @@ class ModuleClassGenerator extends ClassGenerator
         $this->setImplementedInterfaces(
             array_merge(
                 $this->getImplementedInterfaces(),
-                array('InitProviderInterface')
+                ['InitProviderInterface']
             )
         );
     }
@@ -158,11 +158,11 @@ class ModuleClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Get module configuration',
                     'Reads the module configuration from the config/ directory',
-                    array(
+                    [
                         new ReturnTag(
-                            array('array'), 'module configuration data'
+                            ['array'], 'module configuration data'
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -173,7 +173,7 @@ class ModuleClassGenerator extends ClassGenerator
         $this->setImplementedInterfaces(
             array_merge(
                 $this->getImplementedInterfaces(),
-                array('ConfigProviderInterface')
+                ['ConfigProviderInterface']
             )
         );
     }
@@ -186,16 +186,16 @@ class ModuleClassGenerator extends ClassGenerator
     protected function addGetAutoloaderConfigMethod()
     {
         // set array data
-        $array = array(
-            'Zend\Loader\ClassMapAutoloader' => array(
+        $array = [
+            'Zend\Loader\ClassMapAutoloader' => [
                 '__NAMESPACE__ => __DIR__ . \'/autoload_classmap.php\'',
-            ),
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
+            ],
+            'Zend\Loader\StandardAutoloader' => [
+                'namespaces' => [
                     '__NAMESPACE__ => __DIR__ . \'/src/\' . __NAMESPACE__',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         // create method body
         $body = new ValueGenerator();
@@ -216,11 +216,11 @@ class ModuleClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Get module autoloader configuration',
                     'Sets up the module autoloader configuration',
-                    array(
+                    [
                         new ReturnTag(
-                            array('array'), 'module autoloader configuration'
+                            ['array'], 'module autoloader configuration'
                         ),
-                    )
+                    ]
                 )
             );
         }
@@ -233,7 +233,7 @@ class ModuleClassGenerator extends ClassGenerator
         $this->setImplementedInterfaces(
             array_merge(
                 $this->getImplementedInterfaces(),
-                array('AutoloaderProviderInterface')
+                ['AutoloaderProviderInterface']
             )
         );
     }

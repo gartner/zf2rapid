@@ -31,7 +31,7 @@ class GenerateViews extends AbstractTask
      */
     public function processCommandTask()
     {
-        foreach (array('index', 'show', 'create', 'update', 'delete') as $viewName) {
+        foreach (['index', 'show', 'create', 'update', 'delete'] as $viewName) {
             // output message
             $this->console->writeTaskLine(
                 'Writing ' . $viewName . ' action view script...'
@@ -45,7 +45,7 @@ class GenerateViews extends AbstractTask
             if (file_exists($actionFile)) {
                 $this->console->writeFailLine(
                     'task_generate_action_view_exists',
-                    array(
+                    [
                         $this->console->colorize(
                             $actionFile, Color::GREEN
                         ),
@@ -55,7 +55,7 @@ class GenerateViews extends AbstractTask
                         $this->console->colorize(
                             $this->params->paramEntityModule, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return 1;

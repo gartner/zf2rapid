@@ -59,7 +59,7 @@ class ControllerExistsTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->route = $this->getMockBuilder('ZF\Console\Route')
-            ->setConstructorArgs(array('test', 'test'))
+            ->setConstructorArgs(['test', 'test'])
             ->getMock();
 
         $this->console = $this->getMockBuilder(
@@ -111,7 +111,7 @@ class ControllerExistsTest extends PHPUnit_Framework_TestCase
     {
         $this->console->expects($this->once())->method('writeTaskLine')->with(
             $this->equalTo('task_check_checking_file'),
-            array('controller')
+            ['controller']
         );
 
         $this->console->expects($this->once())->method('writeFailLine')->with(
@@ -139,7 +139,7 @@ class ControllerExistsTest extends PHPUnit_Framework_TestCase
     {
         $this->console->expects($this->once())->method('writeTaskLine')->with(
             $this->equalTo('task_check_checking_file'),
-            array('controller')
+            ['controller']
         );
 
         $this->console->expects($this->never())->method('writeFailLine')->with(

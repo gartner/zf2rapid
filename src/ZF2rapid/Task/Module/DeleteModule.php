@@ -30,11 +30,11 @@ class DeleteModule extends AbstractTask
         // output message
         $this->console->writeTaskLine(
             'task_module_delete_module_deleting',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
 
         // output confirm prompt
@@ -48,14 +48,14 @@ class DeleteModule extends AbstractTask
             // output success message
             $this->console->writeOkLine(
                 'task_module_delete_module_not_deleted',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     ),
                     $this->console->colorize(
                         $this->params->projectModuleDir, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;
@@ -72,14 +72,14 @@ class DeleteModule extends AbstractTask
             // output success message
             $this->console->writeOkLine(
                 'task_module_delete_module_not_deleted',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     ),
                     $this->console->colorize(
                         $this->params->projectModuleDir, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

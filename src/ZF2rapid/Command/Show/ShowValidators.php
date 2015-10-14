@@ -21,7 +21,7 @@ class ShowValidators extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -30,7 +30,7 @@ class ShowValidators extends AbstractCommand
             'ZF2rapid\Task\Fetch\LoadValidators',
             'ZF2rapid\Task\Display\UnknownModules',
             'ZF2rapid\Task\Display\LoadedValidators',
-        );
+        ];
 
     /**
      * Start the command

@@ -21,9 +21,9 @@ class ToolVersion extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Tool\Version',
-        );
+        ];
 
     /**
      * Start the command

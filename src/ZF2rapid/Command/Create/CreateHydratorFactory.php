@@ -22,7 +22,7 @@ class CreateHydratorFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class CreateHydratorFactory extends AbstractCommand
             'ZF2rapid\Task\Check\HydratorExists',
             'ZF2rapid\Task\GenerateFactory\GenerateHydratorFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateHydratorConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class CreateHydratorFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_hydrator_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramHydrator, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

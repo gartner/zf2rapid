@@ -21,14 +21,14 @@ class ShowTables extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
             'ZF2rapid\Task\Check\ModulePathExists',
             'ZF2rapid\Task\Crud\CheckDbConnection',
             'ZF2rapid\Task\Crud\ShowTables',
-        );
+        ];
 
     /**
      * Start the command

@@ -69,7 +69,7 @@ class Application extends ZFApplication
         );
 
         // initialize routes
-        $routes = array();
+        $routes = [];
 
         // get all routes except standard version route
         foreach ($this->routeCollection->getRouteNames() as $routeName) {
@@ -85,8 +85,8 @@ class Application extends ZFApplication
         $this->setRoutes($routes);
 
         // change banner and footer
-        $this->setBanner(array($this, 'writeApplicationBanner'));
-        $this->setFooter(array($this, 'writeApplicationFooter'));
+        $this->setBanner([$this, 'writeApplicationBanner']);
+        $this->setFooter([$this, 'writeApplicationFooter']);
     }
 
     /**
@@ -116,7 +116,7 @@ class Application extends ZFApplication
      *
      * @return array
      */
-    protected function translateRoutes(array $routes = array())
+    protected function translateRoutes(array $routes = [])
     {
         foreach ($routes as $routeKey => $routeParams) {
             if (isset($routeParams['description'])) {

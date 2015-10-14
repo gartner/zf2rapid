@@ -59,7 +59,7 @@ class GenerateClassMap extends AbstractTask
             exec($command, $output, $return);
         } else {
             // create config array
-            $config = new ConfigArrayGenerator(array(), $this->params);
+            $config = new ConfigArrayGenerator([], $this->params);
 
             // create file
             $file = new ConfigFileGenerator(

@@ -49,15 +49,15 @@ project you want to create the classes and views in. This should be done in the
 file `/config/autoload/development.php`, for example. Please enter your own 
 database configuration.
 
-    return array(
-        'db' => array(
+    return [
+        'db' => [
             'driver'  => 'pdo',
             'dsn'     => 'mysql:dbname=zf2rapid-tutorial;host=localhost;charset=utf8',
             'user'    => 'zf2rapid',
             'pass'    => 'zf2rapid',
-        ),
+        ],
         [...]
-    );
+    ];
 
 Now you can check if your database configuration is correct and if you can 
 access your database.
@@ -163,29 +163,29 @@ model classes should be added.
      * @license All rights reserved
      */
     
-    return array(
+    return [
         [...]
-        'hydrators' => array(
-            'factories' => array(
+        'hydrators' => [
+            'factories' => [
                 'CustomerDomain\\Customer' => 'CustomerDomain\\Model\\Hydrator\\CustomerHydratorFactory',
                 'CustomerDomain\\Country' => 'CustomerDomain\\Model\\Hydrator\\CountryHydratorFactory',
-            ),
-        ),
-        'service_manager' => array(
-            'factories' => array(
+            ],
+        ],
+        'service_manager' => [
+            'factories' => [
                 'CustomerDomain\\Model\\TableGateway\\Customer' => 'CustomerDomain\\Model\\TableGateway\\CustomerTableGatewayFactory',
                 'CustomerDomain\\Model\\Repository\\Customer' => 'CustomerDomain\\Model\\Repository\\CustomerRepositoryFactory',
                 'CustomerDomain\\Model\\TableGateway\\Country' => 'CustomerDomain\\Model\\TableGateway\\CountryTableGatewayFactory',
                 'CustomerDomain\\Model\\Repository\\Country' => 'CustomerDomain\\Model\\Repository\\CountryRepositoryFactory',
-            ),
-        ),
-        'input_filters' => array(
-            'factories' => array(
+            ],
+        ],
+        'input_filters' => [
+            'factories' => [
                 'CustomerDomain\\Customer' => 'CustomerDomain\\Model\\InputFilter\\CustomerInputFilterFactory',
                 'CustomerDomain\\Country' => 'CustomerDomain\\Model\\InputFilter\\CountryInputFilterFactory',
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
 ## Generated entity classes
 
@@ -447,14 +447,14 @@ data from the `CountryEntity` to prepare the writing to the database.
          * @param array $data
          * @return CountryEntity
          */
-        public function hydrate($value, array $data = array())
+        public function hydrate($value, array $data = [])
         {
             $country = new CountryEntity();
             $country->exchangeArray(
-                array(
+                [
                     'code' => $data['country.code'],
                     'name' => $data['country.name'],
-                )
+                ]
             );
     
             return $country;
@@ -499,13 +499,13 @@ was generated to get an option list of the data from the table.
          */
         public function getOptions()
         {
-            $options = array();
+            $options = [];
     
             /** @var CountryEntity $entity */
             foreach ($this->fetchAllEntities() as $entity) {
-                $columns = array(
+                $columns = [
                     $entity->getName(),
-                );
+                ];
     
                 $options[$entity->getIdentifier()] = implode(' ', $columns);
             }
@@ -560,10 +560,10 @@ to convert it into an `CountryEntity` instance.
             $select->join(
                 'country',
                 'customer.country = country.code',
-                array(
+                [
                     'country.code' => 'code',
                     'country.name' => 'name',
-                )
+                ]
             );
     
             return parent::selectWith($select);
@@ -747,46 +747,46 @@ your needs.
         public function init()
         {
             $this->add(
-                array(
+                [
                     'name' => 'code',
                     'required' => false,
-                    'filters' => array(
-                        array(
+                    'filters' => [
+                        [
                             'name' => 'StringTrim',
-                        ),
-                    ),
-                    'validators' => array(
-                        array(
+                        ],
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'StringLength',
-                            'options' => array(
+                            'options' => [
                                  'min' => 2,
                                  'max' => 2,
                                  'message' => 'country_message_stringlength_country_code',
-                            ),
-                        ),
-                    ),
-                )
+                            ],
+                        ],
+                    ],
+                ]
             );
     
             $this->add(
-                array(
+                [
                     'name' => 'name',
                     'required' => true,
-                    'filters' => array(
-                        array(
+                    'filters' => [
+                        [
                             'name' => 'StringTrim',
-                        ),
-                    ),
-                    'validators' => array(
-                        array(
+                        ],
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'StringLength',
-                            'options' => array(
+                            'options' => [
                                  'max' => 64,
                                  'message' => 'country_message_stringlength_country_name',
-                            ),
-                        ),
-                    ),
-                )
+                            ],
+                        ],
+                    ],
+                ]
             );
         }
     }
@@ -844,32 +844,32 @@ essential.
             [...]
     
             $this->add(
-                array(
+                [
                     'name' => 'country',
                     'required' => false,
-                    'filters' => array(
-                        array(
+                    'filters' => [
+                        [
                             'name' => 'StringTrim',
-                        ),
-                    ),
-                    'validators' => array(
-                        array(
+                        ],
+                    ],
+                    'validators' => [
+                        [
                             'name' => 'StringLength',
-                            'options' => array(
+                            'options' => [
                                  'min' => 2,
                                  'max' => 2,
                                  'message' => 'customer_message_stringlength_customer_country',
-                            ),
-                        ),
-                        array(
+                            ],
+                        ],
+                        [
                             'name' => 'InArray',
-                            'options' => array(
+                            'options' => [
                                  'haystack' => $this->countryOptions,
                                  'message' => 'customer_message_inarray_customer_country',
-                            ),
-                        ),
-                    ),
-                )
+                            ],
+                        ],
+                    ],
+                ]
             );
         }
     }

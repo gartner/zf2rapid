@@ -22,7 +22,7 @@ class DeleteFilter extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class DeleteFilter extends AbstractCommand
             'ZF2rapid\Task\DeleteClass\DeleteFilter',
             'ZF2rapid\Task\DeleteFactory\DeleteFilterFactory',
             'ZF2rapid\Task\RemoveConfig\RemoveFilterConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class DeleteFilter extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_delete_filter_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramFilter, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

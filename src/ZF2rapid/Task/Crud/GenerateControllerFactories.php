@@ -27,13 +27,13 @@ class GenerateControllerFactories extends AbstractTask
      */
     public function processCommandTask()
     {
-        foreach (array('Index', 'Show', 'Create', 'Update', 'Delete') as $controllerName) {
+        foreach (['Index', 'Show', 'Create', 'Update', 'Delete'] as $controllerName) {
             // output message
             $this->console->writeTaskLine(
                 'task_generate_factory_writing',
-                array(
+                [
                     $controllerName . ' controller'
-                )
+                ]
             );
 
             // set factory file
@@ -43,7 +43,7 @@ class GenerateControllerFactories extends AbstractTask
             if (file_exists($factoryFile)) {
                 $this->console->writeFailLine(
                     'task_generate_factory_exists',
-                    array(
+                    [
                         'index controller',
                         $this->console->colorize(
                             $controllerName . 'ControllerFactory', Color::GREEN
@@ -51,7 +51,7 @@ class GenerateControllerFactories extends AbstractTask
                         $this->console->colorize(
                             $this->params->paramModule, Color::GREEN
                         )
-                    )
+                    ]
                 );
 
                 return false;

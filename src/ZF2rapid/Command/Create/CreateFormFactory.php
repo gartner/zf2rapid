@@ -22,7 +22,7 @@ class CreateFormFactory extends AbstractCommand
      * @var array
      */
     protected $tasks
-        = array(
+        = [
             'ZF2rapid\Task\Setup\WorkingPath',
             'ZF2rapid\Task\Setup\ConfigFile',
             'ZF2rapid\Task\Setup\Params',
@@ -31,7 +31,7 @@ class CreateFormFactory extends AbstractCommand
             'ZF2rapid\Task\Check\FormExists',
             'ZF2rapid\Task\GenerateFactory\GenerateFormFactory',
             'ZF2rapid\Task\UpdateConfig\UpdateFormConfig',
-        );
+        ];
 
     /**
      * Start the command
@@ -49,14 +49,14 @@ class CreateFormFactory extends AbstractCommand
     {
         $this->console->writeOkLine(
             'command_create_form_factory_stop',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->paramForm, Color::GREEN
                 ),
                 $this->console->colorize(
                     $this->params->paramModule, Color::GREEN
                 )
-            )
+            ]
         );
     }
 }

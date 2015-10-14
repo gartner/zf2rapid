@@ -18,13 +18,13 @@ class ConfigFileGenerator extends AbstractFileGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param string $fileBody
      * @param array  $config
      */
-    public function __construct($fileBody, array $config = array())
+    public function __construct($fileBody, array $config = [])
     {
         // set config data
         $this->config = $config;

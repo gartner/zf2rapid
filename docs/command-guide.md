@@ -459,15 +459,15 @@ project you want to create the classes and views in. This should be done in the
 file `/config/autoload/development.php`, for example. Please enter your own 
 database configuration.
 
-    return array(
-        'db' => array(
+    return [
+        'db' => [
             'driver'  => 'pdo',
             'dsn'     => 'mysql:dbname=DATEBASE;host=localhost;charset=utf8',
             'user'    => 'USER',
             'pass'    => 'PASS',
-        ),
+        ],
         [...]
-    );
+    ];
 
 After this you can simply check the database configuration. Optionally, you can 
 specify the `--workingPath=` of the Zend Framework 2 project. 

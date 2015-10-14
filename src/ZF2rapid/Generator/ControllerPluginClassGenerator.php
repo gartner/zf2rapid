@@ -26,12 +26,12 @@ class ControllerPluginClassGenerator extends ClassGenerator
     /**
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
 
     /**
      * @param array $config
      */
-    public function __construct(array $config = array())
+    public function __construct(array $config = [])
     {
         // set config data
         $this->config = $config;
@@ -78,9 +78,9 @@ class ControllerPluginClassGenerator extends ClassGenerator
                     $this->getName(),
                     'Provides the ' . $className . ' plugin for the '
                     . $moduleName . ' Module',
-                    array(
+                    [
                         new GenericTag('package', $this->getNamespaceName()),
-                    )
+                    ]
                 )
             );
         }
@@ -92,9 +92,9 @@ class ControllerPluginClassGenerator extends ClassGenerator
     protected function addInvokeMethod()
     {
         // set action body
-        $body = array(
+        $body = [
             '// add controller plugin code here',
-        );
+        ];
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         // create method
@@ -108,9 +108,9 @@ class ControllerPluginClassGenerator extends ClassGenerator
                 new DocBlockGenerator(
                     'Called when controller plugin is executed',
                     null,
-                    array(
-                        new ReturnTag(array('mixed')),
-                    )
+                    [
+                        new ReturnTag(['mixed']),
+                    ]
                 )
             );
         }

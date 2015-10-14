@@ -42,11 +42,11 @@ class DownloadSkeletonApplication extends AbstractTask
             // output message
             $this->console->writeTaskLine(
                 'task_install_download_skeleton_downloading',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->skeletonName, Color::GREEN
                     )
-                )
+                ]
             );
 
             // get skeleton app
@@ -55,11 +55,11 @@ class DownloadSkeletonApplication extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_install_download_skeleton_from_cache',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->skeletonName, Color::GREEN
                 )
-            )
+            ]
         );
 
         return 0;
@@ -82,11 +82,11 @@ class DownloadSkeletonApplication extends AbstractTask
             // stop with error
             $this->console->writeFailLine(
                 'task_install_download_skeleton_download_failed',
-                array(
+                [
                     $this->console->colorize(
                         $this->params->skeletonUrl, Color::GREEN
                     )
-                )
+                ]
             );
 
             return false;
@@ -113,13 +113,13 @@ class DownloadSkeletonApplication extends AbstractTask
 
         $auth = base64_encode(str_replace('http://', '', $config_env[0]));
 
-        $aContext = array(
-            'http' => array(
+        $aContext = [
+            'http' => [
                 'proxy'           => 'tcp://' . $config_env[1],
                 'request_fulluri' => true,
                 'header'          => "Proxy-Authorization: Basic $auth",
-            ),
-        );
+            ],
+        ];
 
         return stream_context_create($aContext);
     }

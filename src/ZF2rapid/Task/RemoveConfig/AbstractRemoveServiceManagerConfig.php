@@ -37,9 +37,9 @@ abstract class AbstractRemoveServiceManagerConfig extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_remove_config_module_config_file_not_exists',
-                array(
+                [
                     $this->console->colorize($configFile, Color::GREEN),
-                )
+                ]
             );
 
             return false;

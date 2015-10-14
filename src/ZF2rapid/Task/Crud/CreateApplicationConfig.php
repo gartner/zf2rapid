@@ -39,9 +39,9 @@ class CreateApplicationConfig extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_update_config_module_config_not_exists',
-                array(
+                [
                     $this->console->colorize($configFile, Color::GREEN)
-                )
+                ]
             );
 
             return false;
@@ -88,16 +88,16 @@ class CreateApplicationConfig extends AbstractTask
     {
         // check for config key
         if (!isset($configData['controllers'])) {
-            $configData['controllers'] = array();
+            $configData['controllers'] = [];
         }
 
         // check for factories config key
         if (!isset($configData['controllers']['factories'])) {
-            $configData['controllers']['factories'] = array();
+            $configData['controllers']['factories'] = [];
         }
 
         // generate config for all needed controllers
-        foreach (array('Index', 'Show', 'Create', 'Update', 'Delete') as $controllerName) {
+        foreach (['Index', 'Show', 'Create', 'Update', 'Delete'] as $controllerName) {
             // set class and namespace
             $configKey = $this->params->paramModule . '\\' . $controllerName;
             $class     = $this->params->paramModule . '\\' . $this->params->config['namespaceController'] . '\\'
@@ -119,17 +119,17 @@ class CreateApplicationConfig extends AbstractTask
     {
         // check for config key
         if (!isset($configData['form_elements'])) {
-            $configData['form_elements'] = array();
+            $configData['form_elements'] = [];
         }
 
         // check for invokables config key
         if (!isset($configData['form_elements']['invokables'])) {
-            $configData['form_elements']['invokables'] = array();
+            $configData['form_elements']['invokables'] = [];
         }
 
         // check for factories config key
         if (!isset($configData['form_elements']['factories'])) {
-            $configData['form_elements']['factories'] = array();
+            $configData['form_elements']['factories'] = [];
         }
 
         // set class and namespace
@@ -159,11 +159,11 @@ class CreateApplicationConfig extends AbstractTask
     protected function addRoutingConfig($configData)
     {
         // create child routes
-        $childRoutes = array();
+        $childRoutes = [];
 
         // loop through loaded controller actions
         foreach (
-            array('Show', 'Create', 'Update', 'Delete') as $controllerName
+            ['Show', 'Create', 'Update', 'Delete'] as $controllerName
         ) {
             $controllerKey = $this->filterCamelCaseToDash(
                 str_replace(
@@ -173,50 +173,50 @@ class CreateApplicationConfig extends AbstractTask
 
             if ($controllerName == 'Create') {
                 $route = '/' . $controllerKey;
-                $constraints = array();
+                $constraints = [];
             } else {
                 $route = '/' . $controllerKey . '[/:id]';
-                $constraints = array(
+                $constraints = [
                     'id' => '[a-z0-9-]*',
-                );
+                ];
             }
 
-            $childRoutes[$controllerKey] = array(
+            $childRoutes[$controllerKey] = [
                 'type'    => 'segment',
-                'options' => array(
+                'options' => [
                     'route'       => $route,
-                    'defaults'    => array(
+                    'defaults'    => [
                         'controller' => $controllerName,
-                    ),
+                    ],
                     'constraints' => $constraints,
-                ),
-            );
+                ],
+            ];
         }
 
         // check for routing config
         if (!isset($configData['router'])) {
-            $configData['router'] = array(
-                'routes' => array(),
-            );
+            $configData['router'] = [
+                'routes' => [],
+            ];
         }
 
         // prepare module key
         $moduleKey = $this->filterCamelCaseToDash($this->params->paramModule);
 
         // create route
-        $configData['router']['routes'][$moduleKey] = array(
+        $configData['router']['routes'][$moduleKey] = [
             'type'          => 'Literal',
-            'options'       => array(
+            'options'       => [
                 'route'    => '/' . $this->filterCamelCaseToDash($this->params->paramModule),
-                'defaults' => array(
+                'defaults' => [
                     '__NAMESPACE__' => $this->params->paramModule,
                     'controller'    => 'Index',
                     'action'        => 'index',
-                ),
-            ),
+                ],
+            ],
             'may_terminate' => true,
             'child_routes'  => $childRoutes,
-        );
+        ];
 
         return $configData;
     }
@@ -230,20 +230,20 @@ class CreateApplicationConfig extends AbstractTask
     {
         // check for translator config
         if (!isset($configData['translator'])) {
-            $configData['translator'] = array();
+            $configData['translator'] = [];
         }
 
         // check for translator translation_file_patterns config
         if (!isset($configData['translator']['translation_file_patterns'])) {
-            $configData['translator']['translation_file_patterns'] = array();
+            $configData['translator']['translation_file_patterns'] = [];
         }
 
         // create route
-        $configData['translator']['translation_file_patterns'][] = array(
+        $configData['translator']['translation_file_patterns'][] = [
             'type'     => 'phpArray',
             'base_dir' => $this->params->moduleRootConstant . ' . \'/language\'',
             'pattern'  => '%s.php',
-        );
+        ];
 
         return $configData;
     }
@@ -260,16 +260,16 @@ class CreateApplicationConfig extends AbstractTask
 
         // check for navigation config
         if (!isset($configData['navigation'])) {
-            $configData['navigation'] = array();
+            $configData['navigation'] = [];
         }
 
         // check for navigation default config
         if (!isset($configData['navigation']['default'])) {
-            $configData['navigation']['default'] = array();
+            $configData['navigation']['default'] = [];
         }
 
         // create navigation for module
-        $configData['navigation']['default'][$moduleKey] = array(
+        $configData['navigation']['default'][$moduleKey] = [
             'type'          => 'mvc',
             'order'         => '200',
             'label'         => $moduleKey . '_navigation_index',
@@ -277,29 +277,29 @@ class CreateApplicationConfig extends AbstractTask
             '__NAMESPACE__' => $this->params->paramModule,
             'controller'    => 'Index',
             'action'        => 'index',
-            'pages'         => array(
-                'show' => array(
+            'pages'         => [
+                'show' => [
                     'type'    => 'mvc',
                     'route'   => $moduleKey . '/show',
                     'visible' => false,
-                ),
-                'create' => array(
+                ],
+                'create' => [
                     'type'    => 'mvc',
                     'route'   => $moduleKey . '/create',
                     'visible' => false,
-                ),
-                'update' => array(
+                ],
+                'update' => [
                     'type'    => 'mvc',
                     'route'   => $moduleKey . '/update',
                     'visible' => false,
-                ),
-                'delete' => array(
+                ],
+                'delete' => [
                     'type'    => 'mvc',
                     'route'   => $moduleKey . '/delete',
                     'visible' => false,
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         return $configData;
     }

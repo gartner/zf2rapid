@@ -40,9 +40,9 @@ abstract class AbstractUpdateServiceManagerConfig extends AbstractTask
         if (!file_exists($configFile)) {
             $this->console->writeFailLine(
                 'task_update_config_module_config_not_exists',
-                array(
+                [
                     $this->console->colorize($configFile, Color::GREEN)
-                )
+                ]
             );
 
             return false;
@@ -53,7 +53,7 @@ abstract class AbstractUpdateServiceManagerConfig extends AbstractTask
 
         // check for config key
         if (!isset($configData[$configType])) {
-            $configData[$configType] = array();
+            $configData[$configType] = [];
         }
 
         // remove factory if requested
@@ -70,7 +70,7 @@ abstract class AbstractUpdateServiceManagerConfig extends AbstractTask
         if ($this->params->paramFactory) {
             // check for factories config key
             if (!isset($configData[$configType]['factories'])) {
-                $configData[$configType]['factories'] = array();
+                $configData[$configType]['factories'] = [];
             }
 
             // set class and namespace
@@ -89,7 +89,7 @@ abstract class AbstractUpdateServiceManagerConfig extends AbstractTask
         } else {
             // check for invokables config key
             if (!isset($configData[$configType]['invokables'])) {
-                $configData[$configType]['invokables'] = array();
+                $configData[$configType]['invokables'] = [];
             }
 
             // set class and namespace

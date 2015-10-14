@@ -26,7 +26,7 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
      */
     public function processCommandTask()
     {
-        $this->params->currentHydratorStrategies = array();
+        $this->params->currentHydratorStrategies = [];
 
         foreach ($this->params->loadedTables as $tableKey => $tableData) {
             if (count($tableData['foreignKeys']) == 0) {
@@ -54,7 +54,7 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
 
                 if (!isset($this->params->currentHydratorStrategies[$tableKey])) {
                     $this->params->currentHydratorStrategies[$tableKey]
-                        = array();
+                        = [];
                 }
 
                 $this->params->currentHydratorStrategies[$tableKey][$refTable]

@@ -43,14 +43,14 @@ class DeleteActionView extends AbstractTask
         if (!file_exists($actionFile)) {
             $this->console->writeFailLine(
                 'task_delete_action_view_not_exists',
-                array(
+                [
                     $this->console->colorize(
                         $actionFile, Color::GREEN
                     ),
                     $this->console->colorize(
                         $this->params->paramModule, Color::GREEN
                     )
-                )
+                ]
             );
 
             return 1;

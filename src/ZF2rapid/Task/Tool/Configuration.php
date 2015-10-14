@@ -130,9 +130,9 @@ class Configuration extends AbstractTask
         // output fail message
         $this->console->writeFailLine(
             'task_tool_configuration_change_unknown_config_key',
-            array(
+            [
                 $this->console->colorize($paramKey, Color::GREEN),
-            )
+            ]
         );
 
         return false;
@@ -150,7 +150,7 @@ class Configuration extends AbstractTask
     {
         if (substr($paramKey, 0, 4) != 'flag'
             || in_array(
-                $paramValue, array('true', 'false')
+                $paramValue, ['true', 'false']
             )
         ) {
             return true;
@@ -158,11 +158,11 @@ class Configuration extends AbstractTask
 
         $this->console->writeFailLine(
             'task_tool_configuration_allowed_flag_config_keys',
-            array(
+            [
                 $this->console->colorize($paramKey, Color::GREEN),
                 $this->console->colorize('true', Color::BLUE),
                 $this->console->colorize('false', Color::BLUE),
-            )
+            ]
         );
 
         return false;
@@ -187,7 +187,7 @@ class Configuration extends AbstractTask
         $isValid = StaticValidator::execute(
             $paramValue,
             'Regex',
-            array('pattern' => '=^[A-Z]{1}[a-zA-Z0-9\\\\]*$=')
+            ['pattern' => '=^[A-Z]{1}[a-zA-Z0-9\\\\]*$=']
         );
 
         if ($isValid) {
@@ -196,9 +196,9 @@ class Configuration extends AbstractTask
 
         $this->console->writeFailLine(
             'task_tool_configuration_allowed_namespace_config_keys',
-            array(
+            [
                 $this->console->colorize($paramKey, Color::GREEN),
-            )
+            ]
         );
 
         return false;
@@ -228,10 +228,10 @@ class Configuration extends AbstractTask
 
         $this->console->writeTaskLine(
             'task_tool_configuration_change_config_value_changed',
-            array(
+            [
                 $this->console->colorize($paramKey, Color::GREEN),
                 $this->console->colorize($paramValue, Color::BLUE),
-            )
+            ]
         );
     }
 
@@ -245,13 +245,13 @@ class Configuration extends AbstractTask
         // output found configuration
         $this->console->writeTaskLine(
             'task_tool_configuration_show_configuration_list',
-            array(
+            [
                 $this->console->colorize(
                     $this->params->workingPath
                     . '/' . ConfigFile::CONFIG_FILE_NAME,
                     Color::GREEN
                 )
-            )
+            ]
         );
 
         $this->console->writeLine();
@@ -278,11 +278,11 @@ class Configuration extends AbstractTask
 
             $this->console->writeListItemLine(
                 'task_tool_configuration_show_configuration_key',
-                array(
+                [
                     $this->console->colorize($configKey, Color::GREEN)
                     . str_pad('', $maxLength - strlen($configKey)),
                     $this->console->colorize($configValue, Color::BLUE)
-                )
+                ]
             );
         }
     }

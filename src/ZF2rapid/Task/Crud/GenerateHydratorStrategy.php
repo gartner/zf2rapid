@@ -45,7 +45,8 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
                     'hydrator strategy',
                     new HydratorStrategyGenerator(
                         $this->params, $refTable
-                    )
+                    ),
+                    false
                 );
 
                 if (!$result) {

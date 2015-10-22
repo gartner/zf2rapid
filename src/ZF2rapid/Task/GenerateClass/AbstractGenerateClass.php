@@ -27,11 +27,12 @@ abstract class AbstractGenerateClass extends AbstractTask
      * @param string                  $className
      * @param string                  $classText
      * @param ClassGeneratorInterface $generator
+     * @param bool                    $fileCheck
      *
      * @return bool
      */
     protected function generateClass(
-        $classDir, $className, $classText, ClassGeneratorInterface $generator
+        $classDir, $className, $classText, ClassGeneratorInterface $generator, $fileCheck = true
     ) {
         // output message
         $this->console->writeTaskLine(
@@ -45,7 +46,7 @@ abstract class AbstractGenerateClass extends AbstractTask
         $classFile = $classDir . '/' . $className . '.php';
 
         // check if controller plugin file exists
-        if (file_exists($classFile)) {
+        if ($fileCheck && file_exists($classFile)) {
             $this->console->writeFailLine(
                 'task_generate_class_exists',
                 [

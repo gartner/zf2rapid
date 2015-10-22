@@ -164,14 +164,21 @@ class LoadModules extends AbstractTask
         // clear double paths
         $modulePaths = array_unique($modulePaths);
 
-        // clear vendor path if set
-        unset($modulePaths[array_search('./vendor', $modulePaths)]);
-
         // add project path to module paths
         foreach ($modulePaths as $key => $modulePath) {
-            $modulePaths[$key] = realpath(
+            if (substr($modulePath, -7) == '/vendor') {
+                unset($modulePaths[$key]);
+
+                continue;
+            }
+
+            $realPath = realpath(
                 $this->params->workingPath . DIRECTORY_SEPARATOR . $modulePath
             );
+
+            if ($realPath) {
+                $modulePaths[$key] = $realPath;
+            }
         }
 
         return $modulePaths;

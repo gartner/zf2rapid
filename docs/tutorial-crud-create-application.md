@@ -532,9 +532,9 @@ look like this:
 
 ![Screen shot list customers](screen_new_customer_index.jpg)
 
-If you click on any `Show Customer` link your screen should look like this:
+If you click on any `Update Customer` link your screen should look like this:
 
-![Screen shot show customer](screen_new_customer_show.jpg)
+![Screen shot update customer](screen_new_customer_update.jpg)
 
 ## Create country application
 

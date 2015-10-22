@@ -13,6 +13,8 @@ feature enhancements to the
  * [Documentation](#documentation)
  * [Roadmap](#roadmap)
 
+![ZFrapid maskot](docs/logo-maskot.png)
+
 ## Features
 
  * Create new projects based on Skeleton Applications

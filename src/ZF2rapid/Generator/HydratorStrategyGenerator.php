@@ -17,7 +17,6 @@ use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Db\Metadata\Object\ColumnObject;
-use Zend\Db\Metadata\Object\TableObject;
 use Zend\Stdlib\Parameters;
 
 /**

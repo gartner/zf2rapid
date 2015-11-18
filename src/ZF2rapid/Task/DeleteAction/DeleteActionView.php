@@ -10,8 +10,6 @@ namespace ZF2rapid\Task\Action;
 
 use Zend\Console\ColorInterface as Color;
 use ZF2rapid\Task\AbstractTask;
-use ZF2rapid\Generator\ActionViewGenerator;
-use ZF2rapid\Generator\ClassFileGenerator;
 
 /**
  * Class DeleteActionView

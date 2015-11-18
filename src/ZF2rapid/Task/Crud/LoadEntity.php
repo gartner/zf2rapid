@@ -8,7 +8,6 @@
  */
 namespace ZF2rapid\Task\Crud;
 
-use Zend\Code\Reflection\ClassReflection;
 use Zend\Code\Reflection\FileReflection;
 use Zend\Console\ColorInterface as Color;
 use Zend\Db\Adapter\Adapter;

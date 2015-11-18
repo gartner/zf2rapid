@@ -9,7 +9,6 @@
 namespace ZF2rapid\Generator\Crud;
 
 use Zend\Code\Generator\AbstractGenerator;
-use Zend\Code\Generator\BodyGenerator;
 use Zend\Code\Reflection\ClassReflection;
 
 /**

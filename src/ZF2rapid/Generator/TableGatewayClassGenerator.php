@@ -16,7 +16,6 @@ use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Db\Metadata\Object\ColumnObject;
 use Zend\Db\Metadata\Object\ConstraintObject;
-use Zend\Db\Metadata\Object\TableObject;
 use Zend\Filter\StaticFilter;
 
 /**

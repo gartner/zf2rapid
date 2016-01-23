@@ -41,7 +41,7 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
                 $refTable = $foreignKey->getReferencedTableName();
                 $result   = $this->generateClass(
                     $this->params->hydratorStrategyDir,
-                    ucfirst($refTable) . 'Strategy',
+                    $this->filterUnderscoreToCamelCase($refTable) . 'Strategy',
                     'hydrator strategy',
                     new HydratorStrategyGenerator(
                         $this->params, $refTable
@@ -59,7 +59,7 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
                 }
 
                 $this->params->currentHydratorStrategies[$tableKey][$refTable]
-                    = ucfirst(
+                    = $this->filterUnderscoreToCamelCase(
                         $refTable
                     ) . 'Strategy';
             }

@@ -61,18 +61,12 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
                 $refColumn = $foreignKey->getColumns()[0];
 
                 $this->params->currentHydratorStrategies[$tableKey][$refTable]
-<<<<<<< HEAD
-                    = ucfirst(
-                        $refTable
-                    ) . 'Strategy';
-=======
                     = [
                         'class' => $this->filterUnderscoreToCamelCase(
                             $refTable
                         ) . 'Strategy',
                         'column' => $refColumn,
                     ];
->>>>>>> 0d836d6... Fix for #25: Add HydratorStrategies to the correct field/name
             }
         }
 

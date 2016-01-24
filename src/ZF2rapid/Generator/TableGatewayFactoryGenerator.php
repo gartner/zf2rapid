@@ -17,6 +17,7 @@ use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Db\Metadata\Object\ConstraintObject;
+use Zend\Filter\StaticFilter;
 
 /**
  * Class TableGatewayFactoryGenerator
@@ -52,11 +53,15 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         // add used namespaces and extended classes
         $this->addUse(
             $moduleName . '\\' . $this->config['namespaceEntity'] . '\\'
-            . ucfirst($tableName) . 'Entity'
+            . StaticFilter::execute(
+                $tableName, 'Word\UnderscoreToCamelCase'
+            ) . 'Entity'
         );
         $this->addUse(
             $moduleName . '\\' . $this->config['namespaceHydrator'] . '\\'
-            . ucfirst($tableName) . 'Hydrator'
+            . StaticFilter::execute(
+                $tableName, 'Word\UnderscoreToCamelCase'
+            ) . 'Hydrator'
         );
         $this->addUse('Zend\Db\Adapter\AdapterInterface');
         $this->addUse('Zend\Db\ResultSet\HydratingResultSet');
@@ -109,7 +114,9 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $managerName     = 'serviceLocator';
         $hydratorName    = ucfirst($tableName) . 'Hydrator';
         $hydratorService = $moduleName . '\\' . ucfirst($tableName);
-        $entityName      = ucfirst($tableName) . 'Entity';
+        $entityName      = StaticFilter::execute(
+            $tableName, 'Word\UnderscoreToCamelCase'
+        ) . 'Entity';
 
         // set action body
         $body   = [];

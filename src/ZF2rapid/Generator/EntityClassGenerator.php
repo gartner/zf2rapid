@@ -147,8 +147,9 @@ class EntityClassGenerator extends ClassGenerator
         /** @var $tableColumn ColumnObject */
         foreach ($this->tableData['columns'] as $tableColumn) {
             if (isset($foreignKeys[$tableColumn->getName()])) {
-                $type = ucfirst($foreignKeys[$tableColumn->getName()])
-                    . 'Entity';
+                $type = StaticFilter::execute(
+                        $foreignKeys[$tableColumn->getName()], 'Word\UnderscoreToCamelCase'
+                    ) . 'Entity';
             } else {
                 switch ($tableColumn->getDataType()) {
                     case 'varchar':

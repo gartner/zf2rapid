@@ -103,8 +103,8 @@ class FactoryGenerator extends ClassGenerator
         $body[] = '';
         $body[] = '$instance = new ' . $className . '();';
 
-        foreach ($this->hydratorStrategies as $table => $strategyClass) {
-            $body[] = '$instance->addStrategy(\'' . $table . '\', new ' . $strategyClass . '());';
+        foreach ($this->hydratorStrategies as $table => $strategy) {
+            $body[] = '$instance->addStrategy(\'' . $strategy['column'] . '\', new ' . $strategy['class'] . '());';
         }
 
         $body[] = '';
@@ -113,7 +113,7 @@ class FactoryGenerator extends ClassGenerator
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
         foreach ($this->hydratorStrategies as $table => $strategyClass) {
-            $this->addUse($moduleName . '\\' . $this->config['namespaceHydrator'] . '\\Strategy\\' . $strategyClass);
+            $this->addUse($moduleName . '\\' . $this->config['namespaceHydrator'] . '\\Strategy\\' . $strategy['class']);
         }
 
         // create method

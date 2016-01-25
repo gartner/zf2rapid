@@ -112,11 +112,15 @@ class TableGatewayFactoryGenerator extends ClassGenerator
         $primaryColumns = $primaryKey->getColumns();
 
         $managerName     = 'serviceLocator';
-        $hydratorName    = ucfirst($tableName) . 'Hydrator';
-        $hydratorService = $moduleName . '\\' . ucfirst($tableName);
+        $hydratorName    = StaticFilter::execute(
+                $tableName, 'Word\UnderscoreToCamelCase'
+            ) . 'Hydrator';
+        $hydratorService = $moduleName . '\\' . StaticFilter::execute(
+                $tableName, 'Word\UnderscoreToCamelCase'
+            );
         $entityName      = StaticFilter::execute(
-            $tableName, 'Word\UnderscoreToCamelCase'
-        ) . 'Entity';
+                $tableName, 'Word\UnderscoreToCamelCase'
+            ) . 'Entity';
 
         // set action body
         $body   = [];

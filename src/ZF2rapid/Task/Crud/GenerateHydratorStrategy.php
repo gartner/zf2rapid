@@ -58,10 +58,15 @@ class GenerateHydratorStrategy extends AbstractGenerateClass
                         = [];
                 }
 
+                $refColumn = $foreignKey->getColumns()[0];
+
                 $this->params->currentHydratorStrategies[$tableKey][$refTable]
-                    = $this->filterUnderscoreToCamelCase(
-                        $refTable
-                    ) . 'Strategy';
+                    = [
+                        'class' => $this->filterUnderscoreToCamelCase(
+                            $refTable
+                        ) . 'Strategy',
+                        'column' => $refColumn,
+                    ];
             }
         }
 

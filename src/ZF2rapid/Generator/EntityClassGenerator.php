@@ -152,6 +152,7 @@ class EntityClassGenerator extends ClassGenerator
             } else {
                 switch ($tableColumn->getDataType()) {
                     case 'varchar':
+                    case 'character varying':
                     case 'char':
                     case 'tinytext':
                     case 'text':
@@ -161,6 +162,8 @@ class EntityClassGenerator extends ClassGenerator
                     case 'set':
                     case 'datetime':
                     case 'timestamp':
+                    case 'timestamp without time zone':
+                    case 'timestamp with time zone':
                         $type = 'string';
                         break;
 
@@ -169,6 +172,10 @@ class EntityClassGenerator extends ClassGenerator
                     case 'double':
                     case 'real':
                         $type = 'float';
+                        break;
+
+                    case 'boolean':
+                        $type = 'boolean';
                         break;
 
                     default:

@@ -115,7 +115,7 @@ class TableGatewayClassGenerator extends ClassGenerator implements ClassGenerato
      */
     protected function addGetOptionsMethod($moduleName)
     {
-        $entityClass = ucfirst($this->tableName) . 'Entity';
+        $entityClass = $this->filterUnderscoreToCamelCase($this->tableName) . 'Entity';
 
         /** @var ConstraintObject $primaryKey */
         $primaryKey = $this->loadedTables[$this->tableName]['primaryKey'];

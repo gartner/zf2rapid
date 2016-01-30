@@ -290,7 +290,7 @@ class EntityClassGenerator extends ClassGenerator
      */
     protected function generateSetMethod($columnName, $columnType)
     {
-        if (in_array($columnType, ['string', 'integer'])) {
+        if (in_array($columnType, ['string', 'integer', 'boolean'])) {
             $body = '$this->' . $columnName . ' = (' . $columnType . ') $'
                 . $columnName . ';';
 

@@ -112,7 +112,7 @@ class FactoryGenerator extends ClassGenerator
 
         $body = implode(AbstractGenerator::LINE_FEED, $body);
 
-        foreach ($this->hydratorStrategies as $table => $strategyClass) {
+        foreach ($this->hydratorStrategies as $table => $strategy) {
             $this->addUse($moduleName . '\\' . $this->config['namespaceHydrator'] . '\\Strategy\\' . $strategy['class']);
         }
 

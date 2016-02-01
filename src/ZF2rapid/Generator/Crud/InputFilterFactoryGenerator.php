@@ -142,8 +142,9 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
+            $columnName = array_pop($foreignKey->getColumns());
             $tableGatewayParam = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $setterOption      = 'set' . ucfirst($foreignKey->getReferencedTableName()) . 'Options';
+            $setterOption      = 'set' . ucfirst($columnName) . 'Options';
 
             $body[] = '$instance->' . $setterOption . '(array_keys($' . $tableGatewayParam . '->getOptions()));';
         }

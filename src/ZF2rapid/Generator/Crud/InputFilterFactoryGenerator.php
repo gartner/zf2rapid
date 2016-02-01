@@ -17,6 +17,7 @@ use Zend\Code\Generator\DocBlockGenerator;
 use Zend\Code\Generator\MethodGenerator;
 use Zend\Code\Generator\ParameterGenerator;
 use Zend\Db\Metadata\Object\ConstraintObject;
+use Zend\Filter\StaticFilter;
 
 /**
  * Class InputFilterFactoryGenerator
@@ -74,7 +75,9 @@ class InputFilterFactoryGenerator extends ClassGenerator
         foreach ($this->foreignKeys as $foreignKey) {
             $this->addUse(
                 $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\'
-                . ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway'
+                . StaticFilter::execute(
+                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
+                ) . 'TableGateway'
             );
         }
 
@@ -127,11 +130,15 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
-            $tableGatewayName    = ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $tableGatewayService = $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst(
-                    $foreignKey->getReferencedTableName()
+            $tableGatewayName    = StaticFilter::execute(
+                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
+                ) . 'TableGateway';
+            $tableGatewayService = $moduleName . '\\' . $this->config['namespaceTableGateway'] . '\\' . StaticFilter::execute(
+                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
                 );
-            $tableGatewayParam   = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
+            $tableGatewayParam   = lcfirst(StaticFilter::execute(
+                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
+                )) . 'TableGateway';
 
             $body[] = '/** @var ' . $tableGatewayName . ' $' . $tableGatewayParam . ' */';
             $body[] = '$' . $tableGatewayParam . ' = $serviceLocator->get(\'' . $tableGatewayService . '\');';
@@ -142,8 +149,12 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
-            $tableGatewayParam = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $setterOption      = 'set' . ucfirst($foreignKey->getReferencedTableName()) . 'Options';
+            $tableGatewayParam = lcfirst(
+                    StaticFilter::execute($foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase')
+                ) . 'TableGateway';
+            $setterOption      = 'set' . StaticFilter::execute(
+                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
+                ) . 'Options';
 
             $body[] = '$instance->' . $setterOption . '(array_keys($' . $tableGatewayParam . '->getOptions()));';
         }

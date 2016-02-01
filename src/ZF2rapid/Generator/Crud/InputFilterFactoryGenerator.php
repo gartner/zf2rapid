@@ -149,11 +149,12 @@ class InputFilterFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
+            $columnName = array_pop($foreignKey->getColumns());
             $tableGatewayParam = lcfirst(
                     StaticFilter::execute($foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase')
                 ) . 'TableGateway';
             $setterOption      = 'set' . StaticFilter::execute(
-                    $foreignKey->getReferencedTableName(), 'Word\UnderscoreToCamelCase'
+                    $columnName, 'Word\UnderscoreToCamelCase'
                 ) . 'Options';
 
             $body[] = '$instance->' . $setterOption . '(array_keys($' . $tableGatewayParam . '->getOptions()));';

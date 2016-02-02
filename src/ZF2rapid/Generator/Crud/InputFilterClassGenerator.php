@@ -262,6 +262,7 @@ class InputFilterClassGenerator extends ClassGenerator
      */
     protected function addOptionsProperty($columnName, ConstraintObject $foreignKey)
     {
+        $columnName = StaticFilter::execute($columnName, 'Word\CamelCaseToUnderscore');
         $property = new PropertyGenerator($columnName . 'Options');
         $property->addFlag(PropertyGenerator::FLAG_PRIVATE);
         $property->setDocBlock(
@@ -286,6 +287,7 @@ class InputFilterClassGenerator extends ClassGenerator
      */
     protected function addOptionsSetter($columnName, ConstraintObject $foreignKey)
     {
+        $columnName = StaticFilter::execute($columnName, 'Word\CamelCaseToUnderscore');
         $body = '$this->' . $columnName . 'Options = $' . $columnName . 'Options;';
 
         $parameter = new ParameterGenerator($columnName . 'Options', 'array');

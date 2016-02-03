@@ -204,7 +204,9 @@ class InputFilterClassGenerator extends ClassGenerator
                 $validators[] = '            [';
                 $validators[] = '                \'name\' => \'InArray\',';
                 $validators[] = '                \'options\' => [';
-                $validators[] = '                     \'haystack\' => $this->' . $column->getName() . 'Options,';
+                $validators[] = '                     \'haystack\' => $this->' . lcfirst(
+                        $this->filterUnderscoreToCamelCase($column->getName()
+                        )) . 'Options,';
                 $validators[] = '                     \'message\' => \'' . $message . '\',';
                 $validators[] = '                ],';
                 $validators[] = '            ],';
@@ -262,7 +264,7 @@ class InputFilterClassGenerator extends ClassGenerator
      */
     protected function addOptionsProperty($columnName, ConstraintObject $foreignKey)
     {
-        $columnName = StaticFilter::execute($columnName, 'Word\UnderscoreToCamelCase');
+        $columnName = lcfirst(StaticFilter::execute($columnName, 'Word\UnderscoreToCamelCase'));
         $property = new PropertyGenerator($columnName . 'Options');
         $property->addFlag(PropertyGenerator::FLAG_PRIVATE);
         $property->setDocBlock(
@@ -287,7 +289,7 @@ class InputFilterClassGenerator extends ClassGenerator
      */
     protected function addOptionsSetter($columnName, ConstraintObject $foreignKey)
     {
-        $columnName = StaticFilter::execute($columnName, 'Word\UnderscoreToCamelCase');
+        $columnName = lcfirst(StaticFilter::execute($columnName, 'Word\UnderscoreToCamelCase'));
         $body = '$this->' . $columnName . 'Options = $' . $columnName . 'Options;';
 
         $parameter = new ParameterGenerator($columnName . 'Options', 'array');
@@ -326,6 +328,20 @@ class InputFilterClassGenerator extends ClassGenerator
     {
         $text = StaticFilter::execute($text, 'Word\CamelCaseToUnderscore');
         $text = StaticFilter::execute($text, 'StringToLower');
+
+        return $text;
+    }
+
+    /**
+     * Filter underscore to camel case
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function filterUnderscoreToCamelCase($text)
+    {
+        $text = StaticFilter::execute($text, 'Word\UnderscoreToCamelCase');
 
         return $text;
     }

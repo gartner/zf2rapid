@@ -197,7 +197,12 @@ class EntityClassGenerator extends ClassGenerator
         /** @var ConstraintObject $primaryKey */
         $primaryKey = $this->tableData['primaryKey'];
 
-        return $primaryKey->getColumns();
+        $columns = $primaryKey->getColumns();
+        foreach ($columns as $key => $column) {
+            $columns[$key] = lcfirst(StaticFilter::execute($column, 'Word\UnderscoreToCamelCase'));
+        }
+
+        return $columns;
     }
 
     /**

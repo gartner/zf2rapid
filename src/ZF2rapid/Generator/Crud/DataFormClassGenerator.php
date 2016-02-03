@@ -183,7 +183,9 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
                 $this->addOptionsProperty($column->getName());
                 $this->addOptionsSetter($column->getName());
 
-                $options[] = '            \'value_options\' => $this->' . $column->getName() . 'Options,';
+                $options[] = '            \'value_options\' => $this->' . lcfirst(
+                        $this->filterUnderscoreToCamelCase($column->getName()
+                        )) . 'Options,';
             } elseif ($column->getDataType() == 'enum') {
                 $valueOptions   = [];
                 $valueOptions[] = '[';
@@ -283,6 +285,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      */
     protected function addOptionsProperty($columnName)
     {
+        $columnName = lcfirst($this->filterUnderscoreToCamelCase($columnName));
         $property = new PropertyGenerator($columnName . 'Options');
         $property->addFlag(PropertyGenerator::FLAG_PRIVATE);
         $property->setDocBlock(
@@ -306,6 +309,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      */
     protected function addOptionsSetter($columnName)
     {
+        $columnName = $this->filterUnderscoreToCamelCase($columnName);
         $body = '$this->' . $columnName . 'Options = $' . $columnName . 'Options;';
 
         $parameter = new ParameterGenerator($columnName . 'Options', 'array');
@@ -347,5 +351,20 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
 
         return $text;
     }
+
+    /**
+     * Filter underscore to camel case
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function filterUnderscoreToCamelCase($text)
+    {
+        $text = StaticFilter::execute($text, 'Word\UnderscoreToCamelCase');
+
+        return $text;
+    }
+
 
 }

@@ -71,20 +71,20 @@ class DataFormFactoryGenerator extends ClassGenerator
         // add namespace for hydrator
         $this->addUse(
             $entityModule . '\\' . $this->config['namespaceHydrator'] . '\\'
-            . ucfirst($tableName) . 'Hydrator'
+            . $this->filterUnderscoreToCamelCase($tableName) . 'Hydrator'
         );
 
         // add namespace for input filter
         $this->addUse(
             $entityModule . '\\' . $this->config['namespaceInputFilter'] . '\\'
-            . ucfirst($tableName) . 'InputFilter'
+            . $this->filterUnderscoreToCamelCase($tableName) . 'InputFilter'
         );
 
         // add namespaces for foreign key tables
         foreach ($this->foreignKeys as $foreignKey) {
             $this->addUse(
                 $entityModule . '\\' . $this->config['namespaceTableGateway'] . '\\'
-                . ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway'
+                . $this->filterUnderscoreToCamelCase($foreignKey->getReferencedTableName()) . 'TableGateway'
             );
         }
 
@@ -152,11 +152,13 @@ class DataFormFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
-            $tableGatewayName    = ucfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $tableGatewayService = $entityModule . '\\' . $this->config['namespaceTableGateway'] . '\\' . ucfirst(
+            $tableGatewayName    = $this->filterUnderscoreToCamelCase($foreignKey->getReferencedTableName()) . 'TableGateway';
+            $tableGatewayService = $entityModule . '\\' . $this->config['namespaceTableGateway'] . '\\' . $this->filterUnderscoreToCamelCase(
                     $foreignKey->getReferencedTableName()
                 );
-            $tableGatewayParam   = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
+            $tableGatewayParam   = lcfirst($this->filterUnderscoreToCamelCase(
+                    $foreignKey->getReferencedTableName()
+                )) . 'TableGateway';
 
             $body[] = '/** @var ' . $tableGatewayName . ' $' . $tableGatewayParam . ' */';
             $body[] = '$' . $tableGatewayParam . ' = $serviceLocator->get(\'' . $tableGatewayService . '\');';
@@ -173,8 +175,15 @@ class DataFormFactoryGenerator extends ClassGenerator
 
         /** @var ConstraintObject $foreignKey */
         foreach ($this->foreignKeys as $foreignKey) {
-            $tableGatewayParam = lcfirst($foreignKey->getReferencedTableName()) . 'TableGateway';
-            $setterOption      = 'set' . ucfirst($foreignKey->getReferencedTableName()) . 'Options';
+            $tableGatewayParam = lcfirst($this->filterUnderscoreToCamelCase(
+                    $foreignKey->getReferencedTableName()
+                )) . 'TableGateway';
+
+            $foreignKeyColumns = $foreignKey->getColumns();
+
+            $setterOption      = 'set' . $this->filterUnderscoreToCamelCase(
+                        array_pop($foreignKeyColumns)
+                ) . 'Options';
 
             $body[] = '$instance->' . $setterOption . '($' . $tableGatewayParam . '->getOptions());';
         }
@@ -236,5 +245,21 @@ class DataFormFactoryGenerator extends ClassGenerator
 
         return $text;
     }
+
+    /**
+     * Filter camel case to underscore
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function filterUnderscoreToCamelCase($text)
+    {
+        $text = StaticFilter::execute($text, 'Word\UnderscoreToCamelCase');
+        $text = ucfirst($text);
+
+        return $text;
+    }
+
 
 }

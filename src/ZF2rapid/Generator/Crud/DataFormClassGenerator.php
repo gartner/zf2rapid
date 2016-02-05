@@ -309,7 +309,7 @@ class DataFormClassGenerator extends ClassGenerator implements ClassGeneratorInt
      */
     protected function addOptionsSetter($columnName)
     {
-        $columnName = $this->filterUnderscoreToCamelCase($columnName);
+        $columnName = lcfirst($this->filterUnderscoreToCamelCase($columnName));
         $body = '$this->' . $columnName . 'Options = $' . $columnName . 'Options;';
 
         $parameter = new ParameterGenerator($columnName . 'Options', 'array');

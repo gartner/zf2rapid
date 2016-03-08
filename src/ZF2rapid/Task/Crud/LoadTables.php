@@ -53,7 +53,7 @@ class LoadTables extends AbstractTask
         $loadedTables = [];
 
         /** @var TableObject $tableObject */
-        foreach ($metaData->getTables() as $tableObject) {
+        foreach ($metaData->getTables(null, true) as $tableObject) {
             $columns     = [];
             $primaryKey  = [];
             $foreignKeys = [];
@@ -71,6 +71,10 @@ class LoadTables extends AbstractTask
                     $foreignKeys[$constraintObject->getName()]
                         = $constraintObject;
                 }
+            }
+
+            if (count($primaryKey) === 0) {
+                $primaryKey = new ConstraintObject($tableObject->getName(), '');
             }
 
             $loadedTables[$tableObject->getName()] = [
